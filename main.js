@@ -529,6 +529,10 @@ ipcMain.on('get-current-user', (event) => {
   );
 });
 
+ipcMain.on('logout-account', () => {
+  forceLogoutToLogin('Você saiu da sua conta. Faça login novamente.');
+});
+
 // --- IPC: CONFIGURAÇÕES DO SISTEMA ---
 ipcMain.on('set-autostart', (event, enabled) => {
   try {

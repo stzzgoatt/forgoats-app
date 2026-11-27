@@ -1276,9 +1276,9 @@ function applyKeyboardTweaks() {
         </div>
       </div>
 
-      <!-- Aba Flick / Aim Trainer -->
-      <div id="tab-flick" class="tab-pane" style="display: none; padding: 0; width: 100%; height: calc(100vh - 120px);">
-        <iframe src="novo_flick.html" style="width: 100%; height: 100%; border: none; border-radius: 12px;"></iframe>
+      <!-- Aba Flick / Aim Trainer 3D (Gridshot Valorant + FiveM 3ª Pessoa) -->
+      <div id="tab-flick" class="tab-pane" style="display: none; padding: 0; width: 100%; height: calc(100vh - 96px); min-height: 540px;">
+        <iframe src="novo_flick.html" allowfullscreen allow="fullscreen; pointer-lock" style="width: 100%; height: 100%; border: none; border-radius: 12px; display: block;"></iframe>
       </div>
 
       <div id="tab-sensi" class="tab-pane" style="display: none; padding: 20px;">
@@ -3497,9 +3497,26 @@ criarPainel('#paineis-config', {
         sessionStorage.setItem('enable_notifications', ligado);
         if(typeof showToast === 'function') showToast('Notificações', ligado ? 'Ativadas' : 'Desativadas', ligado, 3500, true);
       },
+    },
+    {
+      id: 'logoutAccount', tipo: 'botao', titulo: 'Sair da Conta',
+      desc: 'Encerra a sessão atual, remove o auto-login e retorna para a tela de autenticação.',
+      textoBotao: 'Sair da Conta',
+      onClick: () => {
+        if (typeof require !== 'undefined') {
+          require('electron').ipcRenderer.send('logout-account');
+        }
+      }
     }
   ],
 });
+
+const logoutBtnEl = document.getElementById('btn-logoutAccount');
+if (logoutBtnEl) {
+  logoutBtnEl.style.borderColor = 'rgba(239, 68, 68, 0.45)';
+  logoutBtnEl.style.background = 'rgba(239, 68, 68, 0.14)';
+  logoutBtnEl.style.color = '#f87171';
+}
 
 applyAppTheme(activeTheme, false);
 
