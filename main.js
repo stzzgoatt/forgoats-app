@@ -7,6 +7,7 @@ const http = require('http');
 const https = require('https');
 const { uIOhook } = require('uiohook-napi');
 const keyboardTweaks = require('./keyboard-tweaks');
+const updater = require('./updater');
 
 let saturationModule = null;
 try {
@@ -32,6 +33,46 @@ let lastCrosshairConfig = null;
 let minToTrayEnabled = false;
 let activeSession = null;
 let sessionMonitorTimer = null;
+let updateCheckTimer = null;
+let updateInProgress = false;
+let lastUpdateStatus = {
+  state: 'idle',
+  currentVersion: updater.getLocalVersion(__dirname),
+  message: `Versão atual: v${updater.getLocalVersion(__dirname)}`
+};
+
+function broadcastUpdateStatus(statusObj) {
+  lastUpdateStatus = { ...lastUpdateStatus, ...statusObj };
+  [mainWindow, loginWindow].forEach((win) => {
+    if (win && !win.isDestroyed()) {
+      try { win.webContents.send('update-status', lastUpdateStatus); } catch (e) {}
+    }
+  });
+}
+
+async function runAutoUpdateCheck(force = false) {
+  if (updateInProgress) return;
+  updateInProgress = true;
+  try {
+    const config = updater.getUpdateConfig(__dirname);
+    const result = await updater.checkAndApplyUpdates({
+      appDir: __dirname,
+      force,
+      onStatus: (info) => broadcastUpdateStatus(info)
+    });
+    if (result && result.updated && config.autoRestart !== false) {
+      setTimeout(() => {
+        app.isQuiting = true;
+        app.relaunch();
+        app.exit(0);
+      }, 1500);
+    }
+  } catch (err) {
+    broadcastUpdateStatus({ state: 'error', message: `Erro ao atualizar: ${err.message}` });
+  } finally {
+    updateInProgress = false;
+  }
+}
 
 // --- TEMA GLOBAL PADRÃO (FULL PRETO + CIANO CLARO + TEXTO BRANCO) ---
 const DEFAULT_THEME = {
@@ -533,6 +574,14 @@ ipcMain.on('logout-account', () => {
   forceLogoutToLogin('Você saiu da sua conta. Faça login novamente.');
 });
 
+ipcMain.on('get-update-status', (event) => {
+  event.sender.send('update-status', lastUpdateStatus);
+});
+
+ipcMain.on('check-updates', () => {
+  void runAutoUpdateCheck(true);
+});
+
 // --- IPC: CONFIGURAÇÕES DO SISTEMA ---
 ipcMain.on('set-autostart', (event, enabled) => {
   try {
@@ -908,6 +957,16 @@ app.whenReady().then(async () => {
     createLoginWindow();
   }
 
+  // Inicia verificação automática de atualizações (OTA) para todos os usuários
+  const updateCfg = updater.getUpdateConfig(__dirname);
+  if (updateCfg.enabled && updateCfg.checkOnStartup !== false) {
+    setTimeout(() => { void runAutoUpdateCheck(false); }, 2500);
+  }
+  if (updateCfg.enabled && Number(updateCfg.checkIntervalMinutes) > 0) {
+    const intervalMs = Math.max(5, Number(updateCfg.checkIntervalMinutes)) * 60 * 1000;
+    updateCheckTimer = setInterval(() => { void runAutoUpdateCheck(false); }, intervalMs);
+  }
+
   try {
     uIOhook.on('mousedown', (event) => {
       if (currentMouseBind !== null && event.button === currentMouseBind) {
@@ -923,6 +982,10 @@ app.whenReady().then(async () => {
 app.on('before-quit', () => {
   app.isQuiting = true;
   stopSessionMonitor();
+  if (updateCheckTimer) {
+    clearInterval(updateCheckTimer);
+    updateCheckTimer = null;
+  }
   try { globalShortcut.unregisterAll(); } catch (e) {}
   try { if (saturationModule) { saturationModule.reset(); saturationModule.cleanup(); } } catch (e) {}
   if (crosshairWindow && !crosshairWindow.isDestroyed()) {

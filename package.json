@@ -7,7 +7,9 @@
   "license": "ISC",
   "type": "commonjs",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "manifest": "node publish-update.js --manifest-only",
+    "release": "node publish-update.js"
   },
   "dependencies": {
     "jimp": "^1.6.1",

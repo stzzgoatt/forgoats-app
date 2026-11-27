@@ -36,8 +36,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 8px;
-    padding: 8px 12px;
+    gap: 6px;
+    padding: 7px 10px;
     background: rgba(6, 9, 14, 0.96);
     border-bottom: 1px solid var(--border);
     z-index: 20;
@@ -45,7 +45,7 @@
   .ctrl-group {
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 6px;
     flex-wrap: wrap;
   }
 
@@ -61,9 +61,9 @@
     border: none;
     background: transparent;
     color: var(--muted);
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.18s ease;
@@ -80,9 +80,9 @@
     border: 1px solid var(--border);
     background: rgba(255, 255, 255, 0.05);
     color: #fff;
-    font-size: 11.5px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 6px 12px;
+    padding: 5px 10px;
     border-radius: 7px;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -94,20 +94,14 @@
     background: rgba(255, 255, 255, 0.12);
     border-color: rgba(255, 255, 255, 0.25);
   }
-  .btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-  }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
   .btn-start {
     background: var(--accent);
     color: #000;
     border-color: var(--accent);
     box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 35%, transparent);
   }
-  .btn-start:hover {
-    background: var(--accent);
-    filter: brightness(1.1);
-  }
+  .btn-start:hover { background: var(--accent); filter: brightness(1.1); }
   .btn-pause {
     background: rgba(251, 191, 36, 0.16);
     border-color: rgba(251, 191, 36, 0.45);
@@ -126,25 +120,25 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--border);
     border-radius: 7px;
-    padding: 4px 8px;
-    font-size: 11px;
+    padding: 3px 7px;
+    font-size: 10.5px;
     color: var(--muted);
     font-weight: 600;
   }
   .field input[type="number"] {
-    width: 54px;
+    width: 50px;
     background: rgba(0, 0, 0, 0.45);
     border: 1px solid rgba(255, 255, 255, 0.14);
     color: var(--accent);
     font-weight: 700;
-    font-size: 11.5px;
+    font-size: 11px;
     border-radius: 5px;
-    padding: 2px 5px;
+    padding: 2px 4px;
     text-align: center;
     outline: none;
   }
   .field input[type="range"] {
-    width: 68px;
+    width: 58px;
     accent-color: var(--accent);
     cursor: pointer;
   }
@@ -152,7 +146,7 @@
     background: #0d1118;
     border: 1px solid rgba(255, 255, 255, 0.14);
     color: #fff;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
     border-radius: 5px;
     padding: 2px 5px;
@@ -160,12 +154,16 @@
     cursor: pointer;
   }
   .field input[type="color"] {
-    width: 22px;
-    height: 20px;
+    width: 20px;
+    height: 18px;
     border: none;
     background: transparent;
     cursor: pointer;
     padding: 0;
+  }
+  .field input[type="checkbox"] {
+    accent-color: var(--accent);
+    cursor: pointer;
   }
 
   /* VIEWPORT 3D */
@@ -186,39 +184,65 @@
   /* HUD SUPERIOR NO JOGO */
   .hud-top {
     position: absolute;
-    top: 12px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     z-index: 10;
     pointer-events: none;
   }
   .hud-pill {
-    background: rgba(5, 8, 14, 0.78);
+    background: rgba(5, 8, 14, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(6px);
     border-radius: 10px;
-    padding: 6px 14px;
+    padding: 5px 12px;
     text-align: center;
-    min-width: 82px;
+    min-width: 78px;
   }
   .hud-pill .lbl {
-    font-size: 9px;
+    font-size: 8.5px;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--muted);
     font-weight: 700;
   }
   .hud-pill .val {
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 800;
     color: #fff;
     font-variant-numeric: tabular-nums;
     margin-top: 1px;
   }
   .hud-pill.accent .val { color: var(--accent); }
+  .hud-pill.gold .val { color: #ffd700; }
+
+  /* LEGENDA DE DECISÃO RÁPIDA */
+  .decision-legend {
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(5, 8, 14, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 99px;
+    z-index: 10;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .leg-dot {
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin-right: 4px;
+    vertical-align: middle;
+  }
 
   /* MIRA CENTRAL */
   .crosshair {
@@ -255,20 +279,21 @@
     opacity: 0;
     pointer-events: none;
     z-index: 13;
-    transition: opacity 0.12s ease, transform 0.12s ease;
+    transition: opacity 0.1s ease, transform 0.1s ease;
   }
   .hitmarker.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: translate(-50%, -50%) scale(1.08);
   }
   .hitmarker.headshot svg { stroke: #ffd700; filter: drop-shadow(0 0 6px #ffd700); }
+  .hitmarker.penalty svg { stroke: #ff3b5c; filter: drop-shadow(0 0 6px #ff3b5c); }
 
   /* HUD INFERIOR DO MODO FIVEM (HP, MUNIÇÃO, ROLAMENTO) */
   .fivem-hud {
     position: absolute;
-    bottom: 18px;
-    left: 20px;
-    right: 20px;
+    bottom: 16px;
+    left: 18px;
+    right: 18px;
     display: none;
     justify-content: space-between;
     align-items: flex-end;
@@ -278,12 +303,11 @@
   .fivem-hud.visible { display: flex; }
 
   .hp-card {
-    background: rgba(5, 8, 14, 0.8);
+    background: rgba(5, 8, 14, 0.82);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(8px);
     border-radius: 12px;
     padding: 10px 14px;
-    width: 260px;
+    width: 268px;
   }
   .hp-header {
     display: flex;
@@ -316,7 +340,7 @@
     width: 100%;
     background: linear-gradient(90deg, #16a34a, #4ade80);
     border-radius: 99px;
-    transition: width 0.16s ease, background 0.2s ease;
+    transition: width 0.14s ease, background 0.2s ease;
   }
   .fivem-keys {
     margin-top: 7px;
@@ -329,13 +353,12 @@
   .fivem-keys b { color: var(--accent); }
 
   .ammo-card {
-    background: rgba(5, 8, 14, 0.8);
+    background: rgba(5, 8, 14, 0.82);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(8px);
     border-radius: 12px;
     padding: 10px 16px;
     text-align: right;
-    min-width: 145px;
+    min-width: 155px;
   }
   .ammo-main {
     font-size: 24px;
@@ -344,11 +367,7 @@
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
-  .ammo-main small {
-    font-size: 12px;
-    color: var(--muted);
-    font-weight: 700;
-  }
+  .ammo-main small { font-size: 12px; color: var(--muted); font-weight: 700; }
   .ammo-sub {
     margin-top: 4px;
     font-size: 10px;
@@ -358,10 +377,10 @@
     text-transform: uppercase;
   }
 
-  /* KILL / HEAL FEEDBACK FLUTUANTE */
+  /* FEEDBACK FLUTUANTE */
   .feed-toast {
     position: absolute;
-    top: 84px;
+    top: 96px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 15;
@@ -372,14 +391,14 @@
     gap: 4px;
   }
   .feed-item {
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 900;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.7px;
     padding: 4px 12px;
     border-radius: 99px;
-    background: rgba(0, 0, 0, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    animation: popFade 0.9s ease forwards;
+    background: rgba(0, 0, 0, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    animation: popFade 0.85s ease forwards;
   }
   @keyframes popFade {
     0%   { opacity: 0; transform: translateY(8px) scale(0.92); }
@@ -395,10 +414,10 @@
     pointer-events: none;
     z-index: 9;
     opacity: 0;
-    transition: opacity 0.14s ease;
+    transition: opacity 0.12s ease;
   }
 
-  /* OVERLAY CENTRAL (MENU / PAUSA / FIM) */
+  /* OVERLAY CENTRAL */
   .center-overlay {
     position: absolute;
     inset: 0;
@@ -406,16 +425,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(2, 4, 8, 0.72);
+    background: rgba(2, 4, 8, 0.74);
     backdrop-filter: blur(6px);
   }
   .center-overlay.hidden { display: none; }
 
   .overlay-card {
     width: 92%;
-    max-width: 470px;
-    background: rgba(10, 14, 22, 0.94);
-    border: 1px solid color-mix(in srgb, var(--accent) 40%, rgba(255, 255, 255, 0.12));
+    max-width: 510px;
+    background: rgba(10, 14, 22, 0.95);
+    border: 1px solid color-mix(in srgb, var(--accent) 42%, rgba(255, 255, 255, 0.12));
     border-radius: 16px;
     padding: 24px 26px;
     text-align: center;
@@ -434,21 +453,11 @@
     border-radius: 99px;
     margin-bottom: 10px;
   }
-  .overlay-title {
-    font-size: 22px;
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 6px;
-  }
-  .overlay-desc {
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.45;
-    margin-bottom: 18px;
-  }
+  .overlay-title { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 6px; }
+  .overlay-desc { font-size: 12.5px; color: var(--muted); line-height: 1.48; margin-bottom: 16px; }
   .stats-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     margin-bottom: 18px;
   }
@@ -456,26 +465,11 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
-    padding: 10px 6px;
+    padding: 9px 5px;
   }
-  .stat-box .k {
-    font-size: 9.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 700;
-  }
-  .stat-box .v {
-    font-size: 18px;
-    font-weight: 900;
-    color: var(--accent);
-    margin-top: 3px;
-  }
-  .overlay-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
+  .stat-box .k { font-size: 9px; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  .stat-box .v { font-size: 17px; font-weight: 900; color: var(--accent); margin-top: 3px; }
+  .overlay-actions { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
 </style>
 </head>
 <body>
@@ -494,8 +488,22 @@
     </div>
 
     <div class="ctrl-group">
-      <label class="field" title="Sensibilidade exata do Valorant (0.07° por count, FOV 103°)">
-        Sensi Valorant
+      <label class="field" title="Dificuldade (velocidade, tamanho dos alvos, agressividade e janela de reação)">
+        Nível
+        <select id="diffSelect">
+          <option value="normal">Normal</option>
+          <option value="hard" selected>Difícil</option>
+          <option value="insane">Pro / Insano</option>
+        </select>
+      </label>
+
+      <label class="field" title="Ativa alvos prioritários (dourado) e iscas/aliados proibidos para treinar tomada de decisão em milissegundos">
+        <input type="checkbox" id="decisionToggle" checked>
+        Decisão Rápida
+      </label>
+
+      <label class="field" title="Sensibilidade 100% Valorant (0.07° por count, FOV 103°, raw input)">
+        Sensi
         <input type="range" id="sensSlider" min="0.05" max="2.50" step="0.01" value="0.35">
         <input type="number" id="sensNumber" min="0.05" max="5.00" step="0.01" value="0.35">
       </label>
@@ -517,7 +525,7 @@
       </label>
 
       <label class="field" title="Cor das bolinhas (Gridshot) ou alvos/colete inimigo (FiveM)">
-        Bolinhas / Alvos
+        Alvos
         <input type="color" id="targetColorPicker" value="#00e5ff">
       </label>
     </div>
@@ -546,11 +554,14 @@
         <div class="lbl">Precisão</div>
         <div class="val" id="hudAcc">100%</div>
       </div>
-      <div class="hud-pill">
+      <div class="hud-pill gold">
         <div class="lbl" id="hudExtraLbl">Reação</div>
         <div class="val" id="hudExtra">--</div>
       </div>
     </div>
+
+    <!-- LEGENDA DE DECISÃO RÁPIDA -->
+    <div class="decision-legend" id="decisionLegend"></div>
 
     <!-- MIRA CENTRAL -->
     <div class="crosshair" id="crosshair">
@@ -578,7 +589,7 @@
     <div class="fivem-hud" id="fivemHud">
       <div class="hp-card">
         <div class="hp-header">
-          <span class="hp-label">Vida (Kill = +25 HP)</span>
+          <span class="hp-label">Vida (Kill = +25 HP | Líder = +40 HP)</span>
           <span class="hp-num" id="hudHpVal">100</span>
         </div>
         <div class="hp-bar-bg">
@@ -602,15 +613,14 @@
     <!-- OVERLAY CENTRAL -->
     <div class="center-overlay" id="centerOverlay">
       <div class="overlay-card">
-        <div class="overlay-badge" id="ovBadge">AIMLAB GRIDSHOT 3D • VALORANT</div>
+        <div class="overlay-badge" id="ovBadge">AIMLAB GRIDSHOT 3D • REAÇÃO &amp; DECISÃO</div>
         <div class="overlay-title" id="ovTitle">Pronto para Treinar</div>
-        <div class="overlay-desc" id="ovDesc">
-          Sensibilidade 100% baseada no Valorant (0.07°/count • FOV 103°). Clique em <b>Iniciar</b> para travar o mouse e começar. Pressione <b>ESC</b> ou <b>P</b> para pausar.
-        </div>
+        <div class="overlay-desc" id="ovDesc"></div>
         <div class="stats-grid" id="ovStats" style="display: none;">
           <div class="stat-box"><div class="k" id="stLbl1">Pontos</div><div class="v" id="stVal1">0</div></div>
           <div class="stat-box"><div class="k" id="stLbl2">Precisão</div><div class="v" id="stVal2">0%</div></div>
-          <div class="stat-box"><div class="k" id="stLbl3">Reação</div><div class="v" id="stVal3">--</div></div>
+          <div class="stat-box"><div class="k" id="stLbl3">Reação Méd.</div><div class="v" id="stVal3">--</div></div>
+          <div class="stat-box"><div class="k" id="stLbl4">Melhor MS</div><div class="v" id="stVal4">--</div></div>
         </div>
         <div class="overlay-actions">
           <button class="btn btn-start" id="ovPrimaryBtn" style="padding: 10px 26px; font-size: 13px;">▶ INICIAR TREINO</button>
@@ -629,17 +639,70 @@
     return;
   }
 
+  // ================= PARÂMETROS DE DIFICULDADE (FOCO EM REAÇÃO E DECISÃO) =================
+  const DIFF_PROFILES = {
+    normal: {
+      label: 'Normal',
+      orbRadius: 0.50,
+      orbLifeMs: 1750,
+      priorityLifeMs: 1150,
+      decoyChance: 0.16,
+      priorityChance: 0.18,
+      enemyCount: 3,
+      enemySpeed: 4.8,
+      enemyRollInterval: [2.2, 3.6],
+      enemyFireInterval: [0.85, 1.45],
+      enemyBaseHitChance: 0.48,
+      enemyDamage: [8, 12],
+      enemyHp: 100
+    },
+    hard: {
+      label: 'Difícil',
+      orbRadius: 0.40,
+      orbLifeMs: 1150,
+      priorityLifeMs: 780,
+      decoyChance: 0.22,
+      priorityChance: 0.24,
+      enemyCount: 4,
+      enemySpeed: 6.1,
+      enemyRollInterval: [1.3, 2.4],
+      enemyFireInterval: [0.58, 1.05],
+      enemyBaseHitChance: 0.62,
+      enemyDamage: [11, 16],
+      enemyHp: 105
+    },
+    insane: {
+      label: 'Pro / Insano',
+      orbRadius: 0.31,
+      orbLifeMs: 820,
+      priorityLifeMs: 580,
+      decoyChance: 0.28,
+      priorityChance: 0.28,
+      enemyCount: 5,
+      enemySpeed: 7.4,
+      enemyRollInterval: [0.85, 1.65],
+      enemyFireInterval: [0.40, 0.78],
+      enemyBaseHitChance: 0.74,
+      enemyDamage: [14, 20],
+      enemyHp: 110
+    }
+  };
+
   // ================= ESTADO & CONFIGURAÇÕES =================
-  const VAL_YAW_DEG = 0.07;        // Exato do Valorant: 0.07 graus por mouse count
-  const VAL_HFOV_DEG = 103;        // FOV Horizontal oficial do Valorant
+  const VAL_YAW_DEG = 0.07;  // Exato do Valorant: 0.07° por mouse count
+  const VAL_HFOV_DEG = 103;  // FOV horizontal oficial do Valorant
 
   const cfg = {
     mode: localStorage.getItem('aim3d_mode') || 'gridshot',
+    diff: localStorage.getItem('aim3d_diff') || 'hard',
+    decision: localStorage.getItem('aim3d_decision') !== 'false',
     sens: parseFloat(localStorage.getItem('aim3d_sens') || '0.35'),
     duration: parseInt(localStorage.getItem('aim3d_time') || '60', 10),
     bgColor: localStorage.getItem('aim3d_bg') || '#0a101b',
     targetColor: localStorage.getItem('aim3d_target') || '#00e5ff'
   };
+
+  function getDiff() { return DIFF_PROFILES[cfg.diff] || DIFF_PROFILES.hard; }
 
   let state = 'idle'; // 'idle' | 'playing' | 'paused' | 'ended'
   let timeLeft = cfg.duration;
@@ -654,6 +717,10 @@
     damageDealt: 0,
     reactionSum: 0,
     reactionCount: 0,
+    bestReaction: Infinity,
+    expiredTargets: 0,
+    decoyMistakes: 0,
+    priorityHits: 0,
     streak: 0
   };
 
@@ -675,6 +742,8 @@
   const btnPause = document.getElementById('btnPause');
   const btnStop = document.getElementById('btnStop');
   const btnFullscreen = document.getElementById('btnFullscreen');
+  const diffSelect = document.getElementById('diffSelect');
+  const decisionToggle = document.getElementById('decisionToggle');
   const sensSlider = document.getElementById('sensSlider');
   const sensNumber = document.getElementById('sensNumber');
   const timeSelect = document.getElementById('timeSelect');
@@ -689,6 +758,7 @@
   const hudPrimaryLbl = document.getElementById('hudPrimaryLbl');
   const hudHitsLbl = document.getElementById('hudHitsLbl');
   const hudExtraLbl = document.getElementById('hudExtraLbl');
+  const decisionLegend = document.getElementById('decisionLegend');
 
   const crosshairEl = document.getElementById('crosshair');
   const hitmarkerEl = document.getElementById('hitmarker');
@@ -708,21 +778,27 @@
   const ovPrimaryBtn = document.getElementById('ovPrimaryBtn');
   const ovStopBtn = document.getElementById('ovStopBtn');
 
+  diffSelect.value = cfg.diff;
+  decisionToggle.checked = cfg.decision;
   sensSlider.value = Math.min(2.5, Math.max(0.05, cfg.sens));
   sensNumber.value = cfg.sens.toFixed(2);
   timeSelect.value = String(cfg.duration);
   bgColorPicker.value = cfg.bgColor;
   targetColorPicker.value = cfg.targetColor;
 
-  // ================= ÁUDIO SINTÉTICO OFFLINE (WEB AUDIO API) =================
+  // Cache de HUD para evitar reflows DOM a 240 FPS (elimina travadas!)
+  const hudCache = {
+    time: '', score: '', hits: '', acc: '', extra: '',
+    hp: -1, ammo: '', roll: ''
+  };
+
+  // ================= ÁUDIO SINTÉTICO OFFLINE =================
   let audioCtx = null;
   function ensureAudio() {
     if (!audioCtx) {
       try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {}
     }
-    if (audioCtx && audioCtx.state === 'suspended') {
-      audioCtx.resume().catch(() => {});
-    }
+    if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
   }
 
   function playSound(type) {
@@ -736,71 +812,82 @@
 
     if (type === 'grid-hit') {
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(680, now);
-      osc.frequency.exponentialRampToValueAtTime(1180, now + 0.055);
-      gain.gain.setValueAtTime(0.18, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
-      osc.start(now); osc.stop(now + 0.075);
-    } else if (type === 'miss') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(160, now);
-      osc.frequency.exponentialRampToValueAtTime(95, now + 0.06);
-      gain.gain.setValueAtTime(0.08, now);
+      osc.frequency.setValueAtTime(720, now);
+      osc.frequency.exponentialRampToValueAtTime(1260, now + 0.05);
+      gain.gain.setValueAtTime(0.17, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
       osc.start(now); osc.stop(now + 0.07);
+    } else if (type === 'priority-hit') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(1040, now);
+      osc.frequency.exponentialRampToValueAtTime(1840, now + 0.08);
+      gain.gain.setValueAtTime(0.22, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc.start(now); osc.stop(now + 0.11);
+    } else if (type === 'penalty') {
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(190, now);
+      osc.frequency.linearRampToValueAtTime(75, now + 0.16);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
+      osc.start(now); osc.stop(now + 0.18);
+    } else if (type === 'miss') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(150, now);
+      osc.frequency.exponentialRampToValueAtTime(90, now + 0.055);
+      gain.gain.setValueAtTime(0.07, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+      osc.start(now); osc.stop(now + 0.065);
     } else if (type === 'rifle') {
-      // Estalo de fuzil tático
-      const bufSize = Math.floor(audioCtx.sampleRate * 0.06);
+      const bufSize = Math.floor(audioCtx.sampleRate * 0.05);
       const buffer = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
       const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufSize; i++) {
-        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufSize * 0.22));
-      }
+      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufSize * 0.22));
       const noise = audioCtx.createBufferSource();
       noise.buffer = buffer;
       const filter = audioCtx.createBiquadFilter();
       filter.type = 'bandpass';
-      filter.frequency.value = 1200;
+      filter.frequency.value = 1250;
       const nGain = audioCtx.createGain();
-      nGain.gain.setValueAtTime(0.18, now);
-      nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+      nGain.gain.setValueAtTime(0.16, now);
+      nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
       noise.connect(filter); filter.connect(nGain); nGain.connect(audioCtx.destination);
       noise.start(now);
       osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(185, now);
-      osc.frequency.exponentialRampToValueAtTime(52, now + 0.055);
-      gain.gain.setValueAtTime(0.14, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
-      osc.start(now); osc.stop(now + 0.065);
+      osc.frequency.exponentialRampToValueAtTime(52, now + 0.05);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
+      osc.start(now); osc.stop(now + 0.06);
     } else if (type === 'enemy-shot') {
       osc.type = 'square';
       osc.frequency.setValueAtTime(240, now);
-      osc.frequency.exponentialRampToValueAtTime(75, now + 0.045);
-      gain.gain.setValueAtTime(0.055, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-      osc.start(now); osc.stop(now + 0.055);
+      osc.frequency.exponentialRampToValueAtTime(75, now + 0.04);
+      gain.gain.setValueAtTime(0.05, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+      osc.start(now); osc.stop(now + 0.05);
     } else if (type === 'headshot') {
       osc.type = 'sine';
       osc.frequency.setValueAtTime(1320, now);
-      osc.frequency.exponentialRampToValueAtTime(1980, now + 0.09);
+      osc.frequency.exponentialRampToValueAtTime(1980, now + 0.085);
       gain.gain.setValueAtTime(0.22, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
-      osc.start(now); osc.stop(now + 0.115);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc.start(now); osc.stop(now + 0.11);
     } else if (type === 'kill') {
       osc.type = 'triangle';
       osc.frequency.setValueAtTime(520, now);
-      osc.frequency.setValueAtTime(780, now + 0.05);
-      osc.frequency.setValueAtTime(1040, now + 0.1);
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-      osc.start(now); osc.stop(now + 0.19);
+      osc.frequency.setValueAtTime(780, now + 0.045);
+      osc.frequency.setValueAtTime(1060, now + 0.09);
+      gain.gain.setValueAtTime(0.19, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.start(now); osc.stop(now + 0.17);
     } else if (type === 'hurt') {
       osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(130, now);
-      osc.frequency.exponentialRampToValueAtTime(58, now + 0.1);
+      osc.frequency.exponentialRampToValueAtTime(58, now + 0.09);
       gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
-      osc.start(now); osc.stop(now + 0.12);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+      osc.start(now); osc.stop(now + 0.11);
     }
   }
 
@@ -812,15 +899,16 @@
     el.textContent = text;
     feedToastEl.appendChild(el);
     while (feedToastEl.children.length > 3) feedToastEl.firstChild.remove();
-    setTimeout(() => el.remove(), 920);
+    setTimeout(() => el.remove(), 860);
   }
 
   let hitmarkerTimer = null;
-  function flashHitmarker(isHeadshot = false) {
-    hitmarkerEl.classList.toggle('headshot', isHeadshot);
+  function flashHitmarker(kind = 'normal') {
+    hitmarkerEl.classList.toggle('headshot', kind === 'headshot');
+    hitmarkerEl.classList.toggle('penalty', kind === 'penalty');
     hitmarkerEl.classList.add('show');
     clearTimeout(hitmarkerTimer);
-    hitmarkerTimer = setTimeout(() => hitmarkerEl.classList.remove('show'), 120);
+    hitmarkerTimer = setTimeout(() => hitmarkerEl.classList.remove('show'), 110);
   }
 
   let vignetteTimer = null;
@@ -828,54 +916,32 @@
     screenVignette.style.background = `radial-gradient(circle, transparent 52%, ${rgba} 100%)`;
     screenVignette.style.opacity = '1';
     clearTimeout(vignetteTimer);
-    vignetteTimer = setTimeout(() => { screenVignette.style.opacity = '0'; }, 160);
+    vignetteTimer = setTimeout(() => { screenVignette.style.opacity = '0'; }, 150);
   }
 
-  // ================= GERADOR DE TEXTURAS PROCEDURAIS 3D (IMPECÁVEIS & OFFLINE) =================
+  // ================= GERADOR DE TEXTURAS PROCEDURAIS 3D =================
   function makeGridTileTexture(baseHex) {
     const c = document.createElement('canvas');
     c.width = 512; c.height = 512;
     const ctx = c.getContext('2d');
     const col = new THREE.Color(baseHex);
-    const baseR = Math.round(col.r * 255);
-    const baseG = Math.round(col.g * 255);
-    const baseB = Math.round(col.b * 255);
-
-    ctx.fillStyle = `rgb(${baseR},${baseG},${baseB})`;
+    ctx.fillStyle = `rgb(${Math.round(col.r * 255)},${Math.round(col.g * 255)},${Math.round(col.b * 255)})`;
     ctx.fillRect(0, 0, 512, 512);
-
-    // Granulação sutil de painel arquitetônico AimLab
-    for (let i = 0; i < 6500; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
-      const alpha = Math.random() * 0.045;
-      ctx.fillStyle = Math.random() > 0.5 ? `rgba(255,255,255,${alpha})` : `rgba(0,0,0,${alpha * 1.4})`;
-      ctx.fillRect(x, y, 2, 2);
+    for (let i = 0; i < 6000; i++) {
+      const a = Math.random() * 0.045;
+      ctx.fillStyle = Math.random() > 0.5 ? `rgba(255,255,255,${a})` : `rgba(0,0,0,${a * 1.4})`;
+      ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
     }
-
-    // Painéis e rejunte limpo
     ctx.strokeStyle = 'rgba(255,255,255,0.08)';
     ctx.lineWidth = 2;
-    const step = 128;
-    for (let x = 0; x <= 512; x += step) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 512); ctx.stroke();
+    for (let i = 0; i <= 512; i += 128) {
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 512); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(512, i); ctx.stroke();
     }
-    for (let y = 0; y <= 512; y += step) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(512, y); ctx.stroke();
-    }
-    ctx.strokeStyle = 'rgba(0,0,0,0.32)';
-    ctx.lineWidth = 1;
-    for (let x = 2; x <= 512; x += step) {
-      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 512); ctx.stroke();
-    }
-    for (let y = 2; y <= 512; y += step) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(512, y); ctx.stroke();
-    }
-
     const tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 8;
+    tex.anisotropy = 4;
     return tex;
   }
 
@@ -885,45 +951,32 @@
     const ctx = c.getContext('2d');
     ctx.fillStyle = '#24272d';
     ctx.fillRect(0, 0, 1024, 1024);
-
-    // Textura mineral de asfalto FiveM/GTA V
-    for (let i = 0; i < 48000; i++) {
-      const x = Math.random() * 1024;
-      const y = Math.random() * 1024;
+    for (let i = 0; i < 42000; i++) {
       const v = 24 + Math.floor(Math.random() * 44);
       ctx.fillStyle = `rgb(${v},${v + 1},${v + 4})`;
-      ctx.fillRect(x, y, 2, 2);
+      ctx.fillRect(Math.random() * 1024, Math.random() * 1024, 2, 2);
     }
-
-    // Manchas de desgaste e óleo sutis
-    for (let i = 0; i < 24; i++) {
-      const gx = Math.random() * 1024;
-      const gy = Math.random() * 1024;
-      const gr = 30 + Math.random() * 90;
+    for (let i = 0; i < 20; i++) {
+      const gx = Math.random() * 1024, gy = Math.random() * 1024, gr = 30 + Math.random() * 85;
       const grad = ctx.createRadialGradient(gx, gy, 4, gx, gy, gr);
       grad.addColorStop(0, 'rgba(10,12,16,0.22)');
       grad.addColorStop(1, 'rgba(10,12,16,0)');
       ctx.fillStyle = grad;
       ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.fill();
     }
-
-    // Faixa central amarela dupla estilo Los Santos
     ctx.fillStyle = 'rgba(225, 178, 42, 0.72)';
     ctx.fillRect(496, 0, 10, 1024);
     ctx.fillRect(516, 0, 10, 1024);
-
-    // Faixas brancas laterais tracejadas
     ctx.fillStyle = 'rgba(220, 226, 232, 0.45)';
     for (let y = 0; y < 1024; y += 160) {
       ctx.fillRect(140, y, 12, 90);
       ctx.fillRect(872, y, 12, 90);
     }
-
     const tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     tex.repeat.set(3, 3);
     tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 8;
+    tex.anisotropy = 4;
     return tex;
   }
 
@@ -933,15 +986,11 @@
     const ctx = c.getContext('2d');
     ctx.fillStyle = tint;
     ctx.fillRect(0, 0, 512, 512);
-
-    for (let i = 0; i < 18000; i++) {
-      const x = Math.random() * 512;
-      const y = Math.random() * 512;
+    for (let i = 0; i < 15000; i++) {
       const a = Math.random() * 0.08;
       ctx.fillStyle = Math.random() > 0.5 ? `rgba(255,255,255,${a})` : `rgba(0,0,0,${a * 1.4})`;
-      ctx.fillRect(x, y, 2, 2);
+      ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
     }
-    // Juntas de bloco de concreto
     ctx.strokeStyle = 'rgba(0,0,0,0.34)';
     ctx.lineWidth = 3;
     for (let y = 0; y < 512; y += 128) {
@@ -951,17 +1000,10 @@
         ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + 128); ctx.stroke();
       }
     }
-    // Faixa de sujeira na base
-    const grad = ctx.createLinearGradient(0, 380, 0, 512);
-    grad.addColorStop(0, 'rgba(0,0,0,0)');
-    grad.addColorStop(1, 'rgba(0,0,0,0.35)');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 380, 512, 132);
-
     const tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 8;
+    tex.anisotropy = 4;
     return tex;
   }
 
@@ -971,8 +1013,6 @@
     const ctx = c.getContext('2d');
     ctx.fillStyle = baseHex;
     ctx.fillRect(0, 0, 512, 512);
-
-    // Chapa metálica corrugada vertical
     for (let x = 0; x < 512; x += 24) {
       const grad = ctx.createLinearGradient(x, 0, x + 24, 0);
       grad.addColorStop(0, 'rgba(0,0,0,0.35)');
@@ -982,26 +1022,17 @@
       ctx.fillStyle = grad;
       ctx.fillRect(x, 0, 24, 512);
     }
-    // Moldura superior/inferior do container
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
     ctx.fillRect(0, 0, 512, 26);
     ctx.fillRect(0, 486, 512, 26);
-    // Faixa industrial + marcação Los Santos Port
     ctx.fillStyle = stripeHex;
     ctx.fillRect(0, 210, 512, 26);
     ctx.fillStyle = 'rgba(255,255,255,0.75)';
     ctx.font = 'bold 28px monospace';
     ctx.fillText('FOR GOATS • LS-04', 28, 175);
-
-    // Desgaste metálico
-    for (let i = 0; i < 4500; i++) {
-      ctx.fillStyle = Math.random() > 0.5 ? 'rgba(255,255,255,0.04)' : 'rgba(20,10,5,0.07)';
-      ctx.fillRect(Math.random() * 512, Math.random() * 512, 3, 2);
-    }
-
     const tex = new THREE.CanvasTexture(c);
     tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 8;
+    tex.anisotropy = 4;
     return tex;
   }
 
@@ -1026,11 +1057,11 @@
     return tex;
   }
 
-  // ================= RENDERER THREE.JS =================
+  // ================= RENDERER THREE.JS (OTIMIZADO PARA ZERO TRAVAMENTOS) =================
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.08;
 
@@ -1054,22 +1085,26 @@
   window.addEventListener('resize', handleResize);
   handleResize();
 
-  // ================= PARTICULAS & TRACERS 3D COMPARTILHADOS =================
+  // Vetores reutilizáveis (zero alocação por frame -> zero stutter de GC!)
+  const _vFwd = new THREE.Vector3();
+  const _vRight = new THREE.Vector3();
+  const _vMove = new THREE.Vector3();
+  const _vShoulder = new THREE.Vector3();
+  const _vBackDir = new THREE.Vector3();
+  const _vTmp1 = new THREE.Vector3();
+  const _vTmp2 = new THREE.Vector3();
+
+  // ================= PARTÍCULAS & TRACERS 3D =================
   const fxList = [];
   const sparkGeo = new THREE.BoxGeometry(0.11, 0.11, 0.11);
 
-  function spawnBurst3D(scene, pos, colorHex, count = 14) {
-    const mat = new THREE.MeshBasicMaterial({ color: colorHex, transparent: true, opacity: 1 });
+  function spawnBurst3D(scene, pos, colorHex, count = 12) {
     for (let i = 0; i < count; i++) {
-      const m = new THREE.Mesh(sparkGeo, mat.clone());
+      const m = new THREE.Mesh(sparkGeo, new THREE.MeshBasicMaterial({ color: colorHex, transparent: true, opacity: 1 }));
       m.position.copy(pos);
-      const vel = new THREE.Vector3(
-        (Math.random() - 0.5) * 9,
-        (Math.random() - 0.2) * 8,
-        (Math.random() - 0.5) * 9
-      );
+      const vel = new THREE.Vector3((Math.random() - 0.5) * 9, (Math.random() - 0.2) * 8, (Math.random() - 0.5) * 9);
       scene.add(m);
-      fxList.push({ type: 'spark', mesh: m, scene, vel, life: 0.36 + Math.random() * 0.2, maxLife: 0.55 });
+      fxList.push({ type: 'spark', mesh: m, scene, vel, life: 0.32 + Math.random() * 0.18, maxLife: 0.5 });
     }
   }
 
@@ -1078,7 +1113,7 @@
     const mat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.92 });
     const line = new THREE.Line(geom, mat);
     scene.add(line);
-    fxList.push({ type: 'tracer', mesh: line, scene, life: 0.08, maxLife: 0.08 });
+    fxList.push({ type: 'tracer', mesh: line, scene, life: 0.075, maxLife: 0.075 });
   }
 
   function updateFx(dt) {
@@ -1095,11 +1130,11 @@
       if (f.type === 'spark') {
         f.vel.y -= 18 * dt;
         f.mesh.position.addScaledVector(f.vel, dt);
-        f.mesh.rotation.x += 10 * dt;
-        f.mesh.rotation.y += 8 * dt;
-        f.mesh.material.opacity = Math.max(0, f.life / f.maxLife);
-        const sc = Math.max(0.1, f.life / f.maxLife);
-        f.mesh.scale.setScalar(sc);
+        f.mesh.rotation.x += 9 * dt;
+        f.mesh.rotation.y += 7 * dt;
+        const r = Math.max(0.08, f.life / f.maxLife);
+        f.mesh.material.opacity = r;
+        f.mesh.scale.setScalar(r);
       } else if (f.type === 'tracer') {
         f.mesh.material.opacity = Math.max(0, f.life / f.maxLife);
       }
@@ -1116,14 +1151,13 @@
   }
 
   // =========================================================================
-  // MODO 1: AIMLAB GRIDSHOT 3D (100% SENSIBILIDADE VALORANT)
+  // MODO 1: AIMLAB GRIDSHOT 3D (REAÇÃO + DECISÃO RÁPIDA + VALORANT 100%)
   // =========================================================================
   const gridScene = new THREE.Scene();
   gridScene.background = new THREE.Color(cfg.bgColor);
   gridScene.fog = new THREE.Fog(cfg.bgColor, 18, 46);
 
-  const gridAmbient = new THREE.HemisphereLight(0xffffff, 0x162030, 0.85);
-  gridScene.add(gridAmbient);
+  gridScene.add(new THREE.HemisphereLight(0xffffff, 0x162030, 0.85));
   const gridKeyLight = new THREE.DirectionalLight(0xffffff, 1.15);
   gridKeyLight.position.set(6, 12, 8);
   gridKeyLight.castShadow = true;
@@ -1141,73 +1175,72 @@
   const gridWallMat = new THREE.MeshStandardMaterial({ map: gridWallTex, roughness: 0.78, metalness: 0.08 });
   const gridFloorMat = new THREE.MeshStandardMaterial({ map: gridFloorTex, roughness: 0.65, metalness: 0.14 });
 
-  // Arquitetura da sala AimLab 3D
   const backWall = new THREE.Mesh(new THREE.PlaneGeometry(34, 18), gridWallMat);
-  backWall.position.set(0, 4.5, -14);
-  backWall.receiveShadow = true;
-  gridScene.add(backWall);
-
+  backWall.position.set(0, 4.5, -14); backWall.receiveShadow = true; gridScene.add(backWall);
   const leftWall = new THREE.Mesh(new THREE.PlaneGeometry(32, 18), gridWallMat);
-  leftWall.rotation.y = Math.PI / 2;
-  leftWall.position.set(-16, 4.5, 0);
-  gridScene.add(leftWall);
-
+  leftWall.rotation.y = Math.PI / 2; leftWall.position.set(-16, 4.5, 0); gridScene.add(leftWall);
   const rightWall = new THREE.Mesh(new THREE.PlaneGeometry(32, 18), gridWallMat);
-  rightWall.rotation.y = -Math.PI / 2;
-  rightWall.position.set(16, 4.5, 0);
-  gridScene.add(rightWall);
-
+  rightWall.rotation.y = -Math.PI / 2; rightWall.position.set(16, 4.5, 0); gridScene.add(rightWall);
   const gridFloor = new THREE.Mesh(new THREE.PlaneGeometry(34, 34), gridFloorMat);
-  gridFloor.rotation.x = -Math.PI / 2;
-  gridFloor.position.set(0, -1.6, -2);
-  gridFloor.receiveShadow = true;
-  gridScene.add(gridFloor);
-
+  gridFloor.rotation.x = -Math.PI / 2; gridFloor.position.set(0, -1.6, -2); gridFloor.receiveShadow = true; gridScene.add(gridFloor);
   const gridCeiling = new THREE.Mesh(new THREE.PlaneGeometry(34, 34), gridWallMat);
-  gridCeiling.rotation.x = Math.PI / 2;
-  gridCeiling.position.set(0, 11.5, -2);
-  gridScene.add(gridCeiling);
+  gridCeiling.rotation.x = Math.PI / 2; gridCeiling.position.set(0, 11.5, -2); gridScene.add(gridCeiling);
 
-  // Moldura luminosa do painel Gridshot 4x4
-  const frameMat = new THREE.MeshBasicMaterial({ color: cfg.targetColor, transparent: true, opacity: 0.35 });
   const frameBorder = new THREE.LineSegments(
-    new THREE.EdgesGeometry(new THREE.PlaneGeometry(8.8, 6.8)),
+    new THREE.EdgesGeometry(new THREE.PlaneGeometry(9.6, 7.2)),
     new THREE.LineBasicMaterial({ color: cfg.targetColor, transparent: true, opacity: 0.45 })
   );
   frameBorder.position.set(0, 2.5, -13.85);
   gridScene.add(frameBorder);
 
-  // Grade 4x4 clássica do AimLab Gridshot (3 bolinhas ativas sempre)
-  const GRID_COLS = 4;
+  // Grade 5x4 mais exigente para flicks curtos e longos!
+  const GRID_COLS = 5;
   const GRID_ROWS = 4;
   const GRID_SLOTS = [];
   for (let r = 0; r < GRID_ROWS; r++) {
     for (let c = 0; c < GRID_COLS; c++) {
       GRID_SLOTS.push(new THREE.Vector3(
-        (c - (GRID_COLS - 1) / 2) * 1.95,
+        (c - (GRID_COLS - 1) / 2) * 1.85,
         2.5 + ((GRID_ROWS - 1) / 2 - r) * 1.48,
-        -11.5
+        -11.8
       ));
     }
   }
 
-  const orbGeo = new THREE.SphereGeometry(0.56, 32, 24);
-  const orbMat = new THREE.MeshStandardMaterial({
+  const orbUnitGeo = new THREE.SphereGeometry(1, 28, 22);
+  const ringUnitGeo = new THREE.RingGeometry(1.12, 1.28, 32);
+
+  const orbMatNormal = new THREE.MeshStandardMaterial({
     color: new THREE.Color(cfg.targetColor),
     emissive: new THREE.Color(cfg.targetColor),
-    emissiveIntensity: 0.38,
-    roughness: 0.22,
+    emissiveIntensity: 0.42,
+    roughness: 0.2,
     metalness: 0.18
   });
+  const orbMatPriority = new THREE.MeshStandardMaterial({
+    color: new THREE.Color('#ffd700'),
+    emissive: new THREE.Color('#ffaa00'),
+    emissiveIntensity: 0.65,
+    roughness: 0.16,
+    metalness: 0.35
+  });
+  const orbMatDecoy = new THREE.MeshStandardMaterial({
+    color: new THREE.Color('#ff2442'),
+    emissive: new THREE.Color('#cc0022'),
+    emissiveIntensity: 0.55,
+    roughness: 0.3,
+    metalness: 0.2
+  });
 
-  const activeOrbs = []; // { mesh, slotIdx, spawnAt, scale }
+  const activeOrbs = []; // { group, mesh, ring, kind, slotIdx, spawnAt, lifeMs, radius, pop }
   let gridYaw = 0;
   let gridPitch = 0;
 
   function clearGridOrbs() {
     while (activeOrbs.length) {
       const o = activeOrbs.pop();
-      gridScene.remove(o.mesh);
+      gridScene.remove(o.group);
+      o.ring.material.dispose();
     }
   }
 
@@ -1218,13 +1251,56 @@
       if (!used.has(i) && i !== avoidSlot) free.push(i);
     }
     if (!free.length) return;
+
+    const d = getDiff();
+    const shootableCount = activeOrbs.filter(o => o.kind !== 'decoy').length;
+    const decoyCount = activeOrbs.filter(o => o.kind === 'decoy').length;
+
+    let kind = 'normal';
+    if (cfg.decision) {
+      const roll = Math.random();
+      if (shootableCount >= 2 && decoyCount < 1 && roll < d.decoyChance) {
+        kind = 'decoy';
+      } else if (roll < d.decoyChance + d.priorityChance) {
+        kind = 'priority';
+      }
+    }
+
     const slotIdx = free[Math.floor(Math.random() * free.length)];
-    const mesh = new THREE.Mesh(orbGeo, orbMat);
-    mesh.position.copy(GRID_SLOTS[slotIdx]);
+    const radius = kind === 'priority' ? d.orbRadius * 0.86 : d.orbRadius;
+    const lifeMs = kind === 'priority' ? d.priorityLifeMs : (kind === 'decoy' ? 1400 : d.orbLifeMs);
+
+    const group = new THREE.Group();
+    group.position.copy(GRID_SLOTS[slotIdx]);
+
+    const mat = kind === 'priority' ? orbMatPriority : (kind === 'decoy' ? orbMatDecoy : orbMatNormal);
+    const mesh = new THREE.Mesh(orbUnitGeo, mat);
     mesh.castShadow = true;
-    mesh.scale.setScalar(0.05);
-    gridScene.add(mesh);
-    activeOrbs.push({ mesh, slotIdx, spawnAt: performance.now(), scale: 0.05 });
+    group.add(mesh);
+
+    const ringColor = kind === 'priority' ? 0xffd700 : (kind === 'decoy' ? 0xff2442 : new THREE.Color(cfg.targetColor));
+    const ring = new THREE.Mesh(
+      ringUnitGeo,
+      new THREE.MeshBasicMaterial({ color: ringColor, transparent: true, opacity: 0.78, side: THREE.DoubleSide })
+    );
+    group.add(ring);
+
+    // X branco em cima da isca vermelha para identificação em milissegundos
+    if (kind === 'decoy') {
+      const xMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const b1 = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.22, 0.12), xMat);
+      b1.position.z = 0.96; b1.rotation.z = Math.PI / 4;
+      const b2 = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.22, 0.12), xMat);
+      b2.position.z = 0.96; b2.rotation.z = -Math.PI / 4;
+      group.add(b1, b2);
+    }
+
+    group.scale.setScalar(0.05);
+    gridScene.add(group);
+
+    const orb = { group, mesh, ring, kind, slotIdx, spawnAt: performance.now(), lifeMs, radius, pop: 0.05 };
+    mesh.userData.orb = orb;
+    activeOrbs.push(orb);
   }
 
   function resetGridshot() {
@@ -1236,30 +1312,55 @@
     for (let i = 0; i < 3; i++) spawnOneGridOrb();
   }
 
+  function updateGridOrbs(dt, now) {
+    for (let i = activeOrbs.length - 1; i >= 0; i--) {
+      const o = activeOrbs[i];
+      const age = now - o.spawnAt;
+
+      if (age >= o.lifeMs) {
+        // Alvo expirou!
+        if (o.kind !== 'decoy') {
+          stats.expiredTargets++;
+          stats.streak = 0;
+          stats.score = Math.max(0, stats.score - 40);
+          showFeed(o.kind === 'priority' ? 'PRIORIDADE PERDIDA!' : 'LENTO DEMAIS!', '#f97316');
+        }
+        const oldSlot = o.slotIdx;
+        gridScene.remove(o.group);
+        o.ring.material.dispose();
+        activeOrbs.splice(i, 1);
+        spawnOneGridOrb(oldSlot);
+        continue;
+      }
+
+      if (o.pop < 1) o.pop = Math.min(1, o.pop + dt * 16);
+      const lifeRatio = Math.max(0.15, 1 - age / o.lifeMs);
+      const pulse = o.kind === 'priority' ? (1 + Math.sin(now * 0.024) * 0.08) : 1;
+      o.group.scale.setScalar(o.radius * o.pop * pulse);
+      o.ring.scale.setScalar(0.85 + lifeRatio * 0.65);
+      o.ring.material.opacity = 0.25 + lifeRatio * 0.65;
+      o.ring.lookAt(camera.position);
+    }
+  }
+
   // =========================================================================
-  // MODO 2: TREINO FIVEM 3D (3ª PESSOA ESTILO FORTNITE/FIVEM)
+  // MODO 2: TREINO FIVEM 3D (3ª PESSOA HARDCORE • REAÇÃO & DECISÃO)
   // =========================================================================
   const fivemScene = new THREE.Scene();
   fivemScene.background = new THREE.Color(cfg.bgColor);
   fivemScene.fog = new THREE.FogExp2(cfg.bgColor, 0.014);
 
-  const fmHemi = new THREE.HemisphereLight(0xdbeafe, 0x262933, 0.95);
-  fivemScene.add(fmHemi);
-
+  fivemScene.add(new THREE.HemisphereLight(0xdbeafe, 0x262933, 0.95));
   const fmSun = new THREE.DirectionalLight(0xfff1dc, 1.45);
   fmSun.position.set(24, 34, 18);
   fmSun.castShadow = true;
-  fmSun.shadow.mapSize.set(2048, 2048);
-  fmSun.shadow.camera.left = -36;
-  fmSun.shadow.camera.right = 36;
-  fmSun.shadow.camera.top = 36;
-  fmSun.shadow.camera.bottom = -36;
-  fmSun.shadow.camera.near = 1;
-  fmSun.shadow.camera.far = 110;
-  fmSun.shadow.bias = -0.0005;
+  fmSun.shadow.mapSize.set(1024, 1024);
+  fmSun.shadow.camera.left = -36; fmSun.shadow.camera.right = 36;
+  fmSun.shadow.camera.top = 36; fmSun.shadow.camera.bottom = -36;
+  fmSun.shadow.near = 1; fmSun.shadow.far = 110;
+  fmSun.shadow.bias = -0.0006;
   fivemScene.add(fmSun);
 
-  // Chão de asfalto Los Santos
   const ARENA_HALF = 28;
   const asphaltTex = makeAsphaltTexture();
   const groundMesh = new THREE.Mesh(
@@ -1270,7 +1371,6 @@
   groundMesh.receiveShadow = true;
   fivemScene.add(groundMesh);
 
-  // Texturas urbanas
   const concreteTex = makeConcreteTexture('#585f6a');
   const wallConcreteTex = makeConcreteTexture('#484e58');
   wallConcreteTex.repeat.set(8, 1);
@@ -1279,8 +1379,7 @@
   const containerGrayTex = makeContainerTexture('#38414e', '#38bdf8');
   const crateTex = makeCrateTexture();
 
-  // Obstáculos com colisão AABB (containers, barreiras Jersey, caixotes, muros)
-  const fmObstacles = []; // { minX, maxX, minZ, maxZ, maxY, mesh }
+  const fmObstacles = [];
   const fmObstacleMeshes = [];
 
   function addObstacle(w, h, d, x, z, mat, rotY = 0) {
@@ -1291,21 +1390,18 @@
     mesh.receiveShadow = true;
     fivemScene.add(mesh);
     fmObstacleMeshes.push(mesh);
-    // Bounding box simplificada (rotação 0 ou 90 graus)
     const isRot90 = Math.abs(Math.sin(rotY)) > 0.7;
     const hw = (isRot90 ? d : w) / 2;
     const hd = (isRot90 ? w : d) / 2;
     fmObstacles.push({ minX: x - hw, maxX: x + hw, minZ: z - hd, maxZ: z + hd, maxY: h, mesh });
   }
 
-  // Muros de perímetro da arena FiveM + calçada elevada
   const wallMat = new THREE.MeshStandardMaterial({ map: wallConcreteTex, roughness: 0.9 });
   addObstacle(ARENA_HALF * 2 + 2, 4.6, 1.2, 0, -ARENA_HALF - 0.6, wallMat);
   addObstacle(ARENA_HALF * 2 + 2, 4.6, 1.2, 0, ARENA_HALF + 0.6, wallMat);
   addObstacle(1.2, 4.6, ARENA_HALF * 2 + 2, -ARENA_HALF - 0.6, 0, wallMat);
   addObstacle(1.2, 4.6, ARENA_HALF * 2 + 2, ARENA_HALF + 0.6, 0, wallMat);
 
-  // Containers marítimos PvP (coberturas clássicas de FiveM)
   const matBlueC = new THREE.MeshStandardMaterial({ map: containerBlueTex, roughness: 0.55, metalness: 0.38 });
   const matRedC = new THREE.MeshStandardMaterial({ map: containerRedTex, roughness: 0.58, metalness: 0.35 });
   const matGrayC = new THREE.MeshStandardMaterial({ map: containerGrayTex, roughness: 0.52, metalness: 0.42 });
@@ -1317,8 +1413,6 @@
   addObstacle(2.5, 2.7, 6.2, -15, 7, matGrayC, 0);
   addObstacle(2.5, 2.7, 6.2, 15, 8, matBlueC, 0);
   addObstacle(5.8, 2.7, 2.5, 0, -19, matRedC, 0);
-
-  // Barreiras Jersey & caixotes de cobertura baixa (ótimo para trocar tiro e rolar)
   addObstacle(3.6, 1.15, 0.85, -4.5, -2.5, matJersey, 0);
   addObstacle(3.6, 1.15, 0.85, 5.5, -3.5, matJersey, 0);
   addObstacle(1.4, 1.4, 1.4, 0, 5.5, matCrate, 0);
@@ -1326,120 +1420,104 @@
   addObstacle(1.3, 1.3, 1.3, -8, 12, matCrate, 0);
   addObstacle(1.3, 1.3, 1.3, 9, 13, matCrate, 0);
 
-  // Postes urbanos Los Santos (decoração + luz quente)
   const poleMat = new THREE.MeshStandardMaterial({ color: 0x2c333d, roughness: 0.45, metalness: 0.7 });
   const lampBulbMat = new THREE.MeshBasicMaterial({ color: 0xffe4a0 });
   [[-21, -21], [21, -21], [-21, 21], [21, 21]].forEach(([px, pz]) => {
     const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.16, 7.5, 10), poleMat);
     pole.position.set(px, 3.75, pz);
-    pole.castShadow = true;
     fivemScene.add(pole);
     const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 10), lampBulbMat);
     bulb.position.set(px, 7.6, pz);
     fivemScene.add(bulb);
-    const pt = new THREE.PointLight(0xffd79a, 1.1, 28);
+    const pt = new THREE.PointLight(0xffd79a, 1.0, 26);
     pt.position.set(px, 7.2, pz);
     fivemScene.add(pt);
   });
 
-  // -------- CONSTRUTOR DE PERSONAGEM 3D ARTICULADO (ESTILO FORTNITE / FIVEM) --------
-  function createCharacterRig({ isPlayer, accentHex }) {
+  // -------- PERSONAGEM 3D ARTICULADO --------
+  function createCharacterRig({ role, accentHex }) {
+    const isPlayer = role === 'player';
+    const isLeader = role === 'leader';
+    const isAlly = role === 'ally';
+
     const root = new THREE.Group();
-    const bodyPivot = new THREE.Group(); // Pivot central usado para o rolamento 360°!
+    const bodyPivot = new THREE.Group();
     bodyPivot.position.y = 0.95;
     root.add(bodyPivot);
 
+    const vestColor = isPlayer ? 0x0f172a : (isLeader ? 0xffc400 : (isAlly ? 0x22c55e : new THREE.Color(accentHex)));
+    const visorColor = isPlayer ? 0x00e5ff : (isLeader ? 0xffd700 : (isAlly ? 0x4ade80 : 0xff3b5c));
+
     const skinMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0xe0b494 : 0xd4a484, roughness: 0.65 });
-    const hoodieMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x151b26 : 0x1e222b, roughness: 0.75 });
+    const hoodieMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x151b26 : (isAlly ? 0x143322 : 0x1e222b), roughness: 0.75 });
     const vestMat = new THREE.MeshStandardMaterial({
-      color: isPlayer ? 0x0f172a : new THREE.Color(accentHex),
-      emissive: isPlayer ? new THREE.Color(0x001a28) : new THREE.Color(accentHex),
-      emissiveIntensity: isPlayer ? 0.15 : 0.25,
-      roughness: 0.48,
-      metalness: 0.22
+      color: vestColor,
+      emissive: isPlayer ? new THREE.Color(0x001a28) : new THREE.Color(vestColor),
+      emissiveIntensity: isPlayer ? 0.15 : (isLeader ? 0.55 : 0.30),
+      roughness: 0.45,
+      metalness: 0.25
     });
     const pantsMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x1c222e : 0x262932, roughness: 0.85 });
     const shoeMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x00e5ff : 0xf1f5f9, roughness: 0.5 });
     const hairMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x111318 : 0x231a15, roughness: 0.8 });
     const visorMat = new THREE.MeshStandardMaterial({
-      color: isPlayer ? 0x00e5ff : 0xff3b5c,
-      emissive: isPlayer ? 0x00a8cc : 0xcc1133,
-      emissiveIntensity: 0.55,
+      color: visorColor,
+      emissive: visorColor,
+      emissiveIntensity: 0.6,
       roughness: 0.2,
       metalness: 0.6
     });
     const gunMat = new THREE.MeshStandardMaterial({ color: 0x191d24, roughness: 0.35, metalness: 0.75 });
 
-    // Torso (moletom + colete tático)
     const torso = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.66, 0.30), hoodieMat);
-    torso.position.set(0, 0.28, 0);
-    torso.castShadow = true;
-    torso.userData = { part: 'body' };
+    torso.position.set(0, 0.28, 0); torso.castShadow = true; torso.userData = { part: 'body' };
     bodyPivot.add(torso);
 
     const vest = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.48, 0.34), vestMat);
-    vest.position.set(0, 0.30, 0);
-    vest.castShadow = true;
-    vest.userData = { part: 'body' };
+    vest.position.set(0, 0.30, 0); vest.castShadow = true; vest.userData = { part: 'body' };
     bodyPivot.add(vest);
 
-    // Cabeça + cabelo/boné + óculos táticos
     const headGroup = new THREE.Group();
     headGroup.position.set(0, 0.78, 0);
     bodyPivot.add(headGroup);
 
-    const headMesh = new THREE.Mesh(new THREE.SphereGeometry(0.20, 18, 16), skinMat);
-    headMesh.castShadow = true;
-    headMesh.userData = { part: 'head' };
+    const headMesh = new THREE.Mesh(new THREE.SphereGeometry(0.20, 16, 14), skinMat);
+    headMesh.castShadow = true; headMesh.userData = { part: 'head' };
     headGroup.add(headMesh);
 
-    const capMesh = new THREE.Mesh(new THREE.SphereGeometry(0.212, 16, 12, 0, Math.PI * 2, 0, Math.PI * 0.52), hairMat);
-    capMesh.position.y = 0.02;
-    capMesh.userData = { part: 'head' };
+    const capMesh = new THREE.Mesh(new THREE.SphereGeometry(0.212, 14, 10, 0, Math.PI * 2, 0, Math.PI * 0.52), hairMat);
+    capMesh.position.y = 0.02; capMesh.userData = { part: 'head' };
     headGroup.add(capMesh);
 
     const visor = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.07, 0.08), visorMat);
-    visor.position.set(0, 0.02, -0.17);
-    visor.userData = { part: 'head' };
+    visor.position.set(0, 0.02, -0.17); visor.userData = { part: 'head' };
     headGroup.add(visor);
 
-    // Braço esquerdo
     const leftArm = new THREE.Group();
     leftArm.position.set(-0.34, 0.52, 0);
     bodyPivot.add(leftArm);
-    const lArmMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.44, 6, 10), hoodieMat);
-    lArmMesh.position.set(0, -0.22, -0.14);
-    lArmMesh.rotation.x = 0.65;
-    lArmMesh.castShadow = true;
-    lArmMesh.userData = { part: 'body' };
+    const lArmMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.44, 5, 8), hoodieMat);
+    lArmMesh.position.set(0, -0.22, -0.14); lArmMesh.rotation.x = 0.65; lArmMesh.userData = { part: 'body' };
     leftArm.add(lArmMesh);
 
-    // Braço direito + Rifle Tático 3D
     const rightArm = new THREE.Group();
     rightArm.position.set(0.34, 0.52, 0);
     bodyPivot.add(rightArm);
-    const rArmMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.44, 6, 10), hoodieMat);
-    rArmMesh.position.set(0, -0.20, -0.18);
-    rArmMesh.rotation.x = 0.85;
-    rArmMesh.castShadow = true;
-    rArmMesh.userData = { part: 'body' };
+    const rArmMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.44, 5, 8), hoodieMat);
+    rArmMesh.position.set(0, -0.20, -0.18); rArmMesh.rotation.x = 0.85; rArmMesh.userData = { part: 'body' };
     rightArm.add(rArmMesh);
 
-    // Fuzil estilo Carabina Especial FiveM
     const rifle = new THREE.Group();
     rifle.position.set(-0.04, -0.18, -0.42);
     rightArm.add(rifle);
 
     const receiver = new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.11, 0.52), gunMat);
-    receiver.castShadow = true;
     rifle.add(receiver);
     const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.42, 8), gunMat);
-    barrel.rotation.x = Math.PI / 2;
-    barrel.position.set(0, 0.015, -0.40);
+    barrel.rotation.x = Math.PI / 2; barrel.position.set(0, 0.015, -0.40);
     rifle.add(barrel);
     const mag = new THREE.Mesh(new THREE.BoxGeometry(0.055, 0.20, 0.09), gunMat);
-    mag.position.set(0, -0.12, -0.06);
-    mag.rotation.x = 0.18;
+    mag.position.set(0, -0.12, -0.06); mag.rotation.x = 0.18;
     rifle.add(mag);
     const stock = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.10, 0.24), gunMat);
     stock.position.set(0, -0.01, 0.34);
@@ -1456,14 +1534,11 @@
     muzzleFlash.position.copy(muzzlePoint.position);
     rifle.add(muzzleFlash);
 
-    // Pernas
     const leftLeg = new THREE.Group();
     leftLeg.position.set(-0.15, -0.04, 0);
     bodyPivot.add(leftLeg);
-    const lLegMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.10, 0.62, 6, 10), pantsMat);
-    lLegMesh.position.y = -0.38;
-    lLegMesh.castShadow = true;
-    lLegMesh.userData = { part: 'body' };
+    const lLegMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.10, 0.62, 5, 8), pantsMat);
+    lLegMesh.position.y = -0.38; lLegMesh.castShadow = true; lLegMesh.userData = { part: 'body' };
     leftLeg.add(lLegMesh);
     const lShoe = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.12, 0.28), shoeMat);
     lShoe.position.set(0, -0.82, -0.05);
@@ -1472,10 +1547,8 @@
     const rightLeg = new THREE.Group();
     rightLeg.position.set(0.15, -0.04, 0);
     bodyPivot.add(rightLeg);
-    const rLegMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.10, 0.62, 6, 10), pantsMat);
-    rLegMesh.position.y = -0.38;
-    rLegMesh.castShadow = true;
-    rLegMesh.userData = { part: 'body' };
+    const rLegMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.10, 0.62, 5, 8), pantsMat);
+    rLegMesh.position.y = -0.38; rLegMesh.castShadow = true; rLegMesh.userData = { part: 'body' };
     rightLeg.add(rLegMesh);
     const rShoe = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.12, 0.28), shoeMat);
     rShoe.position.set(0, -0.82, -0.05);
@@ -1488,8 +1561,7 @@
     };
   }
 
-  // Jogador em 3ª pessoa
-  const playerRig = createCharacterRig({ isPlayer: true, accentHex: cfg.targetColor });
+  const playerRig = createCharacterRig({ role: 'player', accentHex: cfg.targetColor });
   fivemScene.add(playerRig.root);
 
   const player = {
@@ -1508,42 +1580,38 @@
     onGround: true,
     rolling: false,
     rollTimer: 0,
-    rollDuration: 0.48,
+    rollDuration: 0.45,
     rollCooldown: 0,
     rollDir: new THREE.Vector3(0, 0, -1),
     ads: false,
+    adsBlend: 0,
+    camCurrentDist: 3.25,
     firing: false,
     animPhase: 0
   };
 
-  // Inimigos FiveM 3D
   const enemies = [];
-  const MAX_ENEMIES = 3;
   const SPAWN_POINTS = [
-    new THREE.Vector3(-18, 0, -16),
-    new THREE.Vector3(18, 0, -17),
-    new THREE.Vector3(0, 0, -12),
-    new THREE.Vector3(-19, 0, 1),
-    new THREE.Vector3(19, 0, 1),
-    new THREE.Vector3(-8, 0, -21),
-    new THREE.Vector3(10, 0, -20),
-    new THREE.Vector3(-14, 0, 18),
+    new THREE.Vector3(-18, 0, -16), new THREE.Vector3(18, 0, -17),
+    new THREE.Vector3(0, 0, -12),   new THREE.Vector3(-19, 0, 1),
+    new THREE.Vector3(19, 0, 1),    new THREE.Vector3(-8, 0, -21),
+    new THREE.Vector3(10, 0, -20),  new THREE.Vector3(-14, 0, 18),
     new THREE.Vector3(14, 0, 18)
   ];
 
-  function createEnemyHpBar() {
+  function createEnemyHpBar(role) {
     const grp = new THREE.Group();
     const bg = new THREE.Mesh(
       new THREE.PlaneGeometry(0.95, 0.11),
       new THREE.MeshBasicMaterial({ color: 0x090c12, transparent: true, opacity: 0.85, side: THREE.DoubleSide })
     );
+    const barColor = role === 'ally' ? 0x38bdf8 : (role === 'leader' ? 0xffd700 : 0x22c55e);
     const fill = new THREE.Mesh(
       new THREE.PlaneGeometry(0.89, 0.065),
-      new THREE.MeshBasicMaterial({ color: 0x22c55e, side: THREE.DoubleSide })
+      new THREE.MeshBasicMaterial({ color: barColor, side: THREE.DoubleSide })
     );
     fill.position.z = 0.005;
-    grp.add(bg);
-    grp.add(fill);
+    grp.add(bg, fill);
     grp.position.set(0, 2.22, 0);
     return { grp, fill };
   }
@@ -1553,13 +1621,12 @@
     pos.z = Math.max(-ARENA_HALF + radius, Math.min(ARENA_HALF - radius, pos.z));
     for (const ob of fmObstacles) {
       if (pos.y > ob.maxY) continue;
-      const closestX = Math.max(ob.minX, Math.min(pos.x, ob.maxX));
-      const closestZ = Math.max(ob.minZ, Math.min(pos.z, ob.maxZ));
-      const dx = pos.x - closestX;
-      const dz = pos.z - closestZ;
-      const distSq = dx * dx + dz * dz;
-      if (distSq < radius * radius) {
-        const dist = Math.sqrt(distSq) || 0.0001;
+      const cx = Math.max(ob.minX, Math.min(pos.x, ob.maxX));
+      const cz = Math.max(ob.minZ, Math.min(pos.z, ob.maxZ));
+      const dx = pos.x - cx, dz = pos.z - cz;
+      const dSq = dx * dx + dz * dz;
+      if (dSq < radius * radius) {
+        const dist = Math.sqrt(dSq) || 0.0001;
         const push = radius - dist;
         pos.x += (dx / dist) * push;
         pos.z += (dz / dist) * push;
@@ -1567,35 +1634,49 @@
     }
   }
 
-  function spawnEnemy() {
-    // Escolhe ponto distante do jogador e de outros inimigos
+  function spawnEnemy(forcedRole = null) {
+    const d = getDiff();
     const candidates = SPAWN_POINTS.filter(sp =>
-      sp.distanceTo(player.pos) > 12 &&
-      enemies.every(e => e.pos.distanceTo(sp) > 4.5)
+      sp.distanceTo(player.pos) > 11 && enemies.every(e => e.pos.distanceTo(sp) > 4.2)
     );
     const pick = (candidates.length ? candidates : SPAWN_POINTS)[Math.floor(Math.random() * (candidates.length || SPAWN_POINTS.length))];
 
-    const rig = createCharacterRig({ isPlayer: false, accentHex: cfg.targetColor });
-    const hpBar = createEnemyHpBar();
+    let role = forcedRole || 'enemy';
+    if (!forcedRole && cfg.decision) {
+      const hasLeader = enemies.some(e => e.role === 'leader');
+      const hasAlly = enemies.some(e => e.role === 'ally');
+      const r = Math.random();
+      if (!hasLeader && r < 0.28) role = 'leader';
+      else if (!hasAlly && enemies.length >= 2 && r < 0.42) role = 'ally';
+    }
+
+    const rig = createCharacterRig({ role, accentHex: cfg.targetColor });
+    const hpBar = createEnemyHpBar(role);
     rig.root.add(hpBar.grp);
     rig.root.position.copy(pick);
     fivemScene.add(rig.root);
 
+    const maxHp = role === 'leader' ? d.enemyHp + 20 : d.enemyHp;
+    const [rMin, rMax] = d.enemyRollInterval;
+    const [fMin, fMax] = d.enemyFireInterval;
+
     const enemy = {
-      rig,
-      hpBar,
+      rig, hpBar, role,
       pos: pick.clone(),
-      hp: 100,
-      maxHp: 100,
+      hp: maxHp,
+      maxHp,
+      firstSeenAt: null,
+      firstHitLogged: false,
       strafeDir: Math.random() > 0.5 ? 1 : -1,
-      strafeTimer: 0.7 + Math.random() * 1.4,
+      strafeTimer: 0.45 + Math.random() * 0.9,
       rolling: false,
       rollTimer: 0,
-      rollDuration: 0.52,
-      rollCooldown: 1.6 + Math.random() * 2.2,
+      rollDuration: 0.46,
+      rollCooldown: rMin + Math.random() * (rMax - rMin),
       rollSide: 1,
-      fireTimer: 0.8 + Math.random() * 1.1,
+      fireTimer: fMin + Math.random() * (fMax - fMin),
       muzzleTimer: 0,
+      allyLifeTimer: role === 'ally' ? 7.5 : Infinity,
       animPhase: Math.random() * 6
     };
     rig.hitMeshes.forEach(m => { m.userData.enemy = enemy; });
@@ -1611,6 +1692,7 @@
 
   function resetFivem() {
     clearEnemies();
+    const d = getDiff();
     player.pos.set(0, 0, 14);
     player.vel.set(0, 0, 0);
     player.yaw = 0;
@@ -1624,16 +1706,17 @@
     player.rollTimer = 0;
     player.rollCooldown = 0;
     player.ads = false;
+    player.adsBlend = 0;
+    player.camCurrentDist = 3.25;
     player.firing = false;
     playerRig.root.position.copy(player.pos);
     playerRig.bodyPivot.rotation.set(0, 0, 0);
-    for (let i = 0; i < MAX_ENEMIES; i++) spawnEnemy();
-    updateFivemHud();
+    for (let i = 0; i < d.enemyCount; i++) spawnEnemy(i === 0 ? 'enemy' : null);
+    updateFivemHud(true);
   }
 
-  // ================= CORES DINÂMICAS (FUNDO E BOLINHAS / ALVOS) =================
+  // ================= CORES DINÂMICAS =================
   function applyVisualColors() {
-    // Gridshot
     gridScene.background = new THREE.Color(cfg.bgColor);
     gridScene.fog.color.set(cfg.bgColor);
     const oldW = gridWallTex, oldF = gridFloorTex;
@@ -1645,24 +1728,120 @@
     gridFloorMat.map = gridFloorTex; gridFloorMat.needsUpdate = true;
     oldW.dispose(); oldF.dispose();
 
-    orbMat.color.set(cfg.targetColor);
-    orbMat.emissive.set(cfg.targetColor);
+    orbMatNormal.color.set(cfg.targetColor);
+    orbMatNormal.emissive.set(cfg.targetColor);
     gridRimLight.color.set(cfg.targetColor);
     frameBorder.material.color.set(cfg.targetColor);
+    activeOrbs.forEach(o => {
+      if (o.kind === 'normal') o.ring.material.color.set(cfg.targetColor);
+    });
 
-    // FiveM
     fivemScene.background = new THREE.Color(cfg.bgColor);
     fivemScene.fog.color.set(cfg.bgColor);
     enemies.forEach(e => {
-      e.rig.vestMat.color.set(cfg.targetColor);
-      e.rig.vestMat.emissive.set(cfg.targetColor);
+      if (e.role === 'enemy') {
+        e.rig.vestMat.color.set(cfg.targetColor);
+        e.rig.vestMat.emissive.set(cfg.targetColor);
+      }
     });
+    updateLegend();
   }
 
-  // ================= INPUT & POINTER LOCK =================
+  function updateLegend() {
+    if (!cfg.decision) {
+      decisionLegend.style.display = 'none';
+      return;
+    }
+    decisionLegend.style.display = 'flex';
+    if (cfg.mode === 'gridshot') {
+      decisionLegend.innerHTML =
+        `<span><i class="leg-dot" style="background:${cfg.targetColor}"></i>Alvo Normal</span>` +
+        `<span style="color:#ffd700;"><i class="leg-dot" style="background:#ffd700"></i>Prioridade (3x • Rápido!)</span>` +
+        `<span style="color:#ff4d6d;"><i class="leg-dot" style="background:#ff2442"></i>Isca X (NÃO ATIRE!)</span>`;
+    } else {
+      decisionLegend.innerHTML =
+        `<span><i class="leg-dot" style="background:${cfg.targetColor}"></i>Inimigo (+25 HP)</span>` +
+        `<span style="color:#ffd700;"><i class="leg-dot" style="background:#ffd700"></i>Líder Prioritário (+40 HP)</span>` +
+        `<span style="color:#4ade80;"><i class="leg-dot" style="background:#22c55e"></i>Aliado (NÃO ATIRE!)</span>`;
+    }
+  }
+
+  // ================= POINTER LOCK ULTRA-LISO (CORREÇÃO DOS CORTES DA CÂMERA!) =================
   const keys = {};
   const raycaster = new THREE.Raycaster();
   const centerNdc = new THREE.Vector2(0, 0);
+
+  // Acumuladores de delta por frame + filtro anti-spike do Chromium Pointer Lock
+  let pendingMouseDX = 0;
+  let pendingMouseDY = 0;
+  let ignoreLockEvents = 0;
+
+  function lockPointerSmooth() {
+    try {
+      const promise = canvas.requestPointerLock({ unadjustedMovement: true });
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(() => {
+          try { canvas.requestPointerLock(); } catch (e) {}
+        });
+      }
+    } catch (e) {
+      try { canvas.requestPointerLock(); } catch (err) {}
+    }
+  }
+
+  function onMouseDelta(e) {
+    if (state !== 'playing' || document.pointerLockElement !== canvas) return;
+    // Ignora os 2 primeiros eventos logo após travar o mouse (evita salto de recentralização do Chromium)
+    if (ignoreLockEvents > 0) {
+      ignoreLockEvents--;
+      return;
+    }
+    const dx = e.movementX || 0;
+    const dy = e.movementY || 0;
+    // Rejeita spikes falsos do Windows/Chromium Pointer Lock (> 260px num único pacote)
+    if (Math.abs(dx) > 260 || Math.abs(dy) > 260) return;
+    pendingMouseDX += dx;
+    pendingMouseDY += dy;
+  }
+
+  // Usa pointerrawupdate se disponível (menor latência e sem cortes), senão mousemove
+  if ('onpointerrawupdate' in window) {
+    document.addEventListener('pointerrawupdate', onMouseDelta, { passive: true });
+  } else {
+    document.addEventListener('mousemove', onMouseDelta, { passive: true });
+  }
+
+  function applyPendingMouseLook() {
+    if (pendingMouseDX === 0 && pendingMouseDY === 0) return;
+    const dx = pendingMouseDX;
+    const dy = pendingMouseDY;
+    pendingMouseDX = 0;
+    pendingMouseDY = 0;
+
+    const adsMult = (cfg.mode === 'fivem' && player.ads) ? 0.72 : 1.0;
+    const radPerCount = (VAL_YAW_DEG * cfg.sens * adsMult) * (Math.PI / 180);
+
+    if (cfg.mode === 'gridshot') {
+      gridYaw -= dx * radPerCount;
+      gridPitch -= dy * radPerCount;
+      gridPitch = Math.max(-Math.PI * 0.44, Math.min(Math.PI * 0.44, gridPitch));
+      gridYaw = Math.max(-Math.PI * 0.48, Math.min(Math.PI * 0.48, gridYaw));
+    } else {
+      player.yaw -= dx * radPerCount;
+      player.pitch -= dy * radPerCount;
+      player.pitch = Math.max(-0.68, Math.min(0.62, player.pitch));
+    }
+  }
+
+  document.addEventListener('pointerlockchange', () => {
+    pendingMouseDX = 0;
+    pendingMouseDY = 0;
+    if (document.pointerLockElement === canvas) {
+      ignoreLockEvents = 2;
+    } else if (state === 'playing') {
+      pauseGame();
+    }
+  });
 
   document.addEventListener('keydown', (e) => {
     keys[e.code] = true;
@@ -1671,13 +1850,11 @@
         e.preventDefault();
         pauseGame();
       } else if (cfg.mode === 'fivem') {
-        if (e.code === 'KeyR' && !player.reloading && player.ammo < player.maxAmmo) {
-          startReload();
-        } else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.code === 'KeyQ' || e.code === 'KeyC') && !player.rolling && player.rollCooldown <= 0) {
-          triggerPlayerRoll();
-        } else if (e.code === 'Space' && player.onGround) {
+        if (e.code === 'KeyR' && !player.reloading && player.ammo < player.maxAmmo) startReload();
+        else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.code === 'KeyQ' || e.code === 'KeyC') && !player.rolling && player.rollCooldown <= 0) triggerPlayerRoll();
+        else if (e.code === 'Space' && player.onGround) {
           e.preventDefault();
-          player.vel.y = 7.4;
+          player.vel.y = 7.6;
           player.onGround = false;
         }
       }
@@ -1687,35 +1864,20 @@
     }
   });
 
-  document.addEventListener('keyup', (e) => {
-    keys[e.code] = false;
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (state !== 'playing' || document.pointerLockElement !== canvas) return;
-    const adsMult = (cfg.mode === 'fivem' && player.ads) ? 0.72 : 1.0;
-    const radPerCount = (VAL_YAW_DEG * cfg.sens * adsMult) * (Math.PI / 180);
-
-    if (cfg.mode === 'gridshot') {
-      gridYaw -= e.movementX * radPerCount;
-      gridPitch -= e.movementY * radPerCount;
-      gridPitch = Math.max(-Math.PI * 0.44, Math.min(Math.PI * 0.44, gridPitch));
-      gridYaw = Math.max(-Math.PI * 0.48, Math.min(Math.PI * 0.48, gridYaw));
-    } else {
-      player.yaw -= e.movementX * radPerCount;
-      player.pitch -= e.movementY * radPerCount;
-      player.pitch = Math.max(-0.68, Math.min(0.62, player.pitch));
-    }
-  });
+  document.addEventListener('keyup', (e) => { keys[e.code] = false; });
 
   canvas.addEventListener('mousedown', (e) => {
     if (state !== 'playing') return;
     if (document.pointerLockElement !== canvas) {
-      canvas.requestPointerLock();
+      lockPointerSmooth();
       return;
     }
     if (e.button === 0) {
+      // Aplica qualquer micro-movimento pendente antes do raycast do tiro (latência zero!)
+      applyPendingMouseLook();
       if (cfg.mode === 'gridshot') {
+        camera.rotation.set(gridPitch, gridYaw, 0, 'YXZ');
+        camera.updateMatrixWorld();
         fireGridshot();
       } else {
         player.firing = true;
@@ -1732,12 +1894,6 @@
   });
   canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 
-  document.addEventListener('pointerlockchange', () => {
-    if (document.pointerLockElement !== canvas && state === 'playing') {
-      pauseGame();
-    }
-  });
-
   // ================= DISPAROS GRIDSHOT 3D =================
   function fireGridshot() {
     stats.shots++;
@@ -1746,83 +1902,101 @@
     const hits = raycaster.intersectObjects(meshes, false);
 
     if (hits.length > 0) {
-      const hitMesh = hits[0].object;
-      const idx = activeOrbs.findIndex(o => o.mesh === hitMesh);
+      const orb = hits[0].object.userData.orb;
+      const idx = activeOrbs.indexOf(orb);
       if (idx !== -1) {
-        const orb = activeOrbs[idx];
-        const rt = Math.max(50, performance.now() - orb.spawnAt);
-        stats.hits++;
-        stats.streak++;
-        stats.reactionSum += rt;
-        stats.reactionCount++;
-        stats.score += 100 + Math.min(100, stats.streak * 5);
+        if (orb.kind === 'decoy') {
+          // Acertou a isca proibida!
+          stats.decoyMistakes++;
+          stats.streak = 0;
+          stats.score = Math.max(0, stats.score - 200);
+          playSound('penalty');
+          flashHitmarker('penalty');
+          flashVignette('rgba(239, 68, 68, 0.36)');
+          showFeed('ISCA! -200 PTS', '#ff4d6d');
+          spawnBurst3D(gridScene, orb.group.position, 0xff2442, 14);
+        } else {
+          const rt = Math.max(45, performance.now() - orb.spawnAt);
+          stats.hits++;
+          stats.streak++;
+          stats.reactionSum += rt;
+          stats.reactionCount++;
+          if (rt < stats.bestReaction) stats.bestReaction = rt;
 
-        playSound('grid-hit');
-        flashHitmarker(false);
-        spawnBurst3D(gridScene, orb.mesh.position, cfg.targetColor, 14);
+          const speedBonus = rt < 300 ? 120 : (rt < 450 ? 60 : 20);
+          if (orb.kind === 'priority') {
+            stats.priorityHits++;
+            stats.score += 300 + speedBonus + Math.min(150, stats.streak * 10);
+            playSound('priority-hit');
+            flashHitmarker('headshot');
+            showFeed(`PRIORIDADE! ${Math.round(rt)}ms`, '#ffd700');
+            spawnBurst3D(gridScene, orb.group.position, 0xffd700, 16);
+          } else {
+            stats.score += 100 + speedBonus + Math.min(100, stats.streak * 6);
+            playSound('grid-hit');
+            flashHitmarker('normal');
+            spawnBurst3D(gridScene, orb.group.position, cfg.targetColor, 12);
+          }
+        }
 
         const oldSlot = orb.slotIdx;
-        gridScene.remove(orb.mesh);
+        gridScene.remove(orb.group);
+        orb.ring.material.dispose();
         activeOrbs.splice(idx, 1);
         spawnOneGridOrb(oldSlot);
       }
     } else {
       stats.streak = 0;
-      stats.score = Math.max(0, stats.score - 25);
+      stats.score = Math.max(0, stats.score - 35);
       playSound('miss');
     }
-    updateTopHud();
+    updateTopHud(true);
   }
 
   // ================= AÇÕES FIVEM 3ª PESSOA =================
   function startReload() {
     player.reloading = true;
-    player.reloadTimer = 1.15;
-    updateFivemHud();
+    player.reloadTimer = 1.05;
+    updateFivemHud(true);
   }
 
   function triggerPlayerRoll() {
     player.rolling = true;
     player.rollTimer = player.rollDuration;
-    player.rollCooldown = 1.15;
+    player.rollCooldown = 1.05;
 
-    const fwd = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
-    const right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
-    const move = new THREE.Vector3();
-    if (keys['KeyW']) move.add(fwd);
-    if (keys['KeyS']) move.sub(fwd);
-    if (keys['KeyD']) move.add(right);
-    if (keys['KeyA']) move.sub(right);
-    if (move.lengthSq() < 0.01) move.copy(right);
-    player.rollDir.copy(move.normalize());
-    updateFivemHud();
+    _vFwd.set(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
+    _vRight.set(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
+    _vMove.set(0, 0, 0);
+    if (keys['KeyW']) _vMove.add(_vFwd);
+    if (keys['KeyS']) _vMove.sub(_vFwd);
+    if (keys['KeyD']) _vMove.add(_vRight);
+    if (keys['KeyA']) _vMove.sub(_vRight);
+    if (_vMove.lengthSq() < 0.01) _vMove.copy(_vRight);
+    player.rollDir.copy(_vMove.normalize());
+    updateFivemHud(true);
   }
 
   function fireFivemWeapon() {
     if (player.fireCooldown > 0 || player.reloading || player.rolling) return;
-    if (player.ammo <= 0) {
-      startReload();
-      return;
-    }
+    if (player.ammo <= 0) { startReload(); return; }
 
     player.ammo--;
-    player.fireCooldown = 0.115; // Cadência de carabina FiveM (~520 RPM)
+    player.fireCooldown = 0.11;
     player.muzzleTimer = 0.045;
     playerRig.muzzleFlash.material.opacity = 1;
-    player.pitch = Math.min(0.62, player.pitch + 0.0045); // Recuo vertical leve e realista
+    player.pitch = Math.min(0.62, player.pitch + 0.0042);
     stats.shots++;
     playSound('rifle');
 
-    // Raycast exato pelo centro da mira (sem parallax errado em 3ª pessoa)
     raycaster.setFromCamera(centerNdc, camera);
     const enemyMeshes = [];
-    enemies.forEach(e => enemyMeshes.push(...e.rig.hitMeshes));
-    const allTargets = [...enemyMeshes, ...fmObstacleMeshes];
-    const hits = raycaster.intersectObjects(allTargets, false);
+    for (let i = 0; i < enemies.length; i++) enemyMeshes.push(...enemies[i].rig.hitMeshes);
+    const hits = raycaster.intersectObjects([...enemyMeshes, ...fmObstacleMeshes], false);
 
     const muzzleWorld = new THREE.Vector3();
     playerRig.muzzlePoint.getWorldPosition(muzzleWorld);
-    let endPoint = raycaster.ray.origin.clone().addScaledVector(raycaster.ray.direction, 95);
+    const endPoint = raycaster.ray.origin.clone().addScaledVector(raycaster.ray.direction, 95);
 
     if (hits.length > 0) {
       const first = hits[0];
@@ -1831,70 +2005,95 @@
       if (first.object.userData && first.object.userData.enemy) {
         const enemy = first.object.userData.enemy;
         const isHead = first.object.userData.part === 'head';
-        const dmg = isHead ? 75 : 34;
 
-        stats.hits++;
-        stats.damageDealt += dmg;
-        enemy.hp -= dmg;
-
-        flashHitmarker(isHead);
-        spawnBurst3D(fivemScene, first.point, isHead ? 0xffd700 : 0xff4d6d, isHead ? 16 : 9);
-
-        if (isHead) {
-          playSound('headshot');
-          showFeed('HEADSHOT! -75', '#ffd700');
-        }
-
-        if (enemy.hp <= 0) {
-          // ELIMINAÇÃO + GANHO DE HP (+25 HP)!
-          stats.kills++;
-          if (isHead) stats.headshots++;
-          stats.score += isHead ? 250 : 150;
-
-          const healed = Math.min(player.maxHp - player.hp, 25);
-          player.hp = Math.min(player.maxHp, player.hp + 25);
-
-          playSound('kill');
-          flashVignette('rgba(34, 197, 94, 0.32)');
-          showFeed(healed > 0 ? `ELIMINADO! +${healed} HP` : 'ELIMINADO! (HP CHEIO)', '#4ade80');
-          spawnBurst3D(fivemScene, enemy.pos.clone().add(new THREE.Vector3(0, 1.1, 0)), cfg.targetColor, 20);
-
-          fivemScene.remove(enemy.rig.root);
-          const eIdx = enemies.indexOf(enemy);
-          if (eIdx !== -1) enemies.splice(eIdx, 1);
-          spawnEnemy();
+        if (enemy.role === 'ally') {
+          // Acertou aliado! Penalidade de decisão rápida
+          stats.decoyMistakes++;
+          stats.score = Math.max(0, stats.score - 200);
+          player.hp = Math.max(1, player.hp - 10);
+          playSound('penalty');
+          flashHitmarker('penalty');
+          flashVignette('rgba(239, 68, 68, 0.35)');
+          showFeed('FOGO AMIGO! -10 HP', '#ff4d6d');
+          spawnBurst3D(fivemScene, first.point, 0x4ade80, 10);
         } else {
-          // Atualiza barra de HP 3D acima do inimigo
-          const ratio = Math.max(0.01, enemy.hp / enemy.maxHp);
-          enemy.hpBar.fill.scale.x = ratio;
-          enemy.hpBar.fill.position.x = -(1 - ratio) * 0.445;
-          enemy.hpBar.fill.material.color.set(ratio > 0.5 ? 0x22c55e : (ratio > 0.25 ? 0xfacc15 : 0xef4444));
+          if (!enemy.firstHitLogged && enemy.firstSeenAt) {
+            const rt = Math.max(60, performance.now() - enemy.firstSeenAt);
+            stats.reactionSum += rt;
+            stats.reactionCount++;
+            if (rt < stats.bestReaction) stats.bestReaction = rt;
+            enemy.firstHitLogged = true;
+          }
+
+          const dmg = isHead ? 78 : 34;
+          stats.hits++;
+          stats.damageDealt += dmg;
+          enemy.hp -= dmg;
+
+          flashHitmarker(isHead ? 'headshot' : 'normal');
+          spawnBurst3D(fivemScene, first.point, isHead ? 0xffd700 : 0xff4d6d, isHead ? 14 : 8);
+
+          if (isHead) {
+            playSound('headshot');
+            showFeed('HEADSHOT! -78', '#ffd700');
+          }
+
+          if (enemy.hp <= 0) {
+            stats.kills++;
+            if (isHead) stats.headshots++;
+            const isLeader = enemy.role === 'leader';
+            if (isLeader) stats.priorityHits++;
+            const healAmount = isLeader ? 40 : 25;
+            stats.score += (isLeader ? 320 : 160) + (isHead ? 100 : 0);
+
+            const healed = Math.min(player.maxHp - player.hp, healAmount);
+            player.hp = Math.min(player.maxHp, player.hp + healAmount);
+
+            playSound('kill');
+            flashVignette('rgba(34, 197, 94, 0.32)');
+            showFeed(
+              isLeader
+                ? `LÍDER ABATIDO! +${healed} HP`
+                : (healed > 0 ? `ELIMINADO! +${healed} HP` : 'ELIMINADO! (HP CHEIO)'),
+              isLeader ? '#ffd700' : '#4ade80'
+            );
+            spawnBurst3D(fivemScene, enemy.pos.clone().add(new THREE.Vector3(0, 1.1, 0)), isLeader ? 0xffd700 : cfg.targetColor, 18);
+
+            fivemScene.remove(enemy.rig.root);
+            const eIdx = enemies.indexOf(enemy);
+            if (eIdx !== -1) enemies.splice(eIdx, 1);
+            spawnEnemy();
+          } else {
+            const ratio = Math.max(0.01, enemy.hp / enemy.maxHp);
+            enemy.hpBar.fill.scale.x = ratio;
+            enemy.hpBar.fill.position.x = -(1 - ratio) * 0.445;
+            enemy.hpBar.fill.material.color.set(ratio > 0.5 ? 0x22c55e : (ratio > 0.25 ? 0xfacc15 : 0xef4444));
+          }
         }
       } else {
-        // Faísca no container/concreto
-        spawnBurst3D(fivemScene, first.point, 0xdbeafe, 5);
+        spawnBurst3D(fivemScene, first.point, 0xdbeafe, 4);
       }
     }
 
     spawnTracer3D(fivemScene, muzzleWorld, endPoint, 0xfff1a8);
     if (player.ammo === 0) startReload();
-    updateFivemHud();
-    updateTopHud();
+    updateFivemHud(true);
+    updateTopHud(true);
   }
 
   function hasLineOfSight(from, to) {
-    const dir = to.clone().sub(from);
-    const dist = dir.length();
+    _vTmp1.copy(to).sub(from);
+    const dist = _vTmp1.length();
     if (dist < 0.1) return true;
-    raycaster.set(from, dir.normalize());
+    raycaster.set(from, _vTmp1.divideScalar(dist));
     raycaster.far = dist - 0.3;
     const hits = raycaster.intersectObjects(fmObstacleMeshes, false);
     raycaster.far = Infinity;
     return hits.length === 0;
   }
 
-  function updateFivem(dt) {
-    // Recarga e cooldowns
+  function updateFivem(dt, now) {
+    const d = getDiff();
     if (player.fireCooldown > 0) player.fireCooldown -= dt;
     if (player.rollCooldown > 0) player.rollCooldown -= dt;
     if (player.muzzleTimer > 0) {
@@ -1910,14 +2109,13 @@
     }
     if (player.firing) fireFivemWeapon();
 
-    // Movimento do jogador
-    const fwd = new THREE.Vector3(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
-    const right = new THREE.Vector3(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
-    const moveVec = new THREE.Vector3();
+    _vFwd.set(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
+    _vRight.set(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
+    _vMove.set(0, 0, 0);
 
     if (player.rolling) {
       player.rollTimer -= dt;
-      player.pos.addScaledVector(player.rollDir, 9.8 * dt);
+      player.pos.addScaledVector(player.rollDir, 10.2 * dt);
       const progress = 1 - Math.max(0, player.rollTimer / player.rollDuration);
       playerRig.bodyPivot.rotation.x = -progress * Math.PI * 2;
       if (player.rollTimer <= 0) {
@@ -1925,21 +2123,20 @@
         playerRig.bodyPivot.rotation.x = 0;
       }
     } else {
-      if (keys['KeyW']) moveVec.add(fwd);
-      if (keys['KeyS']) moveVec.sub(fwd);
-      if (keys['KeyD']) moveVec.add(right);
-      if (keys['KeyA']) moveVec.sub(right);
-      const speed = player.ads ? 4.4 : 7.0;
-      if (moveVec.lengthSq() > 0) {
-        moveVec.normalize();
-        player.pos.addScaledVector(moveVec, speed * dt);
-        player.animPhase += dt * (player.ads ? 8 : 12);
+      if (keys['KeyW']) _vMove.add(_vFwd);
+      if (keys['KeyS']) _vMove.sub(_vFwd);
+      if (keys['KeyD']) _vMove.add(_vRight);
+      if (keys['KeyA']) _vMove.sub(_vRight);
+      const speed = player.ads ? 4.6 : 7.4;
+      if (_vMove.lengthSq() > 0) {
+        _vMove.normalize();
+        player.pos.addScaledVector(_vMove, speed * dt);
+        player.animPhase += dt * (player.ads ? 8 : 12.5);
       } else {
         player.animPhase *= 0.85;
       }
     }
 
-    // Gravidade e salto
     if (!player.onGround || player.vel.y !== 0) {
       player.vel.y -= 20 * dt;
       player.pos.y += player.vel.y * dt;
@@ -1954,67 +2151,87 @@
     playerRig.root.position.copy(player.pos);
     playerRig.root.rotation.y = player.yaw;
 
-    // Animação procedural de corrida das pernas/braços
-    const swing = moveVec.lengthSq() > 0 && !player.rolling ? Math.sin(player.animPhase) * 0.65 : 0;
+    const swing = _vMove.lengthSq() > 0 && !player.rolling ? Math.sin(player.animPhase) * 0.65 : 0;
     playerRig.leftLeg.rotation.x = swing;
     playerRig.rightLeg.rotation.x = -swing;
     playerRig.rightArm.rotation.x = player.pitch * 0.65;
 
-    // Câmera 3ª Pessoa Over-The-Shoulder (ombro direito estilo Fortnite / FiveM)
-    const camDist = player.ads ? 1.95 : 3.25;
-    const rightOff = player.ads ? 0.68 : 0.82;
-    const camHeight = player.ads ? 1.66 : 1.76;
+    // Câmera 3ª Pessoa SUAVIZADA (elimina cortes/snaps em paredes e ADS!)
+    const targetAds = player.ads ? 1 : 0;
+    player.adsBlend += (targetAds - player.adsBlend) * Math.min(1, dt * 14);
+    const desiredDist = 3.25 - player.adsBlend * 1.28;
+    const rightOff = 0.82 - player.adsBlend * 0.14;
+    const camHeight = 1.76 - player.adsBlend * 0.10;
 
-    const shoulderOrigin = player.pos.clone().add(new THREE.Vector3(0, camHeight, 0)).addScaledVector(right, rightOff);
-    const backDir = new THREE.Vector3(
+    _vShoulder.copy(player.pos).add(_vTmp1.set(0, camHeight, 0)).addScaledVector(_vRight, rightOff);
+    _vBackDir.set(
       Math.sin(player.yaw) * Math.cos(player.pitch),
       -Math.sin(player.pitch),
       Math.cos(player.yaw) * Math.cos(player.pitch)
     ).normalize();
 
-    // Evita que a câmera atravesse muros/containers
-    raycaster.set(shoulderOrigin, backDir);
-    raycaster.far = camDist;
+    raycaster.set(_vShoulder, _vBackDir);
+    raycaster.far = desiredDist;
     const camObs = raycaster.intersectObjects(fmObstacleMeshes, false);
     raycaster.far = Infinity;
-    const actualDist = camObs.length > 0 ? Math.max(0.65, camObs[0].distance - 0.25) : camDist;
+    const targetDist = camObs.length > 0 ? Math.max(0.75, camObs[0].distance - 0.25) : desiredDist;
 
-    camera.position.copy(shoulderOrigin).addScaledVector(backDir, actualDist);
+    // Interpolação suave na distância da câmera (rápida ao encolher, suave ao expandir)
+    const damp = targetDist < player.camCurrentDist ? Math.min(1, dt * 22) : Math.min(1, dt * 9);
+    player.camCurrentDist += (targetDist - player.camCurrentDist) * damp;
+
+    camera.position.copy(_vShoulder).addScaledVector(_vBackDir, player.camCurrentDist);
     camera.rotation.set(player.pitch, player.yaw, 0, 'YXZ');
 
-    // -------- IA DOS INIMIGOS (MOVEM, ROLAM E ATIRAM DE VOLTA) --------
-    for (const e of enemies) {
+    // -------- IA DOS INIMIGOS (MAIS DIFÍCIL, RÁPIDA E AGRESSIVA) --------
+    const [rMin, rMax] = d.enemyRollInterval;
+    const [fMin, fMax] = d.enemyFireInterval;
+
+    for (let i = enemies.length - 1; i >= 0; i--) {
+      const e = enemies[i];
       if (e.muzzleTimer > 0) {
         e.muzzleTimer -= dt;
         if (e.muzzleTimer <= 0) e.rig.muzzleFlash.material.opacity = 0;
       }
 
-      const toPlayer = player.pos.clone().sub(e.pos);
-      const flatDist = Math.hypot(toPlayer.x, toPlayer.z);
-      const lookYaw = Math.atan2(-toPlayer.x, -toPlayer.z);
+      if (e.role === 'ally') {
+        e.allyLifeTimer -= dt;
+        if (e.allyLifeTimer <= 0) {
+          fivemScene.remove(e.rig.root);
+          enemies.splice(i, 1);
+          spawnEnemy('enemy');
+          continue;
+        }
+      }
+
+      const dxP = player.pos.x - e.pos.x;
+      const dzP = player.pos.z - e.pos.z;
+      const flatDist = Math.hypot(dxP, dzP);
+      const lookYaw = Math.atan2(-dxP, -dzP);
       e.rig.root.rotation.y = lookYaw;
 
-      const eFwd = new THREE.Vector3(-Math.sin(lookYaw), 0, -Math.cos(lookYaw));
-      const eRight = new THREE.Vector3(Math.cos(lookYaw), 0, -Math.sin(lookYaw));
+      const eFwdX = -Math.sin(lookYaw), eFwdZ = -Math.cos(lookYaw);
+      const eRightX = Math.cos(lookYaw), eRightZ = -Math.sin(lookYaw);
 
       e.rollCooldown -= dt;
       e.strafeTimer -= dt;
       if (e.strafeTimer <= 0) {
         e.strafeDir = Math.random() > 0.5 ? 1 : -1;
-        e.strafeTimer = 0.75 + Math.random() * 1.3;
+        e.strafeTimer = 0.42 + Math.random() * 0.85;
       }
 
-      // Dispara rolamento lateral PvP periodicamente
-      if (!e.rolling && e.rollCooldown <= 0 && flatDist < 24) {
+      if (e.role !== 'ally' && !e.rolling && e.rollCooldown <= 0 && flatDist < 26) {
         e.rolling = true;
         e.rollTimer = e.rollDuration;
-        e.rollCooldown = 2.4 + Math.random() * 2.5;
+        e.rollCooldown = rMin + Math.random() * (rMax - rMin);
         e.rollSide = Math.random() > 0.5 ? 1 : -1;
       }
 
       if (e.rolling) {
         e.rollTimer -= dt;
-        e.pos.addScaledVector(eRight, e.rollSide * 7.8 * dt);
+        const rollSpeed = d.enemySpeed * 1.55;
+        e.pos.x += eRightX * e.rollSide * rollSpeed * dt;
+        e.pos.z += eRightZ * e.rollSide * rollSpeed * dt;
         const prog = 1 - Math.max(0, e.rollTimer / e.rollDuration);
         e.rig.bodyPivot.rotation.z = -e.rollSide * prog * Math.PI * 2;
         if (e.rollTimer <= 0) {
@@ -2022,14 +2239,16 @@
           e.rig.bodyPivot.rotation.z = 0;
         }
       } else {
-        // Strafe + distância ideal de trocação (10m–18m)
-        const move = new THREE.Vector3().addScaledVector(eRight, e.strafeDir * 4.4);
-        if (flatDist > 18) move.addScaledVector(eFwd, 3.4);
-        else if (flatDist < 8) move.addScaledVector(eFwd, -2.8);
-        e.pos.addScaledVector(move, dt);
+        const strafeSpd = e.role === 'leader' ? d.enemySpeed * 1.15 : d.enemySpeed;
+        let mx = eRightX * e.strafeDir * strafeSpd;
+        let mz = eRightZ * e.strafeDir * strafeSpd;
+        if (flatDist > 17) { mx += eFwdX * (strafeSpd * 0.72); mz += eFwdZ * (strafeSpd * 0.72); }
+        else if (flatDist < 7.5) { mx -= eFwdX * (strafeSpd * 0.6); mz -= eFwdZ * (strafeSpd * 0.6); }
+        e.pos.x += mx * dt;
+        e.pos.z += mz * dt;
 
-        e.animPhase += dt * 10;
-        const sw = Math.sin(e.animPhase) * 0.58;
+        e.animPhase += dt * 11.5;
+        const sw = Math.sin(e.animPhase) * 0.62;
         e.rig.leftLeg.rotation.x = sw;
         e.rig.rightLeg.rotation.x = -sw;
       }
@@ -2038,110 +2257,113 @@
       e.rig.root.position.copy(e.pos);
       e.hpBar.grp.lookAt(camera.position);
 
-      // Inimigo atira de volta no jogador!
+      if (e.role === 'ally') continue;
+
+      // Marca o instante em que o inimigo entrou na linha de visão para medir reação real!
+      _vTmp1.set(e.pos.x, e.pos.y + 1.48, e.pos.z);
+      _vTmp2.set(player.pos.x, player.pos.y + 1.25, player.pos.z);
+      const visible = flatDist < 35 && hasLineOfSight(_vTmp1, _vTmp2);
+      if (visible && !e.firstSeenAt) e.firstSeenAt = now;
+
       e.fireTimer -= dt;
-      if (!e.rolling && e.fireTimer <= 0 && flatDist < 34) {
-        e.fireTimer = 0.95 + Math.random() * 0.9;
-        const eEye = e.pos.clone().add(new THREE.Vector3(0, 1.48, 0));
-        const pCenter = player.pos.clone().add(new THREE.Vector3(0, 1.15, 0));
+      if (!e.rolling && e.fireTimer <= 0 && visible) {
+        const leaderMult = e.role === 'leader' ? 0.72 : 1.0;
+        e.fireTimer = (fMin + Math.random() * (fMax - fMin)) * leaderMult;
+        e.muzzleTimer = 0.055;
+        e.rig.muzzleFlash.material.opacity = 1;
+        playSound('enemy-shot');
 
-        if (hasLineOfSight(eEye, pCenter)) {
-          e.muzzleTimer = 0.06;
-          e.rig.muzzleFlash.material.opacity = 1;
-          playSound('enemy-shot');
+        const muzzleW = new THREE.Vector3();
+        e.rig.muzzlePoint.getWorldPosition(muzzleW);
 
-          const muzzleW = new THREE.Vector3();
-          e.rig.muzzlePoint.getWorldPosition(muzzleW);
+        const movingBonus = (keys['KeyW'] || keys['KeyA'] || keys['KeyS'] || keys['KeyD']) ? 0.10 : 0;
+        const rollBonus = player.rolling ? 0.36 : 0;
+        const leaderBonus = e.role === 'leader' ? 0.12 : 0;
+        const hitChance = Math.max(0.16, d.enemyBaseHitChance + leaderBonus - movingBonus - rollBonus);
 
-          // Chance de acerto equilibrada (menor quando o jogador está rolando ou se movendo!)
-          const movingBonus = (keys['KeyW'] || keys['KeyA'] || keys['KeyS'] || keys['KeyD']) ? 0.12 : 0;
-          const rollBonus = player.rolling ? 0.34 : 0;
-          const hitChance = Math.max(0.14, 0.52 - movingBonus - rollBonus);
+        const aimTarget = _vTmp2.clone();
+        const didHit = Math.random() < hitChance;
+        if (!didHit) {
+          aimTarget.x += (Math.random() > 0.5 ? 1 : -1) * (0.85 + Math.random() * 0.9);
+          aimTarget.y += (Math.random() - 0.3) * 0.7;
+        }
+        spawnTracer3D(fivemScene, muzzleW, aimTarget, e.role === 'leader' ? 0xffd700 : 0xff5a36);
 
-          const aimTarget = pCenter.clone();
-          const didHit = Math.random() < hitChance;
-          if (!didHit) {
-            aimTarget.x += (Math.random() > 0.5 ? 1 : -1) * (0.85 + Math.random() * 0.9);
-            aimTarget.y += (Math.random() - 0.3) * 0.7;
-          }
-          spawnTracer3D(fivemScene, muzzleW, aimTarget, 0xff5a36);
+        if (didHit) {
+          const [dMin, dMax] = d.enemyDamage;
+          let dmgTaken = dMin + Math.floor(Math.random() * (dMax - dMin + 1));
+          if (e.role === 'leader') dmgTaken = Math.round(dmgTaken * 1.35);
+          if (player.rolling) dmgTaken = Math.max(4, Math.round(dmgTaken * 0.45));
 
-          if (didHit) {
-            const dmgTaken = player.rolling ? 5 : (9 + Math.floor(Math.random() * 4));
-            player.hp = Math.max(0, player.hp - dmgTaken);
-            playSound('hurt');
-            flashVignette('rgba(239, 68, 68, 0.42)');
-            updateFivemHud();
+          player.hp = Math.max(0, player.hp - dmgTaken);
+          playSound('hurt');
+          flashVignette('rgba(239, 68, 68, 0.44)');
+          updateFivemHud(true);
 
-            if (player.hp <= 0) {
-              stopGame(true, 'VOCÊ FOI ELIMINADO!');
-              return;
-            }
+          if (player.hp <= 0) {
+            stopGame(true, 'VOCÊ FOI ELIMINADO!');
+            return;
           }
         }
       }
     }
-
-    updateFivemHud();
   }
 
-  // ================= HUD & CONTROLE DE FLUXO =================
-  function updateFivemHud() {
-    hudHpVal.textContent = Math.ceil(player.hp);
-    const pct = Math.max(0, Math.min(100, (player.hp / player.maxHp) * 100));
-    hudHpBar.style.width = pct + '%';
-    if (pct > 55) {
-      hudHpVal.style.color = '#4ade80';
-      hudHpBar.style.background = 'linear-gradient(90deg, #16a34a, #4ade80)';
-    } else if (pct > 25) {
-      hudHpVal.style.color = '#facc15';
-      hudHpBar.style.background = 'linear-gradient(90deg, #ca8a04, #facc15)';
-    } else {
-      hudHpVal.style.color = '#f87171';
-      hudHpBar.style.background = 'linear-gradient(90deg, #dc2626, #f87171)';
+  // ================= HUD COM CACHE (ZERO REFLOW DESNECESSÁRIO) =================
+  function updateFivemHud(force = false) {
+    const hpInt = Math.ceil(player.hp);
+    if (force || hpInt !== hudCache.hp) {
+      hudCache.hp = hpInt;
+      hudHpVal.textContent = hpInt;
+      const pct = Math.max(0, Math.min(100, (player.hp / player.maxHp) * 100));
+      hudHpBar.style.width = pct + '%';
+      if (pct > 55) {
+        hudHpVal.style.color = '#4ade80';
+        hudHpBar.style.background = 'linear-gradient(90deg, #16a34a, #4ade80)';
+      } else if (pct > 25) {
+        hudHpVal.style.color = '#facc15';
+        hudHpBar.style.background = 'linear-gradient(90deg, #ca8a04, #facc15)';
+      } else {
+        hudHpVal.style.color = '#f87171';
+        hudHpBar.style.background = 'linear-gradient(90deg, #dc2626, #f87171)';
+      }
     }
 
-    hudAmmo.innerHTML = player.reloading
-      ? `<span style="color:#facc15;font-size:15px;">RECARREGANDO...</span>`
-      : `${player.ammo} <small>/ ∞</small>`;
+    const ammoStr = player.reloading ? 'RELOAD' : String(player.ammo);
+    if (force || ammoStr !== hudCache.ammo) {
+      hudCache.ammo = ammoStr;
+      hudAmmo.innerHTML = player.reloading
+        ? `<span style="color:#facc15;font-size:14px;">RECARREGANDO...</span>`
+        : `${player.ammo} <small>/ ∞</small>`;
+    }
 
-    if (player.rolling) {
-      hudRollStatus.textContent = 'ROLANDO...';
-      hudRollStatus.style.color = '#facc15';
-    } else if (player.rollCooldown > 0) {
-      hudRollStatus.textContent = `ROLAMENTO ${player.rollCooldown.toFixed(1)}s`;
-      hudRollStatus.style.color = '#94a3b8';
-    } else {
-      hudRollStatus.textContent = 'ROLAMENTO PRONTO (SHIFT)';
-      hudRollStatus.style.color = 'var(--accent)';
+    const rollStr = player.rolling ? 'ROLANDO...' : (player.rollCooldown > 0 ? `ROLAMENTO ${player.rollCooldown.toFixed(1)}s` : 'ROLAMENTO PRONTO (SHIFT)');
+    if (force || rollStr !== hudCache.roll) {
+      hudCache.roll = rollStr;
+      hudRollStatus.textContent = rollStr;
+      hudRollStatus.style.color = player.rolling ? '#facc15' : (player.rollCooldown > 0 ? '#94a3b8' : 'var(--accent)');
     }
   }
 
-  function updateTopHud() {
-    if (cfg.duration === 0) {
-      hudTime.textContent = elapsedTime.toFixed(1) + 's';
-    } else {
-      hudTime.textContent = Math.max(0, timeLeft).toFixed(1) + 's';
-    }
+  function updateTopHud(force = false) {
+    const tStr = (cfg.duration === 0 ? elapsedTime : Math.max(0, timeLeft)).toFixed(1) + 's';
+    if (force || tStr !== hudCache.time) { hudCache.time = tStr; hudTime.textContent = tStr; }
 
-    const acc = stats.shots > 0 ? Math.round((stats.hits / stats.shots) * 100) : 100;
-    hudAcc.textContent = acc + '%';
+    const accStr = (stats.shots > 0 ? Math.round((stats.hits / stats.shots) * 100) : 100) + '%';
+    if (force || accStr !== hudCache.acc) { hudCache.acc = accStr; hudAcc.textContent = accStr; }
 
-    if (cfg.mode === 'gridshot') {
-      hudPrimaryLbl.textContent = 'Pontos';
-      hudHitsLbl.textContent = 'Acertos';
+    const avgRt = stats.reactionCount > 0 ? Math.round(stats.reactionSum / stats.reactionCount) + 'ms' : '--';
+    const scoreStr = String(cfg.mode === 'gridshot' ? stats.score : stats.kills);
+    const hitsStr = String(cfg.mode === 'gridshot' ? stats.hits : stats.headshots);
+
+    if (force) {
+      hudPrimaryLbl.textContent = cfg.mode === 'gridshot' ? 'Pontos' : 'Abates';
+      hudHitsLbl.textContent = cfg.mode === 'gridshot' ? 'Acertos' : 'Headshots';
       hudExtraLbl.textContent = 'Reação';
-      hudScore.textContent = stats.score;
-      hudHits.textContent = stats.hits;
-      hudExtra.textContent = stats.reactionCount > 0 ? Math.round(stats.reactionSum / stats.reactionCount) + 'ms' : '--';
-    } else {
-      hudPrimaryLbl.textContent = 'Abates';
-      hudHitsLbl.textContent = 'Headshots';
-      hudExtraLbl.textContent = 'Pontos';
-      hudScore.textContent = stats.kills;
-      hudHits.textContent = stats.headshots;
-      hudExtra.textContent = stats.score;
     }
+    if (force || scoreStr !== hudCache.score) { hudCache.score = scoreStr; hudScore.textContent = scoreStr; }
+    if (force || hitsStr !== hudCache.hits) { hudCache.hits = hitsStr; hudHits.textContent = hitsStr; }
+    if (force || avgRt !== hudCache.extra) { hudCache.extra = avgRt; hudExtra.textContent = avgRt; }
   }
 
   function refreshButtons() {
@@ -2156,19 +2378,18 @@
   function resetStats() {
     stats.score = 0; stats.hits = 0; stats.shots = 0;
     stats.kills = 0; stats.headshots = 0; stats.damageDealt = 0;
-    stats.reactionSum = 0; stats.reactionCount = 0; stats.streak = 0;
+    stats.reactionSum = 0; stats.reactionCount = 0; stats.bestReaction = Infinity;
+    stats.expiredTargets = 0; stats.decoyMistakes = 0; stats.priorityHits = 0; stats.streak = 0;
     timeLeft = cfg.duration;
     elapsedTime = 0;
   }
 
   function startGame() {
     ensureAudio();
-    if (state === 'paused') {
-      resumeGame();
-      return;
-    }
+    if (state === 'paused') { resumeGame(); return; }
     clearFx();
     resetStats();
+    pendingMouseDX = 0; pendingMouseDY = 0;
     if (cfg.mode === 'gridshot') resetGridshot();
     else resetFivem();
 
@@ -2176,9 +2397,9 @@
     centerOverlay.classList.add('hidden');
     ovStats.style.display = 'none';
     ovStopBtn.style.display = 'none';
-    updateTopHud();
+    updateTopHud(true);
     refreshButtons();
-    try { canvas.requestPointerLock(); } catch (e) {}
+    lockPointerSmooth();
   }
 
   function pauseGame() {
@@ -2186,12 +2407,13 @@
     state = 'paused';
     player.firing = false;
     player.ads = false;
+    pendingMouseDX = 0; pendingMouseDY = 0;
     if (document.pointerLockElement === canvas) {
       try { document.exitPointerLock(); } catch (e) {}
     }
     ovBadge.textContent = cfg.mode === 'gridshot' ? 'GRIDSHOT 3D • PAUSADO' : 'TREINO FIVEM • PAUSADO';
     ovTitle.textContent = 'Treino Pausado';
-    ovDesc.textContent = 'Ajuste sensibilidade, cores ou tempo acima e clique em Retomar para continuar de onde parou.';
+    ovDesc.textContent = 'Ajuste nível, sensibilidade, decisão rápida ou cores acima e clique em Retomar.';
     ovStats.style.display = 'none';
     ovPrimaryBtn.textContent = '▶ RETOMAR';
     ovStopBtn.style.display = 'inline-flex';
@@ -2202,15 +2424,17 @@
   function resumeGame() {
     if (state !== 'paused') return;
     state = 'playing';
+    pendingMouseDX = 0; pendingMouseDY = 0;
     centerOverlay.classList.add('hidden');
     refreshButtons();
-    try { canvas.requestPointerLock(); } catch (e) {}
+    lockPointerSmooth();
   }
 
   function stopGame(showSummary = true, customTitle = null) {
     state = 'ended';
     player.firing = false;
     player.ads = false;
+    pendingMouseDX = 0; pendingMouseDY = 0;
     if (document.pointerLockElement === canvas) {
       try { document.exitPointerLock(); } catch (e) {}
     }
@@ -2218,26 +2442,33 @@
 
     if (showSummary) {
       const acc = stats.shots > 0 ? Math.round((stats.hits / stats.shots) * 100) : 0;
-      ovBadge.textContent = cfg.mode === 'gridshot' ? 'RESUMO • GRIDSHOT 3D' : 'RESUMO • TREINO FIVEM 3D';
+      const avgRt = stats.reactionCount > 0 ? Math.round(stats.reactionSum / stats.reactionCount) + 'ms' : '--';
+      const bestRt = Number.isFinite(stats.bestReaction) ? Math.round(stats.bestReaction) + 'ms' : '--';
+
+      ovBadge.textContent = `${cfg.mode === 'gridshot' ? 'GRIDSHOT 3D' : 'FIVEM 3ª PESSOA'} • ${getDiff().label.toUpperCase()}`;
       ovTitle.textContent = customTitle || 'Treino Finalizado';
+
       if (cfg.mode === 'gridshot') {
         const kps = elapsedTime > 0 ? (stats.hits / elapsedTime).toFixed(2) : '0.00';
-        const avgRt = stats.reactionCount > 0 ? Math.round(stats.reactionSum / stats.reactionCount) + 'ms' : '--';
-        ovDesc.textContent = `Acertos: ${stats.hits} de ${stats.shots} disparos • Ritmo: ${kps} alvos/s`;
+        ovDesc.textContent = `Ritmo: ${kps} alvos/s • Prioridades: ${stats.priorityHits} • Expirados: ${stats.expiredTargets} • Iscas acertadas: ${stats.decoyMistakes}`;
         document.getElementById('stLbl1').textContent = 'Pontos';
         document.getElementById('stVal1').textContent = stats.score;
         document.getElementById('stLbl2').textContent = 'Precisão';
         document.getElementById('stVal2').textContent = acc + '%';
-        document.getElementById('stLbl3').textContent = 'Reação';
+        document.getElementById('stLbl3').textContent = 'Reação Méd.';
         document.getElementById('stVal3').textContent = avgRt;
+        document.getElementById('stLbl4').textContent = 'Melhor MS';
+        document.getElementById('stVal4').textContent = bestRt;
       } else {
-        ovDesc.textContent = `Dano total: ${stats.damageDealt} • HP final: ${Math.ceil(player.hp)} • Tempo: ${elapsedTime.toFixed(1)}s`;
+        ovDesc.textContent = `Headshots: ${stats.headshots} • Líderes: ${stats.priorityHits} • Fogo Amigo: ${stats.decoyMistakes} • Dano: ${stats.damageDealt}`;
         document.getElementById('stLbl1').textContent = 'Abates';
         document.getElementById('stVal1').textContent = stats.kills;
-        document.getElementById('stLbl2').textContent = 'Headshots';
-        document.getElementById('stVal2').textContent = stats.headshots;
-        document.getElementById('stLbl3').textContent = 'Precisão';
-        document.getElementById('stVal3').textContent = acc + '%';
+        document.getElementById('stLbl2').textContent = 'Precisão';
+        document.getElementById('stVal2').textContent = acc + '%';
+        document.getElementById('stLbl3').textContent = 'Reação Méd.';
+        document.getElementById('stVal3').textContent = avgRt;
+        document.getElementById('stLbl4').textContent = 'Melhor MS';
+        document.getElementById('stVal4').textContent = bestRt;
       }
       ovStats.style.display = 'grid';
       ovPrimaryBtn.textContent = '↻ TREINAR NOVAMENTE';
@@ -2247,37 +2478,37 @@
   }
 
   function setMode(newMode) {
-    if (state === 'playing' || state === 'paused') {
-      if (document.pointerLockElement === canvas) {
-        try { document.exitPointerLock(); } catch (e) {}
-      }
+    if (document.pointerLockElement === canvas) {
+      try { document.exitPointerLock(); } catch (e) {}
     }
     cfg.mode = newMode;
     localStorage.setItem('aim3d_mode', newMode);
     state = 'idle';
     clearFx();
     resetStats();
+    pendingMouseDX = 0; pendingMouseDY = 0;
 
     btnModeGridshot.classList.toggle('active', newMode === 'gridshot');
     btnModeFivem.classList.toggle('active', newMode === 'fivem');
 
     if (newMode === 'gridshot') {
       resetGridshot();
-      ovBadge.textContent = 'AIMLAB GRIDSHOT 3D • VALORANT';
-      ovTitle.textContent = 'AimLab Gridshot 3D';
-      ovDesc.innerHTML = 'Sensibilidade <b>100% Valorant</b> (0.07°/count • FOV 103°). Destrua as 3 bolinhas 3D o mais rápido possível. Use <b>ESC</b> ou <b>P</b> para pausar.';
+      ovBadge.textContent = `GRIDSHOT 3D • ${getDiff().label.toUpperCase()} • REAÇÃO & DECISÃO`;
+      ovTitle.textContent = 'AimLab Gridshot 3D (Valorant)';
+      ovDesc.innerHTML = 'Foco total em <b>tempo de reação</b> e <b>decisão rápida</b>: destrua os alvos antes do anel expirar, priorize os <b>Dourados (3x)</b> e <b>NÃO atire nas Iscas Vermelhas (X)</b>. Raw Input 100% Valorant.';
     } else {
       resetFivem();
-      ovBadge.textContent = 'ARENA URBANA 3D • FIVEM 3ª PESSOA';
-      ovTitle.textContent = 'Treino FiveM PvP 3D';
-      ovDesc.innerHTML = 'Personagem em <b>3ª pessoa</b> (WASD + <b>SHIFT/Q</b> para rolar + <b>Botão Direito</b> para mirar). Inimigos se movem, rolam e <b>atiram de volta</b> — cada abate recupera <b>+25 HP</b>!';
+      ovBadge.textContent = `FIVEM 3ª PESSOA • ${getDiff().label.toUpperCase()} • REAÇÃO & DECISÃO`;
+      ovTitle.textContent = 'Treino FiveM PvP Hardcore';
+      ovDesc.innerHTML = 'Inimigos rápidos que <b>rolam e atiram de volta</b>! Elimine para ganhar <b>+25 HP</b>, foque nos <b>Líderes Dourados (+40 HP)</b> e evite atirar em <b>Aliados Verdes</b>. Use <b>SHIFT/Q</b> para rolar.';
     }
 
     ovStats.style.display = 'none';
     ovPrimaryBtn.textContent = '▶ INICIAR TREINO';
     ovStopBtn.style.display = 'none';
     centerOverlay.classList.remove('hidden');
-    updateTopHud();
+    updateLegend();
+    updateTopHud(true);
     refreshButtons();
   }
 
@@ -2291,11 +2522,21 @@
   ovStopBtn.addEventListener('click', () => stopGame(true));
 
   btnFullscreen.addEventListener('click', () => {
-    if (!document.fullscreenElement) {
-      trainerShell.requestFullscreen?.().catch(() => {});
-    } else {
-      document.exitFullscreen?.().catch(() => {});
-    }
+    if (!document.fullscreenElement) trainerShell.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.().catch(() => {});
+  });
+
+  diffSelect.addEventListener('change', (e) => {
+    cfg.diff = e.target.value;
+    localStorage.setItem('aim3d_diff', cfg.diff);
+    setMode(cfg.mode);
+  });
+
+  decisionToggle.addEventListener('change', (e) => {
+    cfg.decision = e.target.checked;
+    localStorage.setItem('aim3d_decision', String(cfg.decision));
+    updateLegend();
+    if (state === 'idle' || state === 'ended') setMode(cfg.mode);
   });
 
   function updateSens(val) {
@@ -2313,7 +2554,7 @@
     localStorage.setItem('aim3d_time', String(cfg.duration));
     if (state === 'idle' || state === 'ended') {
       timeLeft = cfg.duration;
-      updateTopHud();
+      updateTopHud(true);
     }
   });
 
@@ -2329,8 +2570,9 @@
     applyVisualColors();
   });
 
-  // ================= LOOP PRINCIPAL 3D (60-240 FPS) =================
+  // ================= LOOP PRINCIPAL 3D =================
   let lastTs = performance.now();
+  let hudTick = 0;
 
   function animate(now) {
     requestAnimationFrame(animate);
@@ -2338,12 +2580,15 @@
     lastTs = now;
 
     if (state === 'playing') {
+      // Aplica o giro da câmera sincronizado com o frame (zero cortes!)
+      applyPendingMouseLook();
+
       elapsedTime += dt;
       if (cfg.duration > 0) {
         timeLeft -= dt;
         if (timeLeft <= 0) {
           timeLeft = 0;
-          updateTopHud();
+          updateTopHud(true);
           stopGame(true, 'TEMPO ESGOTADO!');
           return;
         }
@@ -2352,30 +2597,29 @@
       if (cfg.mode === 'gridshot') {
         camera.position.set(0, 2.5, 0);
         camera.rotation.set(gridPitch, gridYaw, 0, 'YXZ');
-        for (const o of activeOrbs) {
-          if (o.scale < 1) {
-            o.scale = Math.min(1, o.scale + dt * 14);
-            o.mesh.scale.setScalar(o.scale);
-          }
-        }
+        updateGridOrbs(dt, now);
       } else {
-        updateFivem(dt);
+        updateFivem(dt, now);
       }
 
-      updateTopHud();
+      // Atualiza HUD numérico a cada 80ms (suave, zero travadas de DOM!)
+      hudTick += dt;
+      if (hudTick >= 0.08) {
+        hudTick = 0;
+        updateTopHud(false);
+        if (cfg.mode === 'fivem') updateFivemHud(false);
+      }
     } else {
-      // Pré-visualização viva no fundo enquanto no menu/pausa
       if (cfg.mode === 'gridshot') {
         for (const o of activeOrbs) {
-          if (o.scale < 1) {
-            o.scale = Math.min(1, o.scale + dt * 10);
-            o.mesh.scale.setScalar(o.scale);
-          }
+          if (o.pop < 1) o.pop = Math.min(1, o.pop + dt * 10);
+          o.group.scale.setScalar(o.radius * o.pop);
+          o.ring.lookAt(camera.position);
         }
         camera.position.set(0, 2.5, 0);
         camera.rotation.set(gridPitch, gridYaw, 0, 'YXZ');
       } else {
-        const previewAngle = now * 0.00025;
+        const previewAngle = now * 0.00022;
         camera.position.set(
           player.pos.x + Math.sin(previewAngle) * 4.5,
           2.2,
@@ -2389,7 +2633,6 @@
     renderer.render(cfg.mode === 'gridshot' ? gridScene : fivemScene, camera);
   }
 
-  // Inicializa no modo salvo
   setMode(cfg.mode);
   applyVisualColors();
   requestAnimationFrame(animate);

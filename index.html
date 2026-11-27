@@ -3499,6 +3499,16 @@ criarPainel('#paineis-config', {
       },
     },
     {
+      id: 'checkUpdates', tipo: 'botao', titulo: 'Atualização Automática (OTA)',
+      desc: 'Verifica se há uma nova versão publicada e atualiza o aplicativo automaticamente.',
+      textoBotao: 'Verificar Agora',
+      onClick: () => {
+        if (typeof require !== 'undefined') {
+          require('electron').ipcRenderer.send('check-updates');
+        }
+      }
+    },
+    {
       id: 'logoutAccount', tipo: 'botao', titulo: 'Sair da Conta',
       desc: 'Encerra a sessão atual, remove o auto-login e retorna para a tela de autenticação.',
       textoBotao: 'Sair da Conta',
@@ -3518,6 +3528,51 @@ if (logoutBtnEl) {
   logoutBtnEl.style.color = '#f87171';
 }
 
+// Banner flutuante de atualização automática OTA
+const updateBanner = document.createElement('div');
+updateBanner.id = 'ota-update-banner';
+updateBanner.style.cssText = 'position:fixed;bottom:18px;right:22px;z-index:99998;display:none;min-width:290px;max-width:360px;padding:13px 16px;border-radius:12px;background:rgba(8,12,18,0.95);border:1px solid var(--theme-color);box-shadow:0 12px 35px rgba(0,0,0,0.7);font-family:Segoe UI,sans-serif;';
+updateBanner.innerHTML = `
+  <div style="font-size:12px;font-weight:800;color:var(--theme-color);letter-spacing:.5px;margin-bottom:4px;">ATUALIZAÇÃO AUTOMÁTICA</div>
+  <div id="ota-update-msg" style="font-size:12px;color:#fff;margin-bottom:8px;">Verificando...</div>
+  <div style="height:5px;width:100%;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;">
+    <div id="ota-update-bar" style="height:100%;width:0%;background:var(--theme-color);transition:width .2s ease;"></div>
+  </div>
+`;
+document.body.appendChild(updateBanner);
+
+function handleUpdateStatusUI(info) {
+  if (!info) return;
+  const verEl = document.querySelector('.logo-version');
+  if (verEl && info.currentVersion) verEl.textContent = 'v' + info.currentVersion;
+
+  const updBtn = document.getElementById('btn-checkUpdates');
+  const updRowDesc = updBtn && updBtn.parentElement ? updBtn.parentElement.querySelector('.cw-row-desc') : null;
+  if (updRowDesc && info.message) updRowDesc.textContent = info.message;
+
+  const msgEl = document.getElementById('ota-update-msg');
+  const barEl = document.getElementById('ota-update-bar');
+  if (info.state === 'downloading' || info.state === 'installing' || info.state === 'updated') {
+    updateBanner.style.display = 'block';
+    if (msgEl) msgEl.textContent = info.message || 'Atualizando...';
+    if (barEl) barEl.style.width = (info.progress || 15) + '%';
+  } else {
+    updateBanner.style.display = 'none';
+    if (info.state === 'up-to-date' && typeof showToast === 'function' && updBtn && updBtn.dataset.manual === '1') {
+      showToast('Atualizado', info.message, true, 3000);
+      updBtn.dataset.manual = '0';
+    } else if ((info.state === 'error' || info.state === 'offline') && typeof showToast === 'function' && updBtn && updBtn.dataset.manual === '1') {
+      showToast('Atualização', info.message, false, 3500);
+      updBtn.dataset.manual = '0';
+    }
+  }
+}
+
+const checkUpdBtn = document.getElementById('btn-checkUpdates');
+if (checkUpdBtn) {
+  checkUpdBtn.addEventListener('click', () => { checkUpdBtn.dataset.manual = '1'; });
+}
+
 applyAppTheme(activeTheme, false);
 
 // Sincronizar estados iniciais com o main process
@@ -3531,6 +3586,10 @@ window.addEventListener('DOMContentLoaded', () => {
     ipc.on('theme-updated', (event, theme) => {
       if (theme) applyAppTheme(theme, false);
     });
+    ipc.on('update-status', (event, info) => {
+      handleUpdateStatusUI(info);
+    });
+    ipc.send('get-update-status');
   }
 });
 </script>

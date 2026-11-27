@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "githubOwner": "stzzgoatt",
+  "githubRepo": "forgoats-app",
+  "githubBranch": "main",
+  "manifestUrl": "",
+  "checkOnStartup": true,
+  "checkIntervalMinutes": 30,
+  "autoRestart": true
+}
