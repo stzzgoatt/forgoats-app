@@ -212,6 +212,15 @@ async function checkAndApplyUpdates({ appDir, onStatus = () => {}, force = false
     return { updated: false, ...info };
   }
 
+  // Em builds cliente empacotadas em app.asar (protegidas), avisa sobre nova versão sem tentar sobrescrever o .asar montado
+  if (appDir.toLowerCase().includes('.asar')) {
+    const info = isNewer
+      ? { state: 'up-to-date', currentVersion, remoteVersion, message: `Nova versão v${remoteVersion} disponível! Baixe o instalador atualizado no Discord.` }
+      : { state: 'up-to-date', currentVersion, remoteVersion, message: `Aplicativo protegido e atualizado (v${currentVersion}).` };
+    onStatus(info);
+    return { updated: false, ...info };
+  }
+
   if (filesToDownload.length === 0) {
     const info = {
       state: 'up-to-date',

@@ -1,7 +1,7 @@
 {
   "name": "forgoats-app",
   "version": "1.7.1",
-  "publishedAt": "2026-11-27T02:55:16.076Z",
+  "publishedAt": "2026-11-27T03:11:36.279Z",
   "files": {
     ".gitignore": {
       "sha256": "4e0034de670d9051919673ae855ab6c27065108b7f7b3221600856c3f67806b6",
@@ -46,6 +46,10 @@
     "Ajazz 179 pro.png": {
       "sha256": "ee07163ef8b1d9e6c5ed066924915e84fd0aba695e7db1ed5a517a4bf14905e9",
       "size": 2221860
+    },
+    "anti-tamper.js": {
+      "sha256": "4a25be75e5a7257a2c6af8172c57e06464af5970afaab62371ba6e921b04b789",
+      "size": 8064
     },
     "aplicado.mp3": {
       "sha256": "de89f2c1baa024240c2744971871a449ce9312f46d9dd18bd9d42464da93fb20",
@@ -164,8 +168,8 @@
       "size": 223069
     },
     "main.js": {
-      "sha256": "cae09133e1d463bd932826af150afb2fa1650936b7912c3db4da9ea77d5bd515",
-      "size": 32756
+      "sha256": "a1316d964107067e695cc17317b8b0412a6587e7a86847518403a64f547c4ede",
+      "size": 33579
     },
     "mousenovo.png": {
       "sha256": "99098c2a29dca8aefade1349ac2c932e6a1958eedc9289b46d23c5e20f574d78",
@@ -236,8 +240,8 @@
       "size": 210
     },
     "updater.js": {
-      "sha256": "b2077592f6d3313e6811574de6231fc302b33ec56011a31a27a5645b3c1a420e",
-      "size": 9591
+      "sha256": "fa613f19846610da5213d4092ccfcccf6c300c891e21f35991edae3a1cbd9986",
+      "size": 10148
     },
     "vendor/three.min.js": {
       "sha256": "a16fcf061504dd0cb96d5c4154f6717418baa0eaebb4996a833c5c8f07b4993d",

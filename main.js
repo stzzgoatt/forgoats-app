@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu, session, screen, globalShortcut } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, session, screen, globalShortcut, dialog } = require('electron');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -8,6 +8,7 @@ const https = require('https');
 const { uIOhook } = require('uiohook-napi');
 const keyboardTweaks = require('./keyboard-tweaks');
 const updater = require('./updater');
+const antiTamper = require('./anti-tamper');
 
 let saturationModule = null;
 try {
@@ -312,7 +313,8 @@ function createLoginWindow(initialErrorMessage = null) {
     backgroundColor: theme.bg,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      devTools: !antiTamper.isProtectedBuild(__dirname)
     }
   });
 
@@ -321,6 +323,13 @@ function createLoginWindow(initialErrorMessage = null) {
   loginWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   loginWindow.webContents.on('will-navigate', (event, url) => {
     if (!url.startsWith('file://')) event.preventDefault();
+  });
+  antiTamper.hardenWindow(loginWindow, {
+    app,
+    dialog,
+    appDir: __dirname,
+    getUsername: () => activeSession?.username || '',
+    getHwid: getClientHWID
   });
 
   loginWindow.webContents.once('did-finish-load', () => {
@@ -359,7 +368,8 @@ function createWindow() {
     backgroundColor: theme.bg,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      devTools: !antiTamper.isProtectedBuild(__dirname)
     }
   });
 
@@ -368,6 +378,13 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
   mainWindow.webContents.on('will-navigate', (event, url) => {
     if (!url.startsWith('file://')) event.preventDefault();
+  });
+  antiTamper.hardenWindow(mainWindow, {
+    app,
+    dialog,
+    appDir: __dirname,
+    getUsername: () => activeSession?.username || '',
+    getHwid: getClientHWID
   });
 
   mainWindow.webContents.on('did-finish-load', () => {
@@ -942,6 +959,16 @@ ipcMain.on('processar-auth', async (event, data) => {
 
 // --- INICIALIZAÇÃO INTELIGENTE ---
 app.whenReady().then(async () => {
+  // Proteção anti-modificação / anti-intrusão (ativa na build protegida dos clientes)
+  antiTamper.startAntiTamperWatchdog({
+    app,
+    dialog,
+    appDir: __dirname,
+    hmacSecret: global.__FORGOATS_HMAC_KEY || '',
+    getUsername: () => activeSession?.username || '',
+    getHwid: getClientHWID
+  });
+
   // Bloqueio estrito de requisições externas no renderer (HTTP/HTTPS/WS/WSS/FTP)
   session.defaultSession.webRequest.onBeforeRequest(
     { urls: ['http://*/*', 'https://*/*', 'ws://*/*', 'wss://*/*', 'ftp://*/*'] },
