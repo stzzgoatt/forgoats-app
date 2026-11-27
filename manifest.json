@@ -1,7 +1,7 @@
 {
   "name": "forgoats-app",
   "version": "1.7.1",
-  "publishedAt": "2026-11-27T02:44:53.029Z",
+  "publishedAt": "2026-11-27T02:55:16.076Z",
   "files": {
     ".gitignore": {
       "sha256": "4e0034de670d9051919673ae855ab6c27065108b7f7b3221600856c3f67806b6",
@@ -172,8 +172,8 @@
       "size": 569423
     },
     "novo_flick.html": {
-      "sha256": "303ac5212688d0a23d4610a074f39ed777b42b73940565567b8899d8867ae2f2",
-      "size": 96393
+      "sha256": "552e1863ed37b92dd7843a0cb85a949e144c1bc365764eb517dd5ffd3075a884",
+      "size": 99642
     },
     "package.json": {
       "sha256": "c4c16275b5f5a9703d03a622bc7d2cd527ec9b2ae09a2b2e46bf6bb7df0e7774",
