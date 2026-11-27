@@ -1,0 +1,18 @@
+{
+  "name": "forgoats-app",
+  "version": "1.7.1",
+  "description": "Community For Goats - Precision Fix",
+  "main": "main.js",
+  "author": "stzzgoatt",
+  "license": "ISC",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "jimp": "^1.6.1",
+    "koffi": "^3.1.0",
+    "sudo-prompt": "^9.2.1",
+    "uiohook-napi": "^1.5.5"
+  }
+}

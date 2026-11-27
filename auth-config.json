@@ -1,0 +1,5 @@
+{
+  "authApiUrl": "http://127.0.0.1:3001",
+  "verifyIntervalMs": 30000,
+  "requestTimeoutMs": 8000
+}
