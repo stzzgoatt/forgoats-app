@@ -174,12 +174,13 @@ function createLoginWindow(initialErrorMessage = null) {
   }
 
   loginWindow = new BrowserWindow({
-    width: 420,
-    height: 520,
+    width: 820,
+    height: 500,
     frame: true,
     resizable: false,
     center: true,
-    backgroundColor: '#000000',
+    icon: path.join(__dirname, 'app.ico'),
+    backgroundColor: '#05070c',
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -217,6 +218,7 @@ function createWindow() {
     width: 900,
     height: 600,
     center: true,
+    icon: path.join(__dirname, 'app.ico'),
     backgroundColor: '#0b0b0b',
     webPreferences: {
       nodeIntegration: true,

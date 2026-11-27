@@ -11,112 +11,180 @@
             padding: 0;
         }
         body {
-            background-color: #000000;
+            background: radial-gradient(circle at 24% 48%, rgba(0, 128, 255, 0.16), transparent 52%),
+                        linear-gradient(135deg, #04060a 0%, #080c14 55%, #05070c 100%);
             color: #ffffff;
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            width: 100vw;
             overflow: hidden;
             position: relative;
         }
         /* Fundo com animação de partículas (linhas interligadas) */
-        canvas {
+        canvas#bgCanvas {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             z-index: 1;
+            pointer-events: none;
         }
-        .login-container {
+        .split-shell {
             position: relative;
             z-index: 2;
-            width: 400px;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: stretch;
+        }
+        /* LATERAL ESQUERDA: Imagem 1 em cima, Imagem 2 embaixo */
+        .brand-panel {
+            position: relative;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-        }
-        /* Foto de Perfil Redonda */
-        .profile-pic-container {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            background: #121212;
-            border: 2px solid #2a2a2a;
+            padding: 26px 28px 24px 28px;
+            background: linear-gradient(180deg, rgba(10, 18, 32, 0.55) 0%, rgba(5, 8, 15, 0.78) 100%);
+            border-right: 1px solid rgba(56, 168, 255, 0.16);
             overflow: hidden;
+        }
+        .brand-panel::before {
+            content: '';
+            position: absolute;
+            width: 310px;
+            height: 310px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 145, 255, 0.24) 0%, rgba(0, 145, 255, 0) 70%);
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .brand-statue-wrap {
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            width: 100%;
+            max-height: 285px;
+        }
+        .brand-statue {
+            max-width: 92%;
+            max-height: 275px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 22px rgba(0, 150, 255, 0.38));
+            animation: statueFloat 4.5s ease-in-out infinite;
+        }
+        @keyframes statueFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+        .brand-logo-wrap {
+            position: relative;
+            z-index: 2;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: -45px;
-            z-index: 3;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+            margin-top: 8px;
         }
-        .profile-pic-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .brand-logo {
+            max-width: 94%;
+            max-height: 118px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 16px rgba(0, 140, 255, 0.35));
         }
-        /* Caixa do Painel de Login */
+
+        /* LATERAL DIREITA: Login */
+        .auth-panel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 28px 32px;
+            background: rgba(8, 10, 15, 0.72);
+            backdrop-filter: blur(8px);
+        }
         .login-card {
-            background: #121212;
-            padding: 60px 35px 35px 35px;
-            border-radius: 12px;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9);
             width: 100%;
-            border: 1px solid #222;
+            max-width: 330px;
+            background: rgba(15, 19, 28, 0.88);
+            padding: 28px 26px 26px 26px;
+            border-radius: 14px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 168, 255, 0.14);
             text-align: center;
+        }
+        .login-heading {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #6ab8ff;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
         .tabs {
             display: flex;
             justify-content: center;
-            margin-bottom: 25px;
-            border-bottom: 1px solid #222;
+            margin-bottom: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 10px;
         }
         .tab {
             background: none;
             border: none;
-            color: #666;
-            font-weight: 600;
-            font-size: 13px;
+            color: #6b7688;
+            font-weight: 700;
+            font-size: 12.5px;
+            letter-spacing: 0.8px;
             cursor: pointer;
-            margin: 0 15px;
-            padding-bottom: 5px;
-            transition: color 0.3s;
+            margin: 0 16px;
+            padding-bottom: 6px;
+            transition: color 0.25s, border-color 0.25s;
         }
         .tab.active {
-            color: #fff;
-            border-bottom: 2px solid #fff;
+            color: #ffffff;
+            border-bottom: 2px solid #29a3ff;
         }
         .input-group {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 13px;
         }
         input {
             width: 100%;
-            padding: 13px 15px 13px 40px;
-            background: #1a1a1a;
-            border: 1px solid #2a2a2a;
+            padding: 12px 14px 12px 38px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: #fff;
             border-radius: 8px;
             font-size: 13px;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
+        }
+        input::placeholder {
+            color: #687385;
         }
         input:focus {
-            border-color: #fff;
-            background: #222;
+            border-color: #29a3ff;
+            background: rgba(255, 255, 255, 0.07);
             outline: none;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 10px rgba(41, 163, 255, 0.2);
         }
         .input-icon {
             position: absolute;
-            left: 14px;
+            left: 13px;
             top: 50%;
             transform: translateY(-50%);
-            color: #666;
-            font-size: 14px;
+            color: #7d8da6;
+            font-size: 13px;
         }
         #tokenGroup {
             display: none;
@@ -125,43 +193,52 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 20px;
+            font-size: 11.5px;
+            color: #7c8799;
+            margin: 4px 0 18px 0;
         }
         .options-row label {
             display: flex;
             align-items: center;
             cursor: pointer;
+            color: #a9b5c7;
         }
         .options-row input[type="checkbox"] {
             width: auto;
             margin-right: 6px;
+            accent-color: #29a3ff;
         }
         button.action-btn {
             width: 100%;
-            padding: 13px;
-            background: #ffffff;
+            padding: 12.5px;
+            background: linear-gradient(90deg, #1a8cff 0%, #38b6ff 100%);
             border: none;
-            color: #000;
-            font-weight: 700;
-            font-size: 13px;
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 12.5px;
             letter-spacing: 1px;
             border-radius: 8px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 6px 18px rgba(26, 140, 255, 0.35);
+            transition: filter 0.2s, transform 0.1s, box-shadow 0.2s;
         }
         button.action-btn:hover {
-            background: #e0e0e0;
+            filter: brightness(1.08);
+            box-shadow: 0 8px 22px rgba(41, 163, 255, 0.48);
         }
         button.action-btn:active {
             transform: scale(0.98);
         }
+        button.action-btn:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
         #message {
-            margin-top: 15px;
+            margin-top: 14px;
             font-size: 12px;
             min-height: 18px;
             font-weight: 500;
+            line-height: 1.35;
         }
     </style>
 </head>
@@ -170,42 +247,52 @@
     <!-- Fundo dinâmico com partículas interligadas -->
     <canvas id="bgCanvas"></canvas>
 
-    <div class="login-container">
-        <!-- Foto de Perfil Local -->
-        <div class="profile-pic-container">
-            <img src="perfil.jpg" alt="Perfil" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'90\' height=\'90\'><rect width=\'100%\' height=\'100%\' fill=\'%231a1a1a\'/><text x=\'50%\' y=\'55%\' fill=\'%23666\' font-size=\'30\' text-anchor=\'middle\' dominant-baseline=\'middle\'>👤</text></svg>'">
-        </div>
-
-        <div class="login-card">
-            <div class="tabs">
-                <button class="tab active" id="tabLogin" onclick="switchMode('login')">LOGIN</button>
-                <button class="tab" id="tabRegister" onclick="switchMode('register')">REGISTAR</button>
+    <div class="split-shell">
+        <!-- LATERAL ESQUERDA: Primeira imagem em cima, segunda embaixo -->
+        <section class="brand-panel">
+            <div class="brand-statue-wrap">
+                <img src="brand-statue.png" alt="Community For Goats" class="brand-statue">
             </div>
-
-            <div class="input-group">
-                <span class="input-icon">👤</span>
-                <input type="text" id="userInput" placeholder="Username" autocomplete="off" spellcheck="false">
+            <div class="brand-logo-wrap">
+                <img src="brand-logo.png" alt="Community For Goats Logo" class="brand-logo">
             </div>
+        </section>
 
-            <div class="input-group">
-                <span class="input-icon">🔒</span>
-                <input type="password" id="passInput" placeholder="••••••••" autocomplete="off">
+        <!-- LATERAL DIREITA: Login / Registo -->
+        <section class="auth-panel">
+            <div class="login-card">
+                <div class="login-heading">Acesso Exclusivo</div>
+
+                <div class="tabs">
+                    <button class="tab active" id="tabLogin" onclick="switchMode('login')">LOGIN</button>
+                    <button class="tab" id="tabRegister" onclick="switchMode('register')">REGISTAR</button>
+                </div>
+
+                <div class="input-group">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="userInput" placeholder="Username" autocomplete="off" spellcheck="false">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="passInput" placeholder="••••••••" autocomplete="off">
+                </div>
+
+                <!-- Barra extra exclusiva para o Token na primeira ativação / registo -->
+                <div class="input-group" id="tokenGroup">
+                    <span class="input-icon">🔑</span>
+                    <input type="text" id="tokenInput" placeholder="Token de Acesso (GOATS-XXXX)" autocomplete="off" spellcheck="false">
+                </div>
+
+                <div class="options-row" id="rememberRow">
+                    <label><input type="checkbox" id="rememberMe"> Lembrar-me</label>
+                    <span style="color: #5b6980;">Anti-Bular HWID Ativo</span>
+                </div>
+
+                <button class="action-btn" id="submitBtn" onclick="handleSubmit()">ENTRAR</button>
+                <div id="message"></div>
             </div>
-
-            <!-- Barra extra exclusiva para o Token na primeira ativação / registo -->
-            <div class="input-group" id="tokenGroup">
-                <span class="input-icon">🔑</span>
-                <input type="text" id="tokenInput" placeholder="Token de Acesso (GOATS-XXXX)" autocomplete="off" spellcheck="false">
-            </div>
-
-            <div class="options-row" id="rememberRow">
-                <label><input type="checkbox" id="rememberMe"> Lembrar-me</label>
-                <span style="color: #555;">Anti-Bular HWID Ativo</span>
-            </div>
-
-            <button class="action-btn" id="submitBtn" onclick="handleSubmit()">ENTRAR</button>
-            <div id="message"></div>
-        </div>
+        </section>
     </div>
 
     <script>
@@ -254,7 +341,7 @@
                 return;
             }
 
-            msgDiv.style.color = '#888';
+            msgDiv.style.color = '#8cb7e8';
             msgDiv.innerText = isRegisterMode ? 'A registar e a validar HWID...' : 'A autenticar utilizador...';
             document.getElementById('submitBtn').disabled = true;
 
@@ -278,7 +365,7 @@
         ipcRenderer.on('resposta-auth', (event, response) => {
             document.getElementById('submitBtn').disabled = false;
             const msgDiv = document.getElementById('message');
-            msgDiv.style.color = response.success ? '#55ff55' : '#ff5555';
+            msgDiv.style.color = response.success ? '#4dff9a' : '#ff5f6d';
             msgDiv.innerText = response.message;
         });
 
@@ -294,20 +381,20 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        for (let i = 0; i < 45; i++) {
+        for (let i = 0; i < 50; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.8,
-                vy: (Math.random() - 0.5) * 0.8,
+                vx: (Math.random() - 0.5) * 0.7,
+                vy: (Math.random() - 0.5) * 0.7,
                 radius: Math.random() * 1.8 + 1
             });
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.fillStyle = 'rgba(72, 180, 255, 0.42)';
+            ctx.strokeStyle = 'rgba(72, 180, 255, 0.1)';
             ctx.lineWidth = 1;
 
             for (let i = 0; i < particles.length; i++) {
@@ -325,7 +412,7 @@
                 for (let j = i + 1; j < particles.length; j++) {
                     let p2 = particles[j];
                     let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 110) {
+                    if (dist < 115) {
                         ctx.beginPath();
                         ctx.moveTo(p.x, p.y);
                         ctx.lineTo(p2.x, p2.y);
