@@ -1,7 +1,12 @@
 {
-  "name": "forgoats-app",
+  "name": "precisionfix-v4",
   "version": "1.7.1",
-  "publishedAt": "2026-11-27T03:11:36.279Z",
+  "publishedAt": "2026-11-27T09:37:38.023Z",
+  "asar": {
+    "path": "releases/app.asar",
+    "sha256": "443d64ea26ec8e8a66f6d1d4bf9e841a1de970090c39011f935675c0241f82c8",
+    "size": 22617017
+  },
   "files": {
     ".gitignore": {
       "sha256": "4e0034de670d9051919673ae855ab6c27065108b7f7b3221600856c3f67806b6",
@@ -144,8 +149,8 @@
       "size": 84093
     },
     "index.html": {
-      "sha256": "225eeb2bc88a1152cebcfd0f06dbc044c391681f5548893588b6813abad2b904",
-      "size": 175618
+      "sha256": "654f1f5660533786d447b384f36ec478ad45a08388124d058e7e4fd87bad876a",
+      "size": 175624
     },
     "keyboard-tweaks.js": {
       "sha256": "c752788e347d5977856690688379c8173d6123ccddba6046b328d271c744a412",
@@ -160,16 +165,16 @@
       "size": 308
     },
     "login.html": {
-      "sha256": "7889d9d530624feaaae9ec3d20917eaf89a535a6b2d4cacd6ed3e267905b3257",
-      "size": 20316
+      "sha256": "d90eb5e88977f4167d34d766051ce46b968a7ff5695fccedfd6bd7ba099e2f81",
+      "size": 20308
     },
     "logo_pf.jpg": {
       "sha256": "b9cec41b5ade9937f8a4e2d1e50db063238f85eab0f0c57730a3e4013917143a",
       "size": 223069
     },
     "main.js": {
-      "sha256": "a1316d964107067e695cc17317b8b0412a6587e7a86847518403a64f547c4ede",
-      "size": 33579
+      "sha256": "7c49aeaaf6783c1ac6ebfb2e0b8698e5ffdfd120f5e3b407bd6440202c1cc612",
+      "size": 34725
     },
     "mousenovo.png": {
       "sha256": "99098c2a29dca8aefade1349ac2c932e6a1958eedc9289b46d23c5e20f574d78",
@@ -180,8 +185,8 @@
       "size": 99642
     },
     "package.json": {
-      "sha256": "c4c16275b5f5a9703d03a622bc7d2cd527ec9b2ae09a2b2e46bf6bb7df0e7774",
-      "size": 468
+      "sha256": "a38f72b9bf75427b0d3e61936a2c6465cc47747ec1193ff9494160d79b6f73ff",
+      "size": 473
     },
     "perfil.jpg": {
       "sha256": "b9cec41b5ade9937f8a4e2d1e50db063238f85eab0f0c57730a3e4013917143a",
@@ -196,8 +201,8 @@
       "size": 424
     },
     "publish-update.js": {
-      "sha256": "73e1f3254dd78391e0e5131683b17e62dd0ee943bca24e654f50bbc13ec2e27b",
-      "size": 3651
+      "sha256": "327969efcacbebba34c768e81dc72f1cbf135beb7486b47bcfff6a69f30d04a7",
+      "size": 4921
     },
     "pulsar x2h.png": {
       "sha256": "54d3bd60a6968bde6100e327810c6b2de8d159e86771ca66cfe2faac63526613",
@@ -240,8 +245,8 @@
       "size": 210
     },
     "updater.js": {
-      "sha256": "fa613f19846610da5213d4092ccfcccf6c300c891e21f35991edae3a1cbd9986",
-      "size": 10148
+      "sha256": "a34d4d0ecb896b16e6c1705b834a2596dc542878da8d384c01ab82a4155851c9",
+      "size": 17868
     },
     "vendor/three.min.js": {
       "sha256": "a16fcf061504dd0cb96d5c4154f6717418baa0eaebb4996a833c5c8f07b4993d",

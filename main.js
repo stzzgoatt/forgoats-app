@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu, session, screen, globalShortcut, dialog } = require('electron');
-const { exec } = require('child_process');
+const { exec, spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
@@ -51,6 +51,41 @@ function broadcastUpdateStatus(statusObj) {
   });
 }
 
+function launchAsarSwapperAndExit(asarSwap) {
+  const os = require('os');
+  const scriptPath = path.join(os.tmpdir(), `pfv4_swap_${Date.now()}.cmd`);
+  const exePath = process.execPath;
+  const pid = process.pid;
+  const cmdContent = [
+    '@echo off',
+    'setlocal',
+    `set "TARGET_PID=${pid}"`,
+    `set "CUR_ASAR=${asarSwap.currentAsarPath}"`,
+    `set "NEW_ASAR=${asarSwap.newAsarPath}"`,
+    `set "APP_EXE=${exePath}"`,
+    ':waitloop',
+    'tasklist /FI "PID eq %TARGET_PID%" 2>NUL | find /I "%TARGET_PID%" >NUL',
+    'if not errorlevel 1 (',
+    '  timeout /t 1 /nobreak >NUL',
+    '  goto waitloop',
+    ')',
+    'timeout /t 1 /nobreak >NUL',
+    'move /Y "%NEW_ASAR%" "%CUR_ASAR%" >NUL 2>&1',
+    'start "" "%APP_EXE%"',
+    'del /F /Q "%~f0" >NUL 2>&1'
+  ].join('\r\n');
+
+  fs.writeFileSync(scriptPath, cmdContent, 'utf8');
+  const child = spawn('cmd.exe', ['/c', scriptPath], {
+    detached: true,
+    stdio: 'ignore',
+    windowsHide: true
+  });
+  child.unref();
+  app.isQuiting = true;
+  app.exit(0);
+}
+
 async function runAutoUpdateCheck(force = false) {
   if (updateInProgress) return;
   updateInProgress = true;
@@ -63,9 +98,13 @@ async function runAutoUpdateCheck(force = false) {
     });
     if (result && result.updated && config.autoRestart !== false) {
       setTimeout(() => {
-        app.isQuiting = true;
-        app.relaunch();
-        app.exit(0);
+        if (result.asarSwap) {
+          launchAsarSwapperAndExit(result.asarSwap);
+        } else {
+          app.isQuiting = true;
+          app.relaunch();
+          app.exit(0);
+        }
       }, 1500);
     }
   } catch (err) {
@@ -502,7 +541,7 @@ function setupTray() {
 
     try {
       tray = new Tray(iconPath);
-      tray.setToolTip('Community For Goats • Precision Fix');
+      tray.setToolTip('PrecisionFix v4 • Community For Goats');
 
       const contextMenu = Menu.buildFromTemplate([
         { label: 'Abrir Painel Principal', click: () => { if (mainWindow) { mainWindow.show(); mainWindow.focus(); } } },

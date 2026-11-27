@@ -1,7 +1,7 @@
 {
-  "name": "forgoats-app",
+  "name": "precisionfix-v4",
   "version": "1.7.1",
-  "description": "Community For Goats - Precision Fix",
+  "description": "PrecisionFix v4 - Community For Goats",
   "main": "main.js",
   "author": "stzzgoatt",
   "license": "ISC",
