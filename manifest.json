@@ -1,11 +1,11 @@
 {
   "name": "precisionfix-v4",
-  "version": "1.7.1",
-  "publishedAt": "2026-11-27T09:50:49.535Z",
+  "version": "1.7.2",
+  "publishedAt": "2026-11-27T15:59:12.771Z",
   "asar": {
     "path": "releases/app.asar",
-    "sha256": "682de6992492ae4bb76182f4a820e572eb59482b95b760ea2aa989bcb6a45fa2",
-    "size": 22617938
+    "sha256": "6ea7b8b26a441aad3258ed6257222721c1f78344a182d79ba1749d8ef7bf9975",
+    "size": 22563960
   },
   "files": {
     ".gitignore": {
@@ -149,8 +149,8 @@
       "size": 84093
     },
     "index.html": {
-      "sha256": "654f1f5660533786d447b384f36ec478ad45a08388124d058e7e4fd87bad876a",
-      "size": 175624
+      "sha256": "010c3d8c48ae2ea6715b7c3e13f652d526bfec4f5857451ebb8aef8705871d93",
+      "size": 175615
     },
     "keyboard-tweaks.js": {
       "sha256": "c752788e347d5977856690688379c8173d6123ccddba6046b328d271c744a412",
@@ -181,11 +181,11 @@
       "size": 569423
     },
     "novo_flick.html": {
-      "sha256": "552e1863ed37b92dd7843a0cb85a949e144c1bc365764eb517dd5ffd3075a884",
-      "size": 99642
+      "sha256": "29906e48685ca09bc82b5e56474dab72aef0d3046e46c0c1d6d377b79f4648d5",
+      "size": 48867
     },
     "package.json": {
-      "sha256": "a38f72b9bf75427b0d3e61936a2c6465cc47747ec1193ff9494160d79b6f73ff",
+      "sha256": "b5a75d2437b08c89c611cc3106474511fe2781ff7f4633d568e3b359c6978d7f",
       "size": 473
     },
     "perfil.jpg": {

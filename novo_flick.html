@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aim Trainer 3D • Gridshot, Tracker &amp; FiveM PvP</title>
+<title>Aim Trainer 3D • Gridshot &amp; Tracker (Valorant)</title>
 <style>
   :root {
     --accent: #00e5ff;
     --bg-ui: #05070b;
-    --panel: rgba(10, 14, 22, 0.86);
     --border: rgba(255, 255, 255, 0.1);
     --text: #ffffff;
     --muted: rgba(255, 255, 255, 0.62);
@@ -63,7 +62,7 @@
     color: var(--muted);
     font-size: 11px;
     font-weight: 700;
-    padding: 5px 10px;
+    padding: 5px 12px;
     border-radius: 6px;
     cursor: pointer;
     transition: all 0.18s ease;
@@ -161,10 +160,6 @@
     cursor: pointer;
     padding: 0;
   }
-  .field input[type="checkbox"] {
-    accent-color: var(--accent);
-    cursor: pointer;
-  }
 
   /* VIEWPORT 3D */
   .viewport-wrap {
@@ -217,32 +212,6 @@
   }
   .hud-pill.accent .val { color: var(--accent); }
   .hud-pill.gold .val { color: #ffd700; }
-
-  /* LEGENDA FIVEM */
-  .decision-legend {
-    position: absolute;
-    top: 64px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: none;
-    gap: 10px;
-    font-size: 10px;
-    font-weight: 700;
-    background: rgba(5, 8, 14, 0.72);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 4px 12px;
-    border-radius: 99px;
-    z-index: 10;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-  .leg-dot {
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    margin-right: 4px;
-    vertical-align: middle;
-  }
 
   /* INDICADOR ON-TARGET DO TRACKER */
   .tracker-badge {
@@ -314,81 +283,6 @@
     transition: opacity 0.1s ease, transform 0.1s ease;
   }
   .hitmarker.show { opacity: 1; transform: translate(-50%, -50%) scale(1.08); }
-  .hitmarker.headshot svg { stroke: #ffd700; filter: drop-shadow(0 0 6px #ffd700); }
-  .hitmarker.penalty svg { stroke: #ff3b5c; filter: drop-shadow(0 0 6px #ff3b5c); }
-
-  /* HUD INFERIOR DO MODO FIVEM */
-  .fivem-hud {
-    position: absolute;
-    bottom: 16px;
-    left: 18px;
-    right: 18px;
-    display: none;
-    justify-content: space-between;
-    align-items: flex-end;
-    pointer-events: none;
-    z-index: 11;
-  }
-  .fivem-hud.visible { display: flex; }
-
-  .hp-card {
-    background: rgba(5, 8, 14, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    padding: 10px 14px;
-    width: 268px;
-  }
-  .hp-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
-  .hp-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
-  .hp-num { font-size: 18px; font-weight: 900; color: #22c55e; font-variant-numeric: tabular-nums; }
-  .hp-bar-bg { width: 100%; height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 99px; overflow: hidden; }
-  .hp-bar-fill { height: 100%; width: 100%; background: linear-gradient(90deg, #16a34a, #4ade80); border-radius: 99px; transition: width 0.14s ease, background 0.2s ease; }
-  .fivem-keys { margin-top: 7px; font-size: 10px; color: rgba(255, 255, 255, 0.65); display: flex; gap: 8px; flex-wrap: wrap; }
-  .fivem-keys b { color: var(--accent); }
-
-  .ammo-card {
-    background: rgba(5, 8, 14, 0.82);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    padding: 10px 16px;
-    text-align: right;
-    min-width: 155px;
-  }
-  .ammo-main { font-size: 24px; font-weight: 900; color: #fff; line-height: 1; font-variant-numeric: tabular-nums; }
-  .ammo-main small { font-size: 12px; color: var(--muted); font-weight: 700; }
-  .ammo-sub { margin-top: 4px; font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.8px; text-transform: uppercase; }
-
-  /* FEEDBACK FLUTUANTE */
-  .feed-toast {
-    position: absolute;
-    top: 96px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 15;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-  .feed-item {
-    font-size: 12.5px;
-    font-weight: 900;
-    letter-spacing: 0.7px;
-    padding: 4px 12px;
-    border-radius: 99px;
-    background: rgba(0, 0, 0, 0.78);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    animation: popFade 0.85s ease forwards;
-  }
-  @keyframes popFade {
-    0%   { opacity: 0; transform: translateY(8px) scale(0.92); }
-    15%  { opacity: 1; transform: translateY(0) scale(1); }
-    80%  { opacity: 1; transform: translateY(-6px); }
-    100% { opacity: 0; transform: translateY(-16px); }
-  }
-
-  .screen-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 9; opacity: 0; transition: opacity 0.12s ease; }
 
   /* OVERLAY CENTRAL */
   .center-overlay {
@@ -405,7 +299,7 @@
 
   .overlay-card {
     width: 92%;
-    max-width: 500px;
+    max-width: 480px;
     background: rgba(10, 14, 22, 0.95);
     border: 1px solid color-mix(in srgb, var(--accent) 42%, rgba(255, 255, 255, 0.12));
     border-radius: 16px;
@@ -443,7 +337,6 @@
       <div class="mode-tabs">
         <button class="mode-btn active" id="btnModeGridshot">Gridshot 3D</button>
         <button class="mode-btn" id="btnModeTracker">Tracker 3D</button>
-        <button class="mode-btn" id="btnModeFivem">Treino FiveM 3ª Pessoa</button>
       </div>
       <button class="btn btn-start" id="btnStart">▶ Iniciar</button>
       <button class="btn btn-pause" id="btnPause" disabled>⏸ Pausar</button>
@@ -452,7 +345,7 @@
     </div>
 
     <div class="ctrl-group">
-      <label class="field" id="diffField" title="Ajusta a dificuldade do Tracker e do Treino FiveM">
+      <label class="field" id="diffField" title="Ajusta a velocidade e tamanho da bolinha no Tracker 3D">
         Dificuldade
         <select id="diffSelect">
           <option value="easy">Fácil</option>
@@ -462,13 +355,8 @@
         </select>
       </label>
 
-      <label class="field" id="decisionField" title="Ativa Líder Prioritário (+40 HP) e Aliado (não atirar) no FiveM">
-        <input type="checkbox" id="decisionToggle" checked>
-        Decisão Rápida
-      </label>
-
       <label class="field" title="Sensibilidade 100% Valorant (0.07° por count, FOV 103°, raw input)">
-        Sensi
+        Sensi Valorant
         <input type="range" id="sensSlider" min="0.05" max="2.50" step="0.01" value="0.35">
         <input type="number" id="sensNumber" min="0.05" max="5.00" step="0.01" value="0.35">
       </label>
@@ -484,12 +372,12 @@
         </select>
       </label>
 
-      <label class="field" title="Cor do fundo da arena / céu">
+      <label class="field" title="Cor do fundo da arena">
         Fundo
         <input type="color" id="bgColorPicker" value="#0a101b">
       </label>
 
-      <label class="field" title="Cor das bolinhas (Gridshot / Tracker) ou alvos (FiveM)">
+      <label class="field" title="Cor das bolinhas">
         Bolinhas
         <input type="color" id="targetColorPicker" value="#00e5ff">
       </label>
@@ -499,7 +387,6 @@
   <!-- VIEWPORT 3D -->
   <div class="viewport-wrap" id="viewportWrap">
     <canvas id="threeCanvas"></canvas>
-    <div class="screen-vignette" id="screenVignette"></div>
 
     <!-- HUD SUPERIOR -->
     <div class="hud-top">
@@ -525,9 +412,6 @@
       </div>
     </div>
 
-    <!-- LEGENDA FIVEM -->
-    <div class="decision-legend" id="decisionLegend"></div>
-
     <!-- INDICADOR TRACKER -->
     <div class="tracker-badge" id="trackerBadge">MANTENHA A MIRA NA BOLINHA</div>
 
@@ -548,32 +432,6 @@
         <line x1="4" y1="20" x2="9" y2="15"/>
         <line x1="20" y1="20" x2="15" y2="15"/>
       </svg>
-    </div>
-
-    <!-- FEEDBACK FLUTUANTE -->
-    <div class="feed-toast" id="feedToast"></div>
-
-    <!-- HUD INFERIOR DO MODO FIVEM -->
-    <div class="fivem-hud" id="fivemHud">
-      <div class="hp-card">
-        <div class="hp-header">
-          <span class="hp-label">Vida (Kill = +25 HP | Líder = +40 HP)</span>
-          <span class="hp-num" id="hudHpVal">100</span>
-        </div>
-        <div class="hp-bar-bg"><div class="hp-bar-fill" id="hudHpBar"></div></div>
-        <div class="fivem-keys">
-          <span><b>WASD</b> Mover</span>
-          <span><b>SHIFT/Q</b> Rolar</span>
-          <span><b>ESPAÇO</b> Pular</span>
-          <span><b>RMB</b> Mirar</span>
-          <span><b>R</b> Recarregar</span>
-        </div>
-      </div>
-
-      <div class="ammo-card">
-        <div class="ammo-main" id="hudAmmo">30 <small>/ ∞</small></div>
-        <div class="ammo-sub" id="hudRollStatus">ROLAMENTO PRONTO</div>
-      </div>
     </div>
 
     <!-- OVERLAY CENTRAL -->
@@ -604,70 +462,22 @@
     return;
   }
 
-  // ================= DIFICULDADES (FIVEM + TRACKER) =================
+  // ================= DIFICULDADES DO TRACKER 3D =================
   const DIFF_PROFILES = {
-    easy: {
-      label: 'Fácil',
-      trackerRadius: 0.68,
-      trackerSpeed: 4.2,
-      trackerDirInterval: [1.1, 2.0],
-      enemyCount: 3,
-      enemySpeed: 3.9,
-      enemyRollInterval: [2.8, 4.4],
-      enemyFireInterval: [1.15, 1.85],
-      enemyBaseHitChance: 0.36,
-      enemyDamage: [6, 9],
-      enemyHp: 90
-    },
-    normal: {
-      label: 'Normal',
-      trackerRadius: 0.56,
-      trackerSpeed: 5.8,
-      trackerDirInterval: [0.75, 1.45],
-      enemyCount: 3,
-      enemySpeed: 4.9,
-      enemyRollInterval: [2.0, 3.3],
-      enemyFireInterval: [0.85, 1.40],
-      enemyBaseHitChance: 0.48,
-      enemyDamage: [8, 12],
-      enemyHp: 100
-    },
-    hard: {
-      label: 'Difícil',
-      trackerRadius: 0.46,
-      trackerSpeed: 7.4,
-      trackerDirInterval: [0.45, 1.0],
-      enemyCount: 4,
-      enemySpeed: 6.1,
-      enemyRollInterval: [1.3, 2.4],
-      enemyFireInterval: [0.58, 1.05],
-      enemyBaseHitChance: 0.62,
-      enemyDamage: [11, 16],
-      enemyHp: 105
-    },
-    insane: {
-      label: 'Pro / Insano',
-      trackerRadius: 0.38,
-      trackerSpeed: 9.2,
-      trackerDirInterval: [0.28, 0.72],
-      enemyCount: 5,
-      enemySpeed: 7.4,
-      enemyRollInterval: [0.85, 1.65],
-      enemyFireInterval: [0.40, 0.78],
-      enemyBaseHitChance: 0.74,
-      enemyDamage: [14, 20],
-      enemyHp: 110
-    }
+    easy:   { label: 'Fácil',        trackerRadius: 0.68, trackerSpeed: 4.2, trackerDirInterval: [1.1, 2.0] },
+    normal: { label: 'Normal',       trackerRadius: 0.56, trackerSpeed: 5.8, trackerDirInterval: [0.75, 1.45] },
+    hard:   { label: 'Difícil',      trackerRadius: 0.46, trackerSpeed: 7.4, trackerDirInterval: [0.45, 1.0] },
+    insane: { label: 'Pro / Insano', trackerRadius: 0.38, trackerSpeed: 9.2, trackerDirInterval: [0.28, 0.72] }
   };
 
   // ================= ESTADO & CONFIGURAÇÕES =================
   const VAL_YAW_DEG = 0.07;  // Exato do Valorant: 0.07° por mouse count
   const VAL_HFOV_DEG = 103;  // FOV horizontal oficial do Valorant
 
+  const savedMode = localStorage.getItem('aim3d_mode');
   const cfg = {
-    mode: localStorage.getItem('aim3d_mode') || 'gridshot', // 'gridshot' | 'tracker' | 'fivem'
+    mode: savedMode === 'tracker' ? 'tracker' : 'gridshot',
     diff: localStorage.getItem('aim3d_diff') || 'hard',
-    decision: localStorage.getItem('aim3d_decision') !== 'false',
     sens: parseFloat(localStorage.getItem('aim3d_sens') || '0.35'),
     duration: parseInt(localStorage.getItem('aim3d_time') || '60', 10),
     bgColor: localStorage.getItem('aim3d_bg') || '#0a101b',
@@ -684,16 +494,9 @@
     score: 0,
     hits: 0,
     shots: 0,
-    kills: 0,
-    headshots: 0,
-    damageDealt: 0,
     reactionSum: 0,
     reactionCount: 0,
-    bestReaction: Infinity,
-    decoyMistakes: 0,
-    priorityHits: 0,
     streak: 0,
-    // Tracker stats
     trackOnSec: 0,
     trackTotalSec: 0,
     trackStreakSec: 0,
@@ -713,15 +516,12 @@
   const trainerShell = document.getElementById('trainerShell');
   const btnModeGridshot = document.getElementById('btnModeGridshot');
   const btnModeTracker = document.getElementById('btnModeTracker');
-  const btnModeFivem = document.getElementById('btnModeFivem');
   const btnStart = document.getElementById('btnStart');
   const btnPause = document.getElementById('btnPause');
   const btnStop = document.getElementById('btnStop');
   const btnFullscreen = document.getElementById('btnFullscreen');
   const diffField = document.getElementById('diffField');
-  const decisionField = document.getElementById('decisionField');
   const diffSelect = document.getElementById('diffSelect');
-  const decisionToggle = document.getElementById('decisionToggle');
   const sensSlider = document.getElementById('sensSlider');
   const sensNumber = document.getElementById('sensNumber');
   const timeSelect = document.getElementById('timeSelect');
@@ -737,19 +537,10 @@
   const hudHitsLbl = document.getElementById('hudHitsLbl');
   const hudAccLbl = document.getElementById('hudAccLbl');
   const hudExtraLbl = document.getElementById('hudExtraLbl');
-  const decisionLegend = document.getElementById('decisionLegend');
   const trackerBadge = document.getElementById('trackerBadge');
 
   const crosshairEl = document.getElementById('crosshair');
   const hitmarkerEl = document.getElementById('hitmarker');
-  const feedToastEl = document.getElementById('feedToast');
-  const screenVignette = document.getElementById('screenVignette');
-  const fivemHud = document.getElementById('fivemHud');
-  const hudHpVal = document.getElementById('hudHpVal');
-  const hudHpBar = document.getElementById('hudHpBar');
-  const hudAmmo = document.getElementById('hudAmmo');
-  const hudRollStatus = document.getElementById('hudRollStatus');
-
   const centerOverlay = document.getElementById('centerOverlay');
   const ovBadge = document.getElementById('ovBadge');
   const ovTitle = document.getElementById('ovTitle');
@@ -759,14 +550,13 @@
   const ovStopBtn = document.getElementById('ovStopBtn');
 
   diffSelect.value = cfg.diff;
-  decisionToggle.checked = cfg.decision;
   sensSlider.value = Math.min(2.5, Math.max(0.05, cfg.sens));
   sensNumber.value = cfg.sens.toFixed(2);
   timeSelect.value = String(cfg.duration);
   bgColorPicker.value = cfg.bgColor;
   targetColorPicker.value = cfg.targetColor;
 
-  const hudCache = { time: '', score: '', hits: '', acc: '', extra: '', hp: -1, ammo: '', roll: '' };
+  const hudCache = { time: '', score: '', hits: '', acc: '', extra: '' };
 
   // ================= ÁUDIO SINTÉTICO OFFLINE =================
   let audioCtx = null;
@@ -800,13 +590,6 @@
       gain.gain.setValueAtTime(0.055, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
       osc.start(now); osc.stop(now + 0.035);
-    } else if (type === 'penalty') {
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(190, now);
-      osc.frequency.linearRampToValueAtTime(75, now + 0.16);
-      gain.gain.setValueAtTime(0.2, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.17);
-      osc.start(now); osc.stop(now + 0.18);
     } else if (type === 'miss') {
       osc.type = 'sine';
       osc.frequency.setValueAtTime(150, now);
@@ -814,88 +597,17 @@
       gain.gain.setValueAtTime(0.07, now);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
       osc.start(now); osc.stop(now + 0.065);
-    } else if (type === 'rifle') {
-      const bufSize = Math.floor(audioCtx.sampleRate * 0.05);
-      const buffer = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for (let i = 0; i < bufSize; i++) data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufSize * 0.22));
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-      const filter = audioCtx.createBiquadFilter();
-      filter.type = 'bandpass';
-      filter.frequency.value = 1250;
-      const nGain = audioCtx.createGain();
-      nGain.gain.setValueAtTime(0.16, now);
-      nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-      noise.connect(filter); filter.connect(nGain); nGain.connect(audioCtx.destination);
-      noise.start(now);
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(185, now);
-      osc.frequency.exponentialRampToValueAtTime(52, now + 0.05);
-      gain.gain.setValueAtTime(0.12, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.055);
-      osc.start(now); osc.stop(now + 0.06);
-    } else if (type === 'enemy-shot') {
-      osc.type = 'square';
-      osc.frequency.setValueAtTime(240, now);
-      osc.frequency.exponentialRampToValueAtTime(75, now + 0.04);
-      gain.gain.setValueAtTime(0.05, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
-      osc.start(now); osc.stop(now + 0.05);
-    } else if (type === 'headshot') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(1320, now);
-      osc.frequency.exponentialRampToValueAtTime(1980, now + 0.085);
-      gain.gain.setValueAtTime(0.22, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-      osc.start(now); osc.stop(now + 0.11);
-    } else if (type === 'kill') {
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.setValueAtTime(780, now + 0.045);
-      osc.frequency.setValueAtTime(1060, now + 0.09);
-      gain.gain.setValueAtTime(0.19, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-      osc.start(now); osc.stop(now + 0.17);
-    } else if (type === 'hurt') {
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(130, now);
-      osc.frequency.exponentialRampToValueAtTime(58, now + 0.09);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-      osc.start(now); osc.stop(now + 0.11);
     }
   }
 
-  function showFeed(text, color = '#00e5ff') {
-    const el = document.createElement('div');
-    el.className = 'feed-item';
-    el.style.color = color;
-    el.style.borderColor = color;
-    el.textContent = text;
-    feedToastEl.appendChild(el);
-    while (feedToastEl.children.length > 3) feedToastEl.firstChild.remove();
-    setTimeout(() => el.remove(), 860);
-  }
-
   let hitmarkerTimer = null;
-  function flashHitmarker(kind = 'normal') {
-    hitmarkerEl.classList.toggle('headshot', kind === 'headshot');
-    hitmarkerEl.classList.toggle('penalty', kind === 'penalty');
+  function flashHitmarker() {
     hitmarkerEl.classList.add('show');
     clearTimeout(hitmarkerTimer);
     hitmarkerTimer = setTimeout(() => hitmarkerEl.classList.remove('show'), 110);
   }
 
-  let vignetteTimer = null;
-  function flashVignette(rgba) {
-    screenVignette.style.background = `radial-gradient(circle, transparent 52%, ${rgba} 100%)`;
-    screenVignette.style.opacity = '1';
-    clearTimeout(vignetteTimer);
-    vignetteTimer = setTimeout(() => { screenVignette.style.opacity = '0'; }, 150);
-  }
-
-  // ================= GERADOR DE TEXTURAS PROCEDURAIS 3D =================
+  // ================= TEXTURA PROCEDURAL DA SALA AIMLAB 3D =================
   function makeGridTileTexture(baseHex) {
     const c = document.createElement('canvas');
     c.width = 512; c.height = 512;
@@ -918,118 +630,6 @@
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
     tex.colorSpace = THREE.SRGBColorSpace;
     tex.anisotropy = 4;
-    return tex;
-  }
-
-  function makeAsphaltTexture() {
-    const c = document.createElement('canvas');
-    c.width = 1024; c.height = 1024;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = '#24272d';
-    ctx.fillRect(0, 0, 1024, 1024);
-    for (let i = 0; i < 42000; i++) {
-      const v = 24 + Math.floor(Math.random() * 44);
-      ctx.fillStyle = `rgb(${v},${v + 1},${v + 4})`;
-      ctx.fillRect(Math.random() * 1024, Math.random() * 1024, 2, 2);
-    }
-    for (let i = 0; i < 20; i++) {
-      const gx = Math.random() * 1024, gy = Math.random() * 1024, gr = 30 + Math.random() * 85;
-      const grad = ctx.createRadialGradient(gx, gy, 4, gx, gy, gr);
-      grad.addColorStop(0, 'rgba(10,12,16,0.22)');
-      grad.addColorStop(1, 'rgba(10,12,16,0)');
-      ctx.fillStyle = grad;
-      ctx.beginPath(); ctx.arc(gx, gy, gr, 0, Math.PI * 2); ctx.fill();
-    }
-    ctx.fillStyle = 'rgba(225, 178, 42, 0.72)';
-    ctx.fillRect(496, 0, 10, 1024);
-    ctx.fillRect(516, 0, 10, 1024);
-    ctx.fillStyle = 'rgba(220, 226, 232, 0.45)';
-    for (let y = 0; y < 1024; y += 160) {
-      ctx.fillRect(140, y, 12, 90);
-      ctx.fillRect(872, y, 12, 90);
-    }
-    const tex = new THREE.CanvasTexture(c);
-    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-    tex.repeat.set(3, 3);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 4;
-    return tex;
-  }
-
-  function makeConcreteTexture(tint = '#595f68') {
-    const c = document.createElement('canvas');
-    c.width = 512; c.height = 512;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = tint;
-    ctx.fillRect(0, 0, 512, 512);
-    for (let i = 0; i < 15000; i++) {
-      const a = Math.random() * 0.08;
-      ctx.fillStyle = Math.random() > 0.5 ? `rgba(255,255,255,${a})` : `rgba(0,0,0,${a * 1.4})`;
-      ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
-    }
-    ctx.strokeStyle = 'rgba(0,0,0,0.34)';
-    ctx.lineWidth = 3;
-    for (let y = 0; y < 512; y += 128) {
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(512, y); ctx.stroke();
-      const offset = (y / 128) % 2 === 0 ? 0 : 128;
-      for (let x = offset; x < 512; x += 256) {
-        ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + 128); ctx.stroke();
-      }
-    }
-    const tex = new THREE.CanvasTexture(c);
-    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 4;
-    return tex;
-  }
-
-  function makeContainerTexture(baseHex, stripeHex) {
-    const c = document.createElement('canvas');
-    c.width = 512; c.height = 512;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = baseHex;
-    ctx.fillRect(0, 0, 512, 512);
-    for (let x = 0; x < 512; x += 24) {
-      const grad = ctx.createLinearGradient(x, 0, x + 24, 0);
-      grad.addColorStop(0, 'rgba(0,0,0,0.35)');
-      grad.addColorStop(0.35, 'rgba(255,255,255,0.14)');
-      grad.addColorStop(0.7, 'rgba(0,0,0,0.06)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.38)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(x, 0, 24, 512);
-    }
-    ctx.fillStyle = 'rgba(0,0,0,0.35)';
-    ctx.fillRect(0, 0, 512, 26);
-    ctx.fillRect(0, 486, 512, 26);
-    ctx.fillStyle = stripeHex;
-    ctx.fillRect(0, 210, 512, 26);
-    ctx.fillStyle = 'rgba(255,255,255,0.75)';
-    ctx.font = 'bold 28px monospace';
-    ctx.fillText('FOR GOATS • LS-04', 28, 175);
-    const tex = new THREE.CanvasTexture(c);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 4;
-    return tex;
-  }
-
-  function makeCrateTexture() {
-    const c = document.createElement('canvas');
-    c.width = 256; c.height = 256;
-    const ctx = c.getContext('2d');
-    ctx.fillStyle = '#7c5736';
-    ctx.fillRect(0, 0, 256, 256);
-    for (let y = 0; y < 256; y += 32) {
-      ctx.fillStyle = y % 64 === 0 ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.04)';
-      ctx.fillRect(0, y, 256, 30);
-      ctx.fillStyle = 'rgba(0,0,0,0.32)';
-      ctx.fillRect(0, y + 30, 256, 2);
-    }
-    ctx.strokeStyle = '#4e351f';
-    ctx.lineWidth = 18;
-    ctx.strokeRect(9, 9, 238, 238);
-    ctx.beginPath(); ctx.moveTo(16, 16); ctx.lineTo(240, 240); ctx.stroke();
-    const tex = new THREE.CanvasTexture(c);
-    tex.colorSpace = THREE.SRGBColorSpace;
     return tex;
   }
 
@@ -1061,15 +661,7 @@
   window.addEventListener('resize', handleResize);
   handleResize();
 
-  const _vFwd = new THREE.Vector3();
-  const _vRight = new THREE.Vector3();
-  const _vMove = new THREE.Vector3();
-  const _vShoulder = new THREE.Vector3();
-  const _vBackDir = new THREE.Vector3();
-  const _vTmp1 = new THREE.Vector3();
-  const _vTmp2 = new THREE.Vector3();
-
-  // ================= PARTÍCULAS & TRACERS 3D =================
+  // ================= PARTÍCULAS 3D =================
   const fxList = [];
   const sparkGeo = new THREE.BoxGeometry(0.11, 0.11, 0.11);
 
@@ -1079,16 +671,8 @@
       m.position.copy(pos);
       const vel = new THREE.Vector3((Math.random() - 0.5) * 9, (Math.random() - 0.2) * 8, (Math.random() - 0.5) * 9);
       scene.add(m);
-      fxList.push({ type: 'spark', mesh: m, scene, vel, life: 0.32 + Math.random() * 0.18, maxLife: 0.5 });
+      fxList.push({ mesh: m, scene, vel, life: 0.32 + Math.random() * 0.18, maxLife: 0.5 });
     }
-  }
-
-  function spawnTracer3D(scene, start, end, colorHex = 0xfff0a8) {
-    const geom = new THREE.BufferGeometry().setFromPoints([start, end]);
-    const mat = new THREE.LineBasicMaterial({ color: colorHex, transparent: true, opacity: 0.92 });
-    const line = new THREE.Line(geom, mat);
-    scene.add(line);
-    fxList.push({ type: 'tracer', mesh: line, scene, life: 0.075, maxLife: 0.075 });
   }
 
   function updateFx(dt) {
@@ -1097,22 +681,17 @@
       f.life -= dt;
       if (f.life <= 0) {
         f.scene.remove(f.mesh);
-        if (f.mesh.geometry && f.mesh.geometry !== sparkGeo) f.mesh.geometry.dispose();
         if (f.mesh.material) f.mesh.material.dispose();
         fxList.splice(i, 1);
         continue;
       }
-      if (f.type === 'spark') {
-        f.vel.y -= 18 * dt;
-        f.mesh.position.addScaledVector(f.vel, dt);
-        f.mesh.rotation.x += 9 * dt;
-        f.mesh.rotation.y += 7 * dt;
-        const r = Math.max(0.08, f.life / f.maxLife);
-        f.mesh.material.opacity = r;
-        f.mesh.scale.setScalar(r);
-      } else if (f.type === 'tracer') {
-        f.mesh.material.opacity = Math.max(0, f.life / f.maxLife);
-      }
+      f.vel.y -= 18 * dt;
+      f.mesh.position.addScaledVector(f.vel, dt);
+      f.mesh.rotation.x += 9 * dt;
+      f.mesh.rotation.y += 7 * dt;
+      const r = Math.max(0.08, f.life / f.maxLife);
+      f.mesh.material.opacity = r;
+      f.mesh.scale.setScalar(r);
     }
   }
 
@@ -1120,14 +699,11 @@
     while (fxList.length) {
       const f = fxList.pop();
       f.scene.remove(f.mesh);
-      if (f.mesh.geometry && f.mesh.geometry !== sparkGeo) f.mesh.geometry.dispose();
       if (f.mesh.material) f.mesh.material.dispose();
     }
   }
 
-  // =========================================================================
-  // CENA AIMLAB 3D (COMPARTILHADA POR GRIDSHOT CLÁSSICO + TRACKER 3D)
-  // =========================================================================
+  // ================= CENA AIMLAB 3D (GRIDSHOT + TRACKER) =================
   const aimlabScene = new THREE.Scene();
   aimlabScene.background = new THREE.Color(cfg.bgColor);
   aimlabScene.fog = new THREE.Fog(cfg.bgColor, 18, 46);
@@ -1168,7 +744,7 @@
   frameBorder.position.set(0, 2.5, -13.85);
   aimlabScene.add(frameBorder);
 
-  // -------- MODO 1: GRIDSHOT CLÁSSICO (EXATAMENTE COMO ESTAVA ANTES: 4x4, 3 BOLINHAS) --------
+  // -------- MODO 1: GRIDSHOT 3D CLÁSSICO (4x4, 3 BOLINHAS) --------
   const GRID_COLS = 4;
   const GRID_ROWS = 4;
   const GRID_SLOTS = [];
@@ -1191,15 +767,12 @@
     metalness: 0.18
   });
 
-  const activeOrbs = []; // { mesh, slotIdx, spawnAt, scale }
+  const activeOrbs = [];
   let aimYaw = 0;
   let aimPitch = 0;
 
   function clearGridOrbs() {
-    while (activeOrbs.length) {
-      const o = activeOrbs.pop();
-      aimlabScene.remove(o.mesh);
-    }
+    while (activeOrbs.length) aimlabScene.remove(activeOrbs.pop().mesh);
   }
 
   function spawnOneGridOrb(avoidSlot = -1) {
@@ -1228,7 +801,7 @@
     for (let i = 0; i < 3; i++) spawnOneGridOrb();
   }
 
-  // -------- MODO 2: TRACKER 3D (AIMLAB SPHERETRACK / STRAFETRACK) --------
+  // -------- MODO 2: TRACKER 3D (AIMLAB SPHERETRACK) --------
   const trackerGroup = new THREE.Group();
   const trackerOrbMat = new THREE.MeshStandardMaterial({
     color: new THREE.Color(cfg.targetColor),
@@ -1300,11 +873,9 @@
     tracker.dirTimer -= dt;
     if (tracker.dirTimer <= 0) pickTrackerVelocity();
 
-    // Transição suave de velocidade (strafe realista estilo AimLab)
     tracker.vel.lerp(tracker.targetVel, Math.min(1, dt * 6.5));
     tracker.pos.addScaledVector(tracker.vel, dt);
 
-    // Limites da parede 3D com rebote suave
     if (tracker.pos.x < -5.2) { tracker.pos.x = -5.2; tracker.vel.x = Math.abs(tracker.vel.x); tracker.targetVel.x = Math.abs(tracker.targetVel.x); }
     if (tracker.pos.x > 5.2)  { tracker.pos.x = 5.2;  tracker.vel.x = -Math.abs(tracker.vel.x); tracker.targetVel.x = -Math.abs(tracker.targetVel.x); }
     if (tracker.pos.y < 0.2)  { tracker.pos.y = 0.2;  tracker.vel.y = Math.abs(tracker.vel.y); tracker.targetVel.y = Math.abs(tracker.targetVel.y); }
@@ -1316,7 +887,6 @@
     trackerGroup.scale.setScalar(d.trackerRadius);
     trackerAura.lookAt(camera.position);
 
-    // Verifica se a mira central está em cima da bolinha
     camera.position.set(0, 2.5, 0);
     camera.rotation.set(aimPitch, aimYaw, 0, 'YXZ');
     camera.updateMatrixWorld();
@@ -1366,347 +936,6 @@
     }
   }
 
-  // =========================================================================
-  // MODO 3: TREINO FIVEM 3D (3ª PESSOA COM DIFICULDADE AJUSTÁVEL)
-  // =========================================================================
-  const fivemScene = new THREE.Scene();
-  fivemScene.background = new THREE.Color(cfg.bgColor);
-  fivemScene.fog = new THREE.FogExp2(cfg.bgColor, 0.014);
-
-  fivemScene.add(new THREE.HemisphereLight(0xdbeafe, 0x262933, 0.95));
-  const fmSun = new THREE.DirectionalLight(0xfff1dc, 1.45);
-  fmSun.position.set(24, 34, 18);
-  fmSun.castShadow = true;
-  fmSun.shadow.mapSize.set(1024, 1024);
-  fmSun.shadow.camera.left = -36; fmSun.shadow.camera.right = 36;
-  fmSun.shadow.camera.top = 36; fmSun.shadow.camera.bottom = -36;
-  fmSun.shadow.near = 1; fmSun.shadow.far = 110;
-  fmSun.shadow.bias = -0.0006;
-  fivemScene.add(fmSun);
-
-  const ARENA_HALF = 28;
-  const asphaltTex = makeAsphaltTexture();
-  const groundMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(ARENA_HALF * 2 + 8, ARENA_HALF * 2 + 8),
-    new THREE.MeshStandardMaterial({ map: asphaltTex, roughness: 0.88, metalness: 0.05 })
-  );
-  groundMesh.rotation.x = -Math.PI / 2;
-  groundMesh.receiveShadow = true;
-  fivemScene.add(groundMesh);
-
-  const concreteTex = makeConcreteTexture('#585f6a');
-  const wallConcreteTex = makeConcreteTexture('#484e58');
-  wallConcreteTex.repeat.set(8, 1);
-  const containerBlueTex = makeContainerTexture('#1e4976', '#f59e0b');
-  const containerRedTex = makeContainerTexture('#7f2626', '#e5e7eb');
-  const containerGrayTex = makeContainerTexture('#38414e', '#38bdf8');
-  const crateTex = makeCrateTexture();
-
-  const fmObstacles = [];
-  const fmObstacleMeshes = [];
-
-  function addObstacle(w, h, d, x, z, mat, rotY = 0) {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
-    mesh.position.set(x, h / 2, z);
-    mesh.rotation.y = rotY;
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    fivemScene.add(mesh);
-    fmObstacleMeshes.push(mesh);
-    const isRot90 = Math.abs(Math.sin(rotY)) > 0.7;
-    const hw = (isRot90 ? d : w) / 2;
-    const hd = (isRot90 ? w : d) / 2;
-    fmObstacles.push({ minX: x - hw, maxX: x + hw, minZ: z - hd, maxZ: z + hd, maxY: h, mesh });
-  }
-
-  const wallMat = new THREE.MeshStandardMaterial({ map: wallConcreteTex, roughness: 0.9 });
-  addObstacle(ARENA_HALF * 2 + 2, 4.6, 1.2, 0, -ARENA_HALF - 0.6, wallMat);
-  addObstacle(ARENA_HALF * 2 + 2, 4.6, 1.2, 0, ARENA_HALF + 0.6, wallMat);
-  addObstacle(1.2, 4.6, ARENA_HALF * 2 + 2, -ARENA_HALF - 0.6, 0, wallMat);
-  addObstacle(1.2, 4.6, ARENA_HALF * 2 + 2, ARENA_HALF + 0.6, 0, wallMat);
-
-  const matBlueC = new THREE.MeshStandardMaterial({ map: containerBlueTex, roughness: 0.55, metalness: 0.38 });
-  const matRedC = new THREE.MeshStandardMaterial({ map: containerRedTex, roughness: 0.58, metalness: 0.35 });
-  const matGrayC = new THREE.MeshStandardMaterial({ map: containerGrayTex, roughness: 0.52, metalness: 0.42 });
-  const matJersey = new THREE.MeshStandardMaterial({ map: concreteTex, roughness: 0.92 });
-  const matCrate = new THREE.MeshStandardMaterial({ map: crateTex, roughness: 0.85 });
-
-  addObstacle(6.2, 2.7, 2.5, -12, -10, matBlueC, 0);
-  addObstacle(6.2, 2.7, 2.5, 13, -12, matRedC, 0);
-  addObstacle(2.5, 2.7, 6.2, -15, 7, matGrayC, 0);
-  addObstacle(2.5, 2.7, 6.2, 15, 8, matBlueC, 0);
-  addObstacle(5.8, 2.7, 2.5, 0, -19, matRedC, 0);
-  addObstacle(3.6, 1.15, 0.85, -4.5, -2.5, matJersey, 0);
-  addObstacle(3.6, 1.15, 0.85, 5.5, -3.5, matJersey, 0);
-  addObstacle(1.4, 1.4, 1.4, 0, 5.5, matCrate, 0);
-  addObstacle(1.4, 1.4, 1.4, 1.5, 5.5, matCrate, 0);
-  addObstacle(1.3, 1.3, 1.3, -8, 12, matCrate, 0);
-  addObstacle(1.3, 1.3, 1.3, 9, 13, matCrate, 0);
-
-  const poleMat = new THREE.MeshStandardMaterial({ color: 0x2c333d, roughness: 0.45, metalness: 0.7 });
-  const lampBulbMat = new THREE.MeshBasicMaterial({ color: 0xffe4a0 });
-  [[-21, -21], [21, -21], [-21, 21], [21, 21]].forEach(([px, pz]) => {
-    const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.16, 7.5, 10), poleMat);
-    pole.position.set(px, 3.75, pz);
-    fivemScene.add(pole);
-    const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 10), lampBulbMat);
-    bulb.position.set(px, 7.6, pz);
-    fivemScene.add(bulb);
-    const pt = new THREE.PointLight(0xffd79a, 1.0, 26);
-    pt.position.set(px, 7.2, pz);
-    fivemScene.add(pt);
-  });
-
-  function createCharacterRig({ role, accentHex }) {
-    const isPlayer = role === 'player';
-    const isLeader = role === 'leader';
-    const isAlly = role === 'ally';
-
-    const root = new THREE.Group();
-    const bodyPivot = new THREE.Group();
-    bodyPivot.position.y = 0.95;
-    root.add(bodyPivot);
-
-    const vestColor = isPlayer ? 0x0f172a : (isLeader ? 0xffc400 : (isAlly ? 0x22c55e : new THREE.Color(accentHex)));
-    const visorColor = isPlayer ? 0x00e5ff : (isLeader ? 0xffd700 : (isAlly ? 0x4ade80 : 0xff3b5c));
-
-    const skinMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0xe0b494 : 0xd4a484, roughness: 0.65 });
-    const hoodieMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x151b26 : (isAlly ? 0x143322 : 0x1e222b), roughness: 0.75 });
-    const vestMat = new THREE.MeshStandardMaterial({
-      color: vestColor,
-      emissive: isPlayer ? new THREE.Color(0x001a28) : new THREE.Color(vestColor),
-      emissiveIntensity: isPlayer ? 0.15 : (isLeader ? 0.55 : 0.30),
-      roughness: 0.45,
-      metalness: 0.25
-    });
-    const pantsMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x1c222e : 0x262932, roughness: 0.85 });
-    const shoeMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x00e5ff : 0xf1f5f9, roughness: 0.5 });
-    const hairMat = new THREE.MeshStandardMaterial({ color: isPlayer ? 0x111318 : 0x231a15, roughness: 0.8 });
-    const visorMat = new THREE.MeshStandardMaterial({
-      color: visorColor, emissive: visorColor, emissiveIntensity: 0.6, roughness: 0.2, metalness: 0.6
-    });
-    const gunMat = new THREE.MeshStandardMaterial({ color: 0x191d24, roughness: 0.35, metalness: 0.75 });
-
-    const torso = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.66, 0.30), hoodieMat);
-    torso.position.set(0, 0.28, 0); torso.castShadow = true; torso.userData = { part: 'body' };
-    bodyPivot.add(torso);
-
-    const vest = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.48, 0.34), vestMat);
-    vest.position.set(0, 0.30, 0); vest.castShadow = true; vest.userData = { part: 'body' };
-    bodyPivot.add(vest);
-
-    const headGroup = new THREE.Group();
-    headGroup.position.set(0, 0.78, 0);
-    bodyPivot.add(headGroup);
-
-    const headMesh = new THREE.Mesh(new THREE.SphereGeometry(0.20, 16, 14), skinMat);
-    headMesh.castShadow = true; headMesh.userData = { part: 'head' };
-    headGroup.add(headMesh);
-
-    const capMesh = new THREE.Mesh(new THREE.SphereGeometry(0.212, 14, 10, 0, Math.PI * 2, 0, Math.PI * 0.52), hairMat);
-    capMesh.position.y = 0.02; capMesh.userData = { part: 'head' };
-    headGroup.add(capMesh);
-
-    const visor = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.07, 0.08), visorMat);
-    visor.position.set(0, 0.02, -0.17); visor.userData = { part: 'head' };
-    headGroup.add(visor);
-
-    const leftArm = new THREE.Group();
-    leftArm.position.set(-0.34, 0.52, 0);
-    bodyPivot.add(leftArm);
-    const lArmMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.44, 5, 8), hoodieMat);
-    lArmMesh.position.set(0, -0.22, -0.14); lArmMesh.rotation.x = 0.65; lArmMesh.userData = { part: 'body' };
-    leftArm.add(lArmMesh);
-
-    const rightArm = new THREE.Group();
-    rightArm.position.set(0.34, 0.52, 0);
-    bodyPivot.add(rightArm);
-    const rArmMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.085, 0.44, 5, 8), hoodieMat);
-    rArmMesh.position.set(0, -0.20, -0.18); rArmMesh.rotation.x = 0.85; rArmMesh.userData = { part: 'body' };
-    rightArm.add(rArmMesh);
-
-    const rifle = new THREE.Group();
-    rifle.position.set(-0.04, -0.18, -0.42);
-    rightArm.add(rifle);
-
-    rifle.add(new THREE.Mesh(new THREE.BoxGeometry(0.075, 0.11, 0.52), gunMat));
-    const barrel = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.42, 8), gunMat);
-    barrel.rotation.x = Math.PI / 2; barrel.position.set(0, 0.015, -0.40);
-    rifle.add(barrel);
-    const mag = new THREE.Mesh(new THREE.BoxGeometry(0.055, 0.20, 0.09), gunMat);
-    mag.position.set(0, -0.12, -0.06); mag.rotation.x = 0.18;
-    rifle.add(mag);
-    const stock = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.10, 0.24), gunMat);
-    stock.position.set(0, -0.01, 0.34);
-    rifle.add(stock);
-
-    const muzzlePoint = new THREE.Object3D();
-    muzzlePoint.position.set(0, 0.02, -0.64);
-    rifle.add(muzzlePoint);
-
-    const muzzleFlash = new THREE.Mesh(
-      new THREE.SphereGeometry(0.11, 8, 8),
-      new THREE.MeshBasicMaterial({ color: 0xffd27d, transparent: true, opacity: 0 })
-    );
-    muzzleFlash.position.copy(muzzlePoint.position);
-    rifle.add(muzzleFlash);
-
-    const leftLeg = new THREE.Group();
-    leftLeg.position.set(-0.15, -0.04, 0);
-    bodyPivot.add(leftLeg);
-    const lLegMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.10, 0.62, 5, 8), pantsMat);
-    lLegMesh.position.y = -0.38; lLegMesh.castShadow = true; lLegMesh.userData = { part: 'body' };
-    leftLeg.add(lLegMesh);
-    const lShoe = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.12, 0.28), shoeMat);
-    lShoe.position.set(0, -0.82, -0.05);
-    leftLeg.add(lShoe);
-
-    const rightLeg = new THREE.Group();
-    rightLeg.position.set(0.15, -0.04, 0);
-    bodyPivot.add(rightLeg);
-    const rLegMesh = new THREE.Mesh(new THREE.CapsuleGeometry(0.10, 0.62, 5, 8), pantsMat);
-    rLegMesh.position.y = -0.38; rLegMesh.castShadow = true; rLegMesh.userData = { part: 'body' };
-    rightLeg.add(rLegMesh);
-    const rShoe = new THREE.Mesh(new THREE.BoxGeometry(0.17, 0.12, 0.28), shoeMat);
-    rShoe.position.set(0, -0.82, -0.05);
-    rightLeg.add(rShoe);
-
-    return {
-      root, bodyPivot, headGroup, leftArm, rightArm, leftLeg, rightLeg,
-      rifle, muzzlePoint, muzzleFlash, vestMat,
-      hitMeshes: [headMesh, capMesh, visor, torso, vest, lArmMesh, rArmMesh, lLegMesh, rLegMesh]
-    };
-  }
-
-  const playerRig = createCharacterRig({ role: 'player', accentHex: cfg.targetColor });
-  fivemScene.add(playerRig.root);
-
-  const player = {
-    pos: new THREE.Vector3(0, 0, 14),
-    vel: new THREE.Vector3(),
-    yaw: 0, pitch: -0.06,
-    hp: 100, maxHp: 100,
-    ammo: 30, maxAmmo: 30,
-    reloading: false, reloadTimer: 0,
-    fireCooldown: 0, muzzleTimer: 0,
-    onGround: true,
-    rolling: false, rollTimer: 0, rollDuration: 0.45, rollCooldown: 0,
-    rollDir: new THREE.Vector3(0, 0, -1),
-    ads: false, adsBlend: 0, camCurrentDist: 3.25,
-    firing: false, animPhase: 0
-  };
-
-  const enemies = [];
-  const SPAWN_POINTS = [
-    new THREE.Vector3(-18, 0, -16), new THREE.Vector3(18, 0, -17),
-    new THREE.Vector3(0, 0, -12),   new THREE.Vector3(-19, 0, 1),
-    new THREE.Vector3(19, 0, 1),    new THREE.Vector3(-8, 0, -21),
-    new THREE.Vector3(10, 0, -20),  new THREE.Vector3(-14, 0, 18),
-    new THREE.Vector3(14, 0, 18)
-  ];
-
-  function createEnemyHpBar(role) {
-    const grp = new THREE.Group();
-    const bg = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.95, 0.11),
-      new THREE.MeshBasicMaterial({ color: 0x090c12, transparent: true, opacity: 0.85, side: THREE.DoubleSide })
-    );
-    const barColor = role === 'ally' ? 0x38bdf8 : (role === 'leader' ? 0xffd700 : 0x22c55e);
-    const fill = new THREE.Mesh(
-      new THREE.PlaneGeometry(0.89, 0.065),
-      new THREE.MeshBasicMaterial({ color: barColor, side: THREE.DoubleSide })
-    );
-    fill.position.z = 0.005;
-    grp.add(bg, fill);
-    grp.position.set(0, 2.22, 0);
-    return { grp, fill };
-  }
-
-  function resolveArenaCollision(pos, radius = 0.48) {
-    pos.x = Math.max(-ARENA_HALF + radius, Math.min(ARENA_HALF - radius, pos.x));
-    pos.z = Math.max(-ARENA_HALF + radius, Math.min(ARENA_HALF - radius, pos.z));
-    for (const ob of fmObstacles) {
-      if (pos.y > ob.maxY) continue;
-      const cx = Math.max(ob.minX, Math.min(pos.x, ob.maxX));
-      const cz = Math.max(ob.minZ, Math.min(pos.z, ob.maxZ));
-      const dx = pos.x - cx, dz = pos.z - cz;
-      const dSq = dx * dx + dz * dz;
-      if (dSq < radius * radius) {
-        const dist = Math.sqrt(dSq) || 0.0001;
-        const push = radius - dist;
-        pos.x += (dx / dist) * push;
-        pos.z += (dz / dist) * push;
-      }
-    }
-  }
-
-  function spawnEnemy(forcedRole = null) {
-    const d = getDiff();
-    const candidates = SPAWN_POINTS.filter(sp =>
-      sp.distanceTo(player.pos) > 11 && enemies.every(e => e.pos.distanceTo(sp) > 4.2)
-    );
-    const pick = (candidates.length ? candidates : SPAWN_POINTS)[Math.floor(Math.random() * (candidates.length || SPAWN_POINTS.length))];
-
-    let role = forcedRole || 'enemy';
-    if (!forcedRole && cfg.decision) {
-      const hasLeader = enemies.some(e => e.role === 'leader');
-      const hasAlly = enemies.some(e => e.role === 'ally');
-      const r = Math.random();
-      if (!hasLeader && r < 0.28) role = 'leader';
-      else if (!hasAlly && enemies.length >= 2 && r < 0.42) role = 'ally';
-    }
-
-    const rig = createCharacterRig({ role, accentHex: cfg.targetColor });
-    const hpBar = createEnemyHpBar(role);
-    rig.root.add(hpBar.grp);
-    rig.root.position.copy(pick);
-    fivemScene.add(rig.root);
-
-    const maxHp = role === 'leader' ? d.enemyHp + 20 : d.enemyHp;
-    const [rMin, rMax] = d.enemyRollInterval;
-    const [fMin, fMax] = d.enemyFireInterval;
-
-    const enemy = {
-      rig, hpBar, role,
-      pos: pick.clone(),
-      hp: maxHp, maxHp,
-      firstSeenAt: null, firstHitLogged: false,
-      strafeDir: Math.random() > 0.5 ? 1 : -1,
-      strafeTimer: 0.45 + Math.random() * 0.9,
-      rolling: false, rollTimer: 0, rollDuration: 0.46,
-      rollCooldown: rMin + Math.random() * (rMax - rMin),
-      rollSide: 1,
-      fireTimer: fMin + Math.random() * (fMax - fMin),
-      muzzleTimer: 0,
-      allyLifeTimer: role === 'ally' ? 7.5 : Infinity,
-      animPhase: Math.random() * 6
-    };
-    rig.hitMeshes.forEach(m => { m.userData.enemy = enemy; });
-    enemies.push(enemy);
-  }
-
-  function clearEnemies() {
-    while (enemies.length) fivemScene.remove(enemies.pop().rig.root);
-  }
-
-  function resetFivem() {
-    clearEnemies();
-    const d = getDiff();
-    player.pos.set(0, 0, 14);
-    player.vel.set(0, 0, 0);
-    player.yaw = 0; player.pitch = -0.07;
-    player.hp = 100; player.ammo = 30;
-    player.reloading = false; player.reloadTimer = 0;
-    player.fireCooldown = 0; player.rolling = false;
-    player.rollTimer = 0; player.rollCooldown = 0;
-    player.ads = false; player.adsBlend = 0; player.camCurrentDist = 3.25;
-    player.firing = false;
-    playerRig.root.position.copy(player.pos);
-    playerRig.bodyPivot.rotation.set(0, 0, 0);
-    for (let i = 0; i < d.enemyCount; i++) spawnEnemy(i === 0 ? 'enemy' : null);
-    updateFivemHud(true);
-  }
-
   // ================= CORES DINÂMICAS =================
   function applyVisualColors() {
     aimlabScene.background = new THREE.Color(cfg.bgColor);
@@ -1729,32 +958,9 @@
       trackerOrbMat.emissive.set(cfg.targetColor);
       trackerAuraMat.color.set(cfg.targetColor);
     }
-
-    fivemScene.background = new THREE.Color(cfg.bgColor);
-    fivemScene.fog.color.set(cfg.bgColor);
-    enemies.forEach(e => {
-      if (e.role === 'enemy') {
-        e.rig.vestMat.color.set(cfg.targetColor);
-        e.rig.vestMat.emissive.set(cfg.targetColor);
-      }
-    });
-    updateLegend();
-  }
-
-  function updateLegend() {
-    if (cfg.mode !== 'fivem' || !cfg.decision) {
-      decisionLegend.style.display = 'none';
-      return;
-    }
-    decisionLegend.style.display = 'flex';
-    decisionLegend.innerHTML =
-      `<span><i class="leg-dot" style="background:${cfg.targetColor}"></i>Inimigo (+25 HP)</span>` +
-      `<span style="color:#ffd700;"><i class="leg-dot" style="background:#ffd700"></i>Líder Prioritário (+40 HP)</span>` +
-      `<span style="color:#4ade80;"><i class="leg-dot" style="background:#22c55e"></i>Aliado (NÃO ATIRE!)</span>`;
   }
 
   // ================= POINTER LOCK ULTRA-LISO (RAW INPUT + ANTI-SPIKE) =================
-  const keys = {};
   const raycaster = new THREE.Raycaster();
   const centerNdc = new THREE.Vector2(0, 0);
 
@@ -1796,73 +1002,38 @@
     pendingMouseDX = 0;
     pendingMouseDY = 0;
 
-    const adsMult = (cfg.mode === 'fivem' && player.ads) ? 0.72 : 1.0;
-    const radPerCount = (VAL_YAW_DEG * cfg.sens * adsMult) * (Math.PI / 180);
-
-    if (cfg.mode === 'gridshot' || cfg.mode === 'tracker') {
-      aimYaw -= dx * radPerCount;
-      aimPitch -= dy * radPerCount;
-      aimPitch = Math.max(-Math.PI * 0.44, Math.min(Math.PI * 0.44, aimPitch));
-      aimYaw = Math.max(-Math.PI * 0.48, Math.min(Math.PI * 0.48, aimYaw));
-    } else {
-      player.yaw -= dx * radPerCount;
-      player.pitch -= dy * radPerCount;
-      player.pitch = Math.max(-0.68, Math.min(0.62, player.pitch));
-    }
+    const radPerCount = (VAL_YAW_DEG * cfg.sens) * (Math.PI / 180);
+    aimYaw -= dx * radPerCount;
+    aimPitch -= dy * radPerCount;
+    aimPitch = Math.max(-Math.PI * 0.44, Math.min(Math.PI * 0.44, aimPitch));
+    aimYaw = Math.max(-Math.PI * 0.48, Math.min(Math.PI * 0.48, aimYaw));
   }
 
   document.addEventListener('pointerlockchange', () => {
     pendingMouseDX = 0;
     pendingMouseDY = 0;
-    if (document.pointerLockElement === canvas) {
-      ignoreLockEvents = 2;
-    } else if (state === 'playing') {
-      pauseGame();
-    }
+    if (document.pointerLockElement === canvas) ignoreLockEvents = 2;
+    else if (state === 'playing') pauseGame();
   });
 
   document.addEventListener('keydown', (e) => {
-    keys[e.code] = true;
-    if (state === 'playing') {
-      if (e.code === 'KeyP') { e.preventDefault(); pauseGame(); }
-      else if (cfg.mode === 'fivem') {
-        if (e.code === 'KeyR' && !player.reloading && player.ammo < player.maxAmmo) startReload();
-        else if ((e.code === 'ShiftLeft' || e.code === 'ShiftRight' || e.code === 'KeyQ' || e.code === 'KeyC') && !player.rolling && player.rollCooldown <= 0) triggerPlayerRoll();
-        else if (e.code === 'Space' && player.onGround) { e.preventDefault(); player.vel.y = 7.6; player.onGround = false; }
-      }
-    } else if (state === 'paused' && e.code === 'KeyP') {
-      e.preventDefault();
-      resumeGame();
-    }
+    if (state === 'playing' && e.code === 'KeyP') { e.preventDefault(); pauseGame(); }
+    else if (state === 'paused' && e.code === 'KeyP') { e.preventDefault(); resumeGame(); }
   });
-
-  document.addEventListener('keyup', (e) => { keys[e.code] = false; });
 
   canvas.addEventListener('mousedown', (e) => {
     if (state !== 'playing') return;
     if (document.pointerLockElement !== canvas) { lockPointerSmooth(); return; }
-    if (e.button === 0) {
+    if (e.button === 0 && cfg.mode === 'gridshot') {
       applyPendingMouseLook();
-      if (cfg.mode === 'gridshot') {
-        camera.rotation.set(aimPitch, aimYaw, 0, 'YXZ');
-        camera.updateMatrixWorld();
-        fireGridshot();
-      } else if (cfg.mode === 'fivem') {
-        player.firing = true;
-        fireFivemWeapon();
-      }
-    } else if (e.button === 2 && cfg.mode === 'fivem') {
-      player.ads = true;
+      camera.rotation.set(aimPitch, aimYaw, 0, 'YXZ');
+      camera.updateMatrixWorld();
+      fireGridshot();
     }
-  });
-
-  window.addEventListener('mouseup', (e) => {
-    if (e.button === 0) player.firing = false;
-    if (e.button === 2) player.ads = false;
   });
   canvas.addEventListener('contextmenu', (e) => e.preventDefault());
 
-  // ================= DISPARO GRIDSHOT CLÁSSICO =================
+  // ================= DISPARO GRIDSHOT 3D =================
   function fireGridshot() {
     stats.shots++;
     raycaster.setFromCamera(centerNdc, camera);
@@ -1879,11 +1050,10 @@
         stats.streak++;
         stats.reactionSum += rt;
         stats.reactionCount++;
-        if (rt < stats.bestReaction) stats.bestReaction = rt;
         stats.score += 100 + Math.min(100, stats.streak * 5);
 
         playSound('grid-hit');
-        flashHitmarker('normal');
+        flashHitmarker();
         spawnBurst3D(aimlabScene, orb.mesh.position, cfg.targetColor, 12);
 
         const oldSlot = orb.slotIdx;
@@ -1899,385 +1069,7 @@
     updateTopHud(true);
   }
 
-  // ================= AÇÕES FIVEM 3ª PESSOA =================
-  function startReload() {
-    player.reloading = true;
-    player.reloadTimer = 1.05;
-    updateFivemHud(true);
-  }
-
-  function triggerPlayerRoll() {
-    player.rolling = true;
-    player.rollTimer = player.rollDuration;
-    player.rollCooldown = 1.05;
-
-    _vFwd.set(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
-    _vRight.set(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
-    _vMove.set(0, 0, 0);
-    if (keys['KeyW']) _vMove.add(_vFwd);
-    if (keys['KeyS']) _vMove.sub(_vFwd);
-    if (keys['KeyD']) _vMove.add(_vRight);
-    if (keys['KeyA']) _vMove.sub(_vRight);
-    if (_vMove.lengthSq() < 0.01) _vMove.copy(_vRight);
-    player.rollDir.copy(_vMove.normalize());
-    updateFivemHud(true);
-  }
-
-  function fireFivemWeapon() {
-    if (player.fireCooldown > 0 || player.reloading || player.rolling) return;
-    if (player.ammo <= 0) { startReload(); return; }
-
-    player.ammo--;
-    player.fireCooldown = 0.11;
-    player.muzzleTimer = 0.045;
-    playerRig.muzzleFlash.material.opacity = 1;
-    player.pitch = Math.min(0.62, player.pitch + 0.0042);
-    stats.shots++;
-    playSound('rifle');
-
-    raycaster.setFromCamera(centerNdc, camera);
-    const enemyMeshes = [];
-    for (let i = 0; i < enemies.length; i++) enemyMeshes.push(...enemies[i].rig.hitMeshes);
-    const hits = raycaster.intersectObjects([...enemyMeshes, ...fmObstacleMeshes], false);
-
-    const muzzleWorld = new THREE.Vector3();
-    playerRig.muzzlePoint.getWorldPosition(muzzleWorld);
-    const endPoint = raycaster.ray.origin.clone().addScaledVector(raycaster.ray.direction, 95);
-
-    if (hits.length > 0) {
-      const first = hits[0];
-      endPoint.copy(first.point);
-
-      if (first.object.userData && first.object.userData.enemy) {
-        const enemy = first.object.userData.enemy;
-        const isHead = first.object.userData.part === 'head';
-
-        if (enemy.role === 'ally') {
-          stats.decoyMistakes++;
-          stats.score = Math.max(0, stats.score - 200);
-          player.hp = Math.max(1, player.hp - 10);
-          playSound('penalty');
-          flashHitmarker('penalty');
-          flashVignette('rgba(239, 68, 68, 0.35)');
-          showFeed('FOGO AMIGO! -10 HP', '#ff4d6d');
-          spawnBurst3D(fivemScene, first.point, 0x4ade80, 10);
-        } else {
-          if (!enemy.firstHitLogged && enemy.firstSeenAt) {
-            const rt = Math.max(60, performance.now() - enemy.firstSeenAt);
-            stats.reactionSum += rt;
-            stats.reactionCount++;
-            if (rt < stats.bestReaction) stats.bestReaction = rt;
-            enemy.firstHitLogged = true;
-          }
-
-          const dmg = isHead ? 78 : 34;
-          stats.hits++;
-          stats.damageDealt += dmg;
-          enemy.hp -= dmg;
-
-          flashHitmarker(isHead ? 'headshot' : 'normal');
-          spawnBurst3D(fivemScene, first.point, isHead ? 0xffd700 : 0xff4d6d, isHead ? 14 : 8);
-
-          if (isHead) {
-            playSound('headshot');
-            showFeed('HEADSHOT! -78', '#ffd700');
-          }
-
-          if (enemy.hp <= 0) {
-            stats.kills++;
-            if (isHead) stats.headshots++;
-            const isLeader = enemy.role === 'leader';
-            if (isLeader) stats.priorityHits++;
-            const healAmount = isLeader ? 40 : 25;
-            stats.score += (isLeader ? 320 : 160) + (isHead ? 100 : 0);
-
-            const healed = Math.min(player.maxHp - player.hp, healAmount);
-            player.hp = Math.min(player.maxHp, player.hp + healAmount);
-
-            playSound('kill');
-            flashVignette('rgba(34, 197, 94, 0.32)');
-            showFeed(
-              isLeader
-                ? `LÍDER ABATIDO! +${healed} HP`
-                : (healed > 0 ? `ELIMINADO! +${healed} HP` : 'ELIMINADO! (HP CHEIO)'),
-              isLeader ? '#ffd700' : '#4ade80'
-            );
-            spawnBurst3D(fivemScene, enemy.pos.clone().add(new THREE.Vector3(0, 1.1, 0)), isLeader ? 0xffd700 : cfg.targetColor, 18);
-
-            fivemScene.remove(enemy.rig.root);
-            const eIdx = enemies.indexOf(enemy);
-            if (eIdx !== -1) enemies.splice(eIdx, 1);
-            spawnEnemy();
-          } else {
-            const ratio = Math.max(0.01, enemy.hp / enemy.maxHp);
-            enemy.hpBar.fill.scale.x = ratio;
-            enemy.hpBar.fill.position.x = -(1 - ratio) * 0.445;
-            enemy.hpBar.fill.material.color.set(ratio > 0.5 ? 0x22c55e : (ratio > 0.25 ? 0xfacc15 : 0xef4444));
-          }
-        }
-      } else {
-        spawnBurst3D(fivemScene, first.point, 0xdbeafe, 4);
-      }
-    }
-
-    spawnTracer3D(fivemScene, muzzleWorld, endPoint, 0xfff1a8);
-    if (player.ammo === 0) startReload();
-    updateFivemHud(true);
-    updateTopHud(true);
-  }
-
-  function hasLineOfSight(from, to) {
-    _vTmp1.copy(to).sub(from);
-    const dist = _vTmp1.length();
-    if (dist < 0.1) return true;
-    raycaster.set(from, _vTmp1.divideScalar(dist));
-    raycaster.far = dist - 0.3;
-    const hits = raycaster.intersectObjects(fmObstacleMeshes, false);
-    raycaster.far = Infinity;
-    return hits.length === 0;
-  }
-
-  function updateFivem(dt, now) {
-    const d = getDiff();
-    if (player.fireCooldown > 0) player.fireCooldown -= dt;
-    if (player.rollCooldown > 0) player.rollCooldown -= dt;
-    if (player.muzzleTimer > 0) {
-      player.muzzleTimer -= dt;
-      if (player.muzzleTimer <= 0) playerRig.muzzleFlash.material.opacity = 0;
-    }
-    if (player.reloading) {
-      player.reloadTimer -= dt;
-      if (player.reloadTimer <= 0) {
-        player.reloading = false;
-        player.ammo = player.maxAmmo;
-      }
-    }
-    if (player.firing) fireFivemWeapon();
-
-    _vFwd.set(-Math.sin(player.yaw), 0, -Math.cos(player.yaw));
-    _vRight.set(Math.cos(player.yaw), 0, -Math.sin(player.yaw));
-    _vMove.set(0, 0, 0);
-
-    if (player.rolling) {
-      player.rollTimer -= dt;
-      player.pos.addScaledVector(player.rollDir, 10.2 * dt);
-      const progress = 1 - Math.max(0, player.rollTimer / player.rollDuration);
-      playerRig.bodyPivot.rotation.x = -progress * Math.PI * 2;
-      if (player.rollTimer <= 0) {
-        player.rolling = false;
-        playerRig.bodyPivot.rotation.x = 0;
-      }
-    } else {
-      if (keys['KeyW']) _vMove.add(_vFwd);
-      if (keys['KeyS']) _vMove.sub(_vFwd);
-      if (keys['KeyD']) _vMove.add(_vRight);
-      if (keys['KeyA']) _vMove.sub(_vRight);
-      const speed = player.ads ? 4.6 : 7.4;
-      if (_vMove.lengthSq() > 0) {
-        _vMove.normalize();
-        player.pos.addScaledVector(_vMove, speed * dt);
-        player.animPhase += dt * (player.ads ? 8 : 12.5);
-      } else {
-        player.animPhase *= 0.85;
-      }
-    }
-
-    if (!player.onGround || player.vel.y !== 0) {
-      player.vel.y -= 20 * dt;
-      player.pos.y += player.vel.y * dt;
-      if (player.pos.y <= 0) { player.pos.y = 0; player.vel.y = 0; player.onGround = true; }
-    }
-
-    resolveArenaCollision(player.pos, 0.5);
-    playerRig.root.position.copy(player.pos);
-    playerRig.root.rotation.y = player.yaw;
-
-    const swing = _vMove.lengthSq() > 0 && !player.rolling ? Math.sin(player.animPhase) * 0.65 : 0;
-    playerRig.leftLeg.rotation.x = swing;
-    playerRig.rightLeg.rotation.x = -swing;
-    playerRig.rightArm.rotation.x = player.pitch * 0.65;
-
-    // Câmera 3ª pessoa suavizada
-    const targetAds = player.ads ? 1 : 0;
-    player.adsBlend += (targetAds - player.adsBlend) * Math.min(1, dt * 14);
-    const desiredDist = 3.25 - player.adsBlend * 1.28;
-    const rightOff = 0.82 - player.adsBlend * 0.14;
-    const camHeight = 1.76 - player.adsBlend * 0.10;
-
-    _vShoulder.copy(player.pos).add(_vTmp1.set(0, camHeight, 0)).addScaledVector(_vRight, rightOff);
-    _vBackDir.set(
-      Math.sin(player.yaw) * Math.cos(player.pitch),
-      -Math.sin(player.pitch),
-      Math.cos(player.yaw) * Math.cos(player.pitch)
-    ).normalize();
-
-    raycaster.set(_vShoulder, _vBackDir);
-    raycaster.far = desiredDist;
-    const camObs = raycaster.intersectObjects(fmObstacleMeshes, false);
-    raycaster.far = Infinity;
-    const targetDist = camObs.length > 0 ? Math.max(0.75, camObs[0].distance - 0.25) : desiredDist;
-    const damp = targetDist < player.camCurrentDist ? Math.min(1, dt * 22) : Math.min(1, dt * 9);
-    player.camCurrentDist += (targetDist - player.camCurrentDist) * damp;
-
-    camera.position.copy(_vShoulder).addScaledVector(_vBackDir, player.camCurrentDist);
-    camera.rotation.set(player.pitch, player.yaw, 0, 'YXZ');
-
-    const [rMin, rMax] = d.enemyRollInterval;
-    const [fMin, fMax] = d.enemyFireInterval;
-
-    for (let i = enemies.length - 1; i >= 0; i--) {
-      const e = enemies[i];
-      if (e.muzzleTimer > 0) {
-        e.muzzleTimer -= dt;
-        if (e.muzzleTimer <= 0) e.rig.muzzleFlash.material.opacity = 0;
-      }
-
-      if (e.role === 'ally') {
-        e.allyLifeTimer -= dt;
-        if (e.allyLifeTimer <= 0) {
-          fivemScene.remove(e.rig.root);
-          enemies.splice(i, 1);
-          spawnEnemy('enemy');
-          continue;
-        }
-      }
-
-      const dxP = player.pos.x - e.pos.x;
-      const dzP = player.pos.z - e.pos.z;
-      const flatDist = Math.hypot(dxP, dzP);
-      const lookYaw = Math.atan2(-dxP, -dzP);
-      e.rig.root.rotation.y = lookYaw;
-
-      const eFwdX = -Math.sin(lookYaw), eFwdZ = -Math.cos(lookYaw);
-      const eRightX = Math.cos(lookYaw), eRightZ = -Math.sin(lookYaw);
-
-      e.rollCooldown -= dt;
-      e.strafeTimer -= dt;
-      if (e.strafeTimer <= 0) {
-        e.strafeDir = Math.random() > 0.5 ? 1 : -1;
-        e.strafeTimer = 0.42 + Math.random() * 0.85;
-      }
-
-      if (e.role !== 'ally' && !e.rolling && e.rollCooldown <= 0 && flatDist < 26) {
-        e.rolling = true;
-        e.rollTimer = e.rollDuration;
-        e.rollCooldown = rMin + Math.random() * (rMax - rMin);
-        e.rollSide = Math.random() > 0.5 ? 1 : -1;
-      }
-
-      if (e.rolling) {
-        e.rollTimer -= dt;
-        const rollSpeed = d.enemySpeed * 1.55;
-        e.pos.x += eRightX * e.rollSide * rollSpeed * dt;
-        e.pos.z += eRightZ * e.rollSide * rollSpeed * dt;
-        const prog = 1 - Math.max(0, e.rollTimer / e.rollDuration);
-        e.rig.bodyPivot.rotation.z = -e.rollSide * prog * Math.PI * 2;
-        if (e.rollTimer <= 0) { e.rolling = false; e.rig.bodyPivot.rotation.z = 0; }
-      } else {
-        const strafeSpd = e.role === 'leader' ? d.enemySpeed * 1.15 : d.enemySpeed;
-        let mx = eRightX * e.strafeDir * strafeSpd;
-        let mz = eRightZ * e.strafeDir * strafeSpd;
-        if (flatDist > 17) { mx += eFwdX * (strafeSpd * 0.72); mz += eFwdZ * (strafeSpd * 0.72); }
-        else if (flatDist < 7.5) { mx -= eFwdX * (strafeSpd * 0.6); mz -= eFwdZ * (strafeSpd * 0.6); }
-        e.pos.x += mx * dt;
-        e.pos.z += mz * dt;
-        e.animPhase += dt * 11.5;
-        const sw = Math.sin(e.animPhase) * 0.62;
-        e.rig.leftLeg.rotation.x = sw;
-        e.rig.rightLeg.rotation.x = -sw;
-      }
-
-      resolveArenaCollision(e.pos, 0.5);
-      e.rig.root.position.copy(e.pos);
-      e.hpBar.grp.lookAt(camera.position);
-
-      if (e.role === 'ally') continue;
-
-      _vTmp1.set(e.pos.x, e.pos.y + 1.48, e.pos.z);
-      _vTmp2.set(player.pos.x, player.pos.y + 1.25, player.pos.z);
-      const visible = flatDist < 35 && hasLineOfSight(_vTmp1, _vTmp2);
-      if (visible && !e.firstSeenAt) e.firstSeenAt = now;
-
-      e.fireTimer -= dt;
-      if (!e.rolling && e.fireTimer <= 0 && visible) {
-        const leaderMult = e.role === 'leader' ? 0.72 : 1.0;
-        e.fireTimer = (fMin + Math.random() * (fMax - fMin)) * leaderMult;
-        e.muzzleTimer = 0.055;
-        e.rig.muzzleFlash.material.opacity = 1;
-        playSound('enemy-shot');
-
-        const muzzleW = new THREE.Vector3();
-        e.rig.muzzlePoint.getWorldPosition(muzzleW);
-
-        const movingBonus = (keys['KeyW'] || keys['KeyA'] || keys['KeyS'] || keys['KeyD']) ? 0.10 : 0;
-        const rollBonus = player.rolling ? 0.36 : 0;
-        const leaderBonus = e.role === 'leader' ? 0.12 : 0;
-        const hitChance = Math.max(0.14, d.enemyBaseHitChance + leaderBonus - movingBonus - rollBonus);
-
-        const aimTarget = _vTmp2.clone();
-        const didHit = Math.random() < hitChance;
-        if (!didHit) {
-          aimTarget.x += (Math.random() > 0.5 ? 1 : -1) * (0.85 + Math.random() * 0.9);
-          aimTarget.y += (Math.random() - 0.3) * 0.7;
-        }
-        spawnTracer3D(fivemScene, muzzleW, aimTarget, e.role === 'leader' ? 0xffd700 : 0xff5a36);
-
-        if (didHit) {
-          const [dMin, dMax] = d.enemyDamage;
-          let dmgTaken = dMin + Math.floor(Math.random() * (dMax - dMin + 1));
-          if (e.role === 'leader') dmgTaken = Math.round(dmgTaken * 1.35);
-          if (player.rolling) dmgTaken = Math.max(4, Math.round(dmgTaken * 0.45));
-
-          player.hp = Math.max(0, player.hp - dmgTaken);
-          playSound('hurt');
-          flashVignette('rgba(239, 68, 68, 0.44)');
-          updateFivemHud(true);
-
-          if (player.hp <= 0) {
-            stopGame(true, 'VOCÊ FOI ELIMINADO!');
-            return;
-          }
-        }
-      }
-    }
-  }
-
   // ================= HUD COM CACHE =================
-  function updateFivemHud(force = false) {
-    const hpInt = Math.ceil(player.hp);
-    if (force || hpInt !== hudCache.hp) {
-      hudCache.hp = hpInt;
-      hudHpVal.textContent = hpInt;
-      const pct = Math.max(0, Math.min(100, (player.hp / player.maxHp) * 100));
-      hudHpBar.style.width = pct + '%';
-      if (pct > 55) {
-        hudHpVal.style.color = '#4ade80';
-        hudHpBar.style.background = 'linear-gradient(90deg, #16a34a, #4ade80)';
-      } else if (pct > 25) {
-        hudHpVal.style.color = '#facc15';
-        hudHpBar.style.background = 'linear-gradient(90deg, #ca8a04, #facc15)';
-      } else {
-        hudHpVal.style.color = '#f87171';
-        hudHpBar.style.background = 'linear-gradient(90deg, #dc2626, #f87171)';
-      }
-    }
-
-    const ammoStr = player.reloading ? 'RELOAD' : String(player.ammo);
-    if (force || ammoStr !== hudCache.ammo) {
-      hudCache.ammo = ammoStr;
-      hudAmmo.innerHTML = player.reloading
-        ? `<span style="color:#facc15;font-size:14px;">RECARREGANDO...</span>`
-        : `${player.ammo} <small>/ ∞</small>`;
-    }
-
-    const rollStr = player.rolling ? 'ROLANDO...' : (player.rollCooldown > 0 ? `ROLAMENTO ${player.rollCooldown.toFixed(1)}s` : 'ROLAMENTO PRONTO (SHIFT)');
-    if (force || rollStr !== hudCache.roll) {
-      hudCache.roll = rollStr;
-      hudRollStatus.textContent = rollStr;
-      hudRollStatus.style.color = player.rolling ? '#facc15' : (player.rollCooldown > 0 ? '#94a3b8' : 'var(--accent)');
-    }
-  }
-
   function updateTopHud(force = false) {
     const tStr = (cfg.duration === 0 ? elapsedTime : Math.max(0, timeLeft)).toFixed(1) + 's';
     if (force || tStr !== hudCache.time) { hudCache.time = tStr; hudTime.textContent = tStr; }
@@ -2294,7 +1086,7 @@
       hitsStr = String(stats.hits);
       accStr = (stats.shots > 0 ? Math.round((stats.hits / stats.shots) * 100) : 100) + '%';
       extraStr = stats.reactionCount > 0 ? Math.round(stats.reactionSum / stats.reactionCount) + 'ms' : '--';
-    } else if (cfg.mode === 'tracker') {
+    } else {
       if (force) {
         hudPrimaryLbl.textContent = 'Pontos';
         hudHitsLbl.textContent = 'No Alvo';
@@ -2306,17 +1098,6 @@
       hitsStr = stats.trackOnSec.toFixed(1) + 's';
       accStr = trackPct + '%';
       extraStr = stats.trackBestStreakSec.toFixed(1) + 's';
-    } else {
-      if (force) {
-        hudPrimaryLbl.textContent = 'Abates';
-        hudHitsLbl.textContent = 'Headshots';
-        hudAccLbl.textContent = 'Precisão';
-        hudExtraLbl.textContent = 'Reação';
-      }
-      scoreStr = String(stats.kills);
-      hitsStr = String(stats.headshots);
-      accStr = (stats.shots > 0 ? Math.round((stats.hits / stats.shots) * 100) : 100) + '%';
-      extraStr = stats.reactionCount > 0 ? Math.round(stats.reactionSum / stats.reactionCount) + 'ms' : '--';
     }
 
     if (force || scoreStr !== hudCache.score) { hudCache.score = scoreStr; hudScore.textContent = scoreStr; }
@@ -2331,19 +1112,13 @@
     btnPause.disabled = (state !== 'playing');
     btnStop.disabled = (state === 'idle' || state === 'ended');
     crosshairEl.classList.toggle('visible', state === 'playing');
-    fivemHud.classList.toggle('visible', cfg.mode === 'fivem');
     trackerBadge.classList.toggle('visible', cfg.mode === 'tracker' && state === 'playing');
-
-    // Dificuldade aparece no Tracker e no FiveM; Decisão Rápida só no FiveM
-    diffField.style.display = (cfg.mode === 'gridshot') ? 'none' : 'inline-flex';
-    decisionField.style.display = (cfg.mode === 'fivem') ? 'inline-flex' : 'none';
+    diffField.style.display = (cfg.mode === 'tracker') ? 'inline-flex' : 'none';
   }
 
   function resetStats() {
     stats.score = 0; stats.hits = 0; stats.shots = 0;
-    stats.kills = 0; stats.headshots = 0; stats.damageDealt = 0;
-    stats.reactionSum = 0; stats.reactionCount = 0; stats.bestReaction = Infinity;
-    stats.decoyMistakes = 0; stats.priorityHits = 0; stats.streak = 0;
+    stats.reactionSum = 0; stats.reactionCount = 0; stats.streak = 0;
     stats.trackOnSec = 0; stats.trackTotalSec = 0;
     stats.trackStreakSec = 0; stats.trackBestStreakSec = 0;
     timeLeft = cfg.duration;
@@ -2357,8 +1132,7 @@
     resetStats();
     pendingMouseDX = 0; pendingMouseDY = 0;
     if (cfg.mode === 'gridshot') resetGridshot();
-    else if (cfg.mode === 'tracker') resetTracker();
-    else resetFivem();
+    else resetTracker();
 
     state = 'playing';
     centerOverlay.classList.add('hidden');
@@ -2372,8 +1146,6 @@
   function pauseGame() {
     if (state !== 'playing') return;
     state = 'paused';
-    player.firing = false;
-    player.ads = false;
     pendingMouseDX = 0; pendingMouseDY = 0;
     if (document.pointerLockElement === canvas) {
       try { document.exitPointerLock(); } catch (e) {}
@@ -2399,8 +1171,6 @@
 
   function stopGame(showSummary = true, customTitle = null) {
     state = 'ended';
-    player.firing = false;
-    player.ads = false;
     pendingMouseDX = 0; pendingMouseDY = 0;
     crosshairEl.classList.remove('on-target');
     if (document.pointerLockElement === canvas) {
@@ -2423,7 +1193,7 @@
         document.getElementById('stVal2').textContent = acc + '%';
         document.getElementById('stLbl3').textContent = 'Reação';
         document.getElementById('stVal3').textContent = avgRt;
-      } else if (cfg.mode === 'tracker') {
+      } else {
         const trackPct = stats.trackTotalSec > 0 ? Math.round((stats.trackOnSec / stats.trackTotalSec) * 100) : 0;
         ovBadge.textContent = `RESUMO • TRACKER 3D (${getDiff().label.toUpperCase()})`;
         ovDesc.textContent = `Tempo mantendo a mira no alvo: ${stats.trackOnSec.toFixed(1)}s de ${stats.trackTotalSec.toFixed(1)}s`;
@@ -2433,15 +1203,6 @@
         document.getElementById('stVal2').textContent = trackPct + '%';
         document.getElementById('stLbl3').textContent = 'Maior Seq.';
         document.getElementById('stVal3').textContent = stats.trackBestStreakSec.toFixed(1) + 's';
-      } else {
-        ovBadge.textContent = `RESUMO • FIVEM (${getDiff().label.toUpperCase()})`;
-        ovDesc.textContent = `Headshots: ${stats.headshots} • Reação média: ${avgRt} • Dano: ${stats.damageDealt}`;
-        document.getElementById('stLbl1').textContent = 'Abates';
-        document.getElementById('stVal1').textContent = stats.kills;
-        document.getElementById('stLbl2').textContent = 'Headshots';
-        document.getElementById('stVal2').textContent = stats.headshots;
-        document.getElementById('stLbl3').textContent = 'Precisão';
-        document.getElementById('stVal3').textContent = acc + '%';
       }
       ovStats.style.display = 'grid';
       ovPrimaryBtn.textContent = '↻ TREINAR NOVAMENTE';
@@ -2454,40 +1215,33 @@
     if (document.pointerLockElement === canvas) {
       try { document.exitPointerLock(); } catch (e) {}
     }
-    cfg.mode = newMode;
-    localStorage.setItem('aim3d_mode', newMode);
+    cfg.mode = newMode === 'tracker' ? 'tracker' : 'gridshot';
+    localStorage.setItem('aim3d_mode', cfg.mode);
     state = 'idle';
     clearFx();
     resetStats();
     pendingMouseDX = 0; pendingMouseDY = 0;
     crosshairEl.classList.remove('on-target');
 
-    btnModeGridshot.classList.toggle('active', newMode === 'gridshot');
-    btnModeTracker.classList.toggle('active', newMode === 'tracker');
-    btnModeFivem.classList.toggle('active', newMode === 'fivem');
+    btnModeGridshot.classList.toggle('active', cfg.mode === 'gridshot');
+    btnModeTracker.classList.toggle('active', cfg.mode === 'tracker');
 
-    if (newMode === 'gridshot') {
+    if (cfg.mode === 'gridshot') {
       resetGridshot();
       ovBadge.textContent = 'AIMLAB GRIDSHOT 3D • VALORANT';
       ovTitle.textContent = 'AimLab Gridshot 3D';
       ovDesc.innerHTML = 'Sensibilidade <b>100% Valorant</b> (0.07°/count • FOV 103° • Raw Input). Destrua as 3 bolinhas 3D o mais rápido possível. Use <b>ESC</b> ou <b>P</b> para pausar.';
-    } else if (newMode === 'tracker') {
+    } else {
       resetTracker();
       ovBadge.textContent = `AIMLAB TRACKER 3D • ${getDiff().label.toUpperCase()}`;
       ovTitle.textContent = 'AimLab Tracker 3D';
       ovDesc.innerHTML = 'Acompanhe a bolinha 3D em movimento constante com a mira (sensi <b>100% Valorant</b>). Ajuste a <b>Dificuldade</b> acima para aumentar a velocidade e diminuir o alvo!';
-    } else {
-      resetFivem();
-      ovBadge.textContent = `FIVEM 3ª PESSOA • ${getDiff().label.toUpperCase()}`;
-      ovTitle.textContent = 'Treino FiveM PvP 3D';
-      ovDesc.innerHTML = 'Personagem em <b>3ª pessoa</b> (WASD + <b>SHIFT/Q</b> para rolar + <b>Botão Direito</b> para mirar). Inimigos se movem, rolam e <b>atiram de volta</b> — cada abate recupera <b>+25 HP</b>! Ajuste a <b>Dificuldade</b> acima.';
     }
 
     ovStats.style.display = 'none';
     ovPrimaryBtn.textContent = '▶ INICIAR TREINO';
     ovStopBtn.style.display = 'none';
     centerOverlay.classList.remove('hidden');
-    updateLegend();
     updateTopHud(true);
     refreshButtons();
   }
@@ -2495,7 +1249,6 @@
   // ================= EVENTOS DA BARRA SUPERIOR =================
   btnModeGridshot.addEventListener('click', () => setMode('gridshot'));
   btnModeTracker.addEventListener('click', () => setMode('tracker'));
-  btnModeFivem.addEventListener('click', () => setMode('fivem'));
   btnStart.addEventListener('click', startGame);
   ovPrimaryBtn.addEventListener('click', startGame);
   btnPause.addEventListener('click', pauseGame);
@@ -2511,13 +1264,6 @@
     cfg.diff = e.target.value;
     localStorage.setItem('aim3d_diff', cfg.diff);
     setMode(cfg.mode);
-  });
-
-  decisionToggle.addEventListener('change', (e) => {
-    cfg.decision = e.target.checked;
-    localStorage.setItem('aim3d_decision', String(cfg.decision));
-    updateLegend();
-    if (state === 'idle' || state === 'ended') setMode(cfg.mode);
   });
 
   function updateSens(val) {
@@ -2583,17 +1329,14 @@
             o.mesh.scale.setScalar(o.scale);
           }
         }
-      } else if (cfg.mode === 'tracker') {
-        updateTracker(dt);
       } else {
-        updateFivem(dt, now);
+        updateTracker(dt);
       }
 
       hudTick += dt;
       if (hudTick >= 0.08) {
         hudTick = 0;
         updateTopHud(false);
-        if (cfg.mode === 'fivem') updateFivemHud(false);
       }
     } else {
       if (cfg.mode === 'gridshot') {
@@ -2605,24 +1348,16 @@
         }
         camera.position.set(0, 2.5, 0);
         camera.rotation.set(aimPitch, aimYaw, 0, 'YXZ');
-      } else if (cfg.mode === 'tracker') {
+      } else {
         trackerGroup.position.set(Math.sin(now * 0.0022) * 3.4, 2.5 + Math.cos(now * 0.0018) * 1.0, -11.2);
         trackerAura.lookAt(camera.position);
         camera.position.set(0, 2.5, 0);
         camera.rotation.set(aimPitch, aimYaw, 0, 'YXZ');
-      } else {
-        const previewAngle = now * 0.00022;
-        camera.position.set(
-          player.pos.x + Math.sin(previewAngle) * 4.5,
-          2.2,
-          player.pos.z + Math.cos(previewAngle) * 4.5
-        );
-        camera.lookAt(player.pos.x, 1.3, player.pos.z - 2);
       }
     }
 
     updateFx(dt);
-    renderer.render(cfg.mode === 'fivem' ? fivemScene : aimlabScene, camera);
+    renderer.render(aimlabScene, camera);
   }
 
   setMode(cfg.mode);
