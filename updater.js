@@ -253,18 +253,7 @@ async function updateEncryptedAsar({ appDir, remoteManifest, currentVersion, rem
   } catch (e) {}
 
   const isNewer = compareSemver(remoteVersion, currentVersion) > 0;
-  if (!isNewer && !force && localAsarHash === asarMeta.sha256) {
-    const info = {
-      state: 'up-to-date',
-      currentVersion,
-      remoteVersion,
-      message: `PrecisionFix v4 atualizado (v${currentVersion}).`
-    };
-    onStatus(info);
-    return { updated: false, ...info };
-  }
-
-  if (localAsarHash === asarMeta.sha256) {
+  if ((!isNewer && !force) || localAsarHash === asarMeta.sha256) {
     const info = {
       state: 'up-to-date',
       currentVersion,
@@ -441,6 +430,17 @@ async function checkAndApplyUpdates({ appDir, onStatus = () => {}, force = false
   }
 
   const isNewer = compareSemver(remoteVersion, currentVersion) > 0;
+  if (!isNewer && !force) {
+    const info = {
+      state: 'up-to-date',
+      currentVersion,
+      remoteVersion,
+      message: `PrecisionFix v4 atualizado (v${currentVersion}).`
+    };
+    onStatus(info);
+    return { updated: false, ...info };
+  }
+
   const entries = Object.entries(remoteManifest.files);
   const filesToDownload = [];
 
@@ -460,7 +460,7 @@ async function checkAndApplyUpdates({ appDir, onStatus = () => {}, force = false
     }
   }
 
-  if ((!isNewer && !force && filesToDownload.length === 0) || filesToDownload.length === 0) {
+  if (filesToDownload.length === 0) {
     const info = {
       state: 'up-to-date',
       currentVersion,

@@ -1,11 +1,11 @@
 {
   "name": "precisionfix-v4",
   "version": "1.7.1",
-  "publishedAt": "2026-11-27T09:37:38.023Z",
+  "publishedAt": "2026-11-27T09:50:49.535Z",
   "asar": {
     "path": "releases/app.asar",
-    "sha256": "443d64ea26ec8e8a66f6d1d4bf9e841a1de970090c39011f935675c0241f82c8",
-    "size": 22617017
+    "sha256": "682de6992492ae4bb76182f4a820e572eb59482b95b760ea2aa989bcb6a45fa2",
+    "size": 22617938
   },
   "files": {
     ".gitignore": {
@@ -245,8 +245,8 @@
       "size": 210
     },
     "updater.js": {
-      "sha256": "a34d4d0ecb896b16e6c1705b834a2596dc542878da8d384c01ab82a4155851c9",
-      "size": 17868
+      "sha256": "6020524ce8865e19c5f1f00a1724e732f6cb934670e81d0737f6fd2e641876e7",
+      "size": 17799
     },
     "vendor/three.min.js": {
       "sha256": "a16fcf061504dd0cb96d5c4154f6717418baa0eaebb4996a833c5c8f07b4993d",
