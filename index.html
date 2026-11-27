@@ -5,17 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Community For Goats • PrecisionFix</title>
 <style>
-  :root {
-    --theme-color: var(--theme-color);
-  }
-
 :root {
-  --bg-color: #060608;
-  --sidebar-bg: #09090b;
-  --primary-color: #F2F3F5;
+  --theme-color: #00e5ff;
+  --bg-color: #000000;
+  --sidebar-bg: transparent;
+  --primary-color: var(--theme-color);
   --text-main: #ffffff;
-  --text-muted: #666670;
-  --border-color: rgba(255,255,255,0.04);
+  --text-muted: color-mix(in srgb, var(--text-main) 62%, transparent);
+  --border-color: color-mix(in srgb, var(--text-main) 10%, transparent);
+  --surface-bg: color-mix(in srgb, var(--text-main) 4%, transparent);
 }
 
 html {
@@ -24,14 +22,14 @@ html {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background: transparent;
+  background-color: var(--bg-color);
 }
 body {
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background: transparent;
+  background-color: var(--bg-color);
   color: var(--text-main);
   font-family: 'JetBrains Mono', monospace;
   overflow: hidden;
@@ -56,23 +54,24 @@ body {
   width: 100%;
   font-family: 'Space Grotesk', sans-serif;
   background-color: var(--bg-color);
-  border-radius: 12px;
+  border-radius: 0;
   border: 1px solid var(--border-color);
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
 }
 
-/* --- SIDEBAR --- */
+/* --- SIDEBAR (FUNDO TRANSPARENTE PARA NÃO BUGAR AO MUDAR TEMA DO FUNDO) --- */
 .sidebar {
   width: 240px;
-  background-color: var(--sidebar-bg);
+  background-color: transparent;
   border-right: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 18px 0 16px 0;
   position: relative;
-  border-radius: 12px 0 0 12px;
+  z-index: 2;
+  border-radius: 0;
 }
 
 .logo-container {
@@ -132,6 +131,7 @@ body {
   gap: 15px;
   padding: 12px 15px;
   border-radius: 8px;
+  background: transparent;
   color: var(--text-muted);
   font-size: 12px;
   font-weight: 600;
@@ -140,21 +140,22 @@ body {
   border: 1px solid transparent;
 }
 .nav-item:hover {
-  background: rgba(255,255,255,0.02);
-  color: #ccc;
-}
-.nav-item.active {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: color-mix(in srgb, var(--theme-color) 10%, transparent);
   color: var(--text-main);
 }
-.nav-item.active .nav-icon { fill: var(--primary-color); }
+.nav-item.active {
+  background: color-mix(in srgb, var(--theme-color) 16%, transparent);
+  border-color: color-mix(in srgb, var(--theme-color) 55%, transparent);
+  color: var(--theme-color);
+  box-shadow: 0 0 14px color-mix(in srgb, var(--theme-color) 18%, transparent);
+}
+.nav-item.active .nav-icon { fill: var(--theme-color); }
 .nav-icon { width: 16px; height: 16px; fill: var(--text-muted); transition: fill 0.2s; }
 
 .user-profile {
   margin: 0 10px;
   padding: 12px;
-  background: rgba(255,255,255,0.02);
+  background: var(--surface-bg);
   border-radius: 8px;
   border: 1px solid var(--border-color);
   display: flex;
@@ -163,15 +164,15 @@ body {
 }
 .avatar {
   width: 35px; height: 35px;
-  background: #111;
+  background: transparent;
   border-radius: 50%;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--theme-color);
   display: flex; align-items: center; justify-content: center;
-  font-size: 10px; color: var(--primary-color); font-weight: 800;
+  font-size: 10px; color: var(--theme-color); font-weight: 800;
 }
-.user-info { display: flex; flex-direction: column; }
-.user-name { font-size: 12px; font-weight: 800; }
-.user-sub { font-size: 9px; color: var(--text-muted); }
+.user-info { display: flex; flex-direction: column; min-width: 0; }
+.user-name { font-size: 12px; font-weight: 800; color: var(--text-main); }
+.user-sub { font-size: 9.5px; color: var(--text-muted); }
 
 /* --- MAIN CONTENT --- */
 .main-wrapper {
@@ -179,17 +180,34 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
+  z-index: 2;
+  background: transparent;
 }
 
-/* TOP BAR */
+/* TOP BAR (MESMA COR DO FUNDO DO PROGRAMA) */
 .top-bar {
-  height: 50px;
+  height: 40px;
+  background: transparent;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 10px 0 16px;
   -webkit-app-region: drag; /* Draggable area */
+}
+.top-bar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  color: var(--text-muted);
+}
+.top-bar-title img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
 }
 
 .system-stats {
@@ -224,7 +242,20 @@ body {
   display: flex; align-items: center; justify-content: center;
   transition: all 0.2s;
 }
-.win-btn:hover, .win-btn.close:hover { background: rgba(255,255,255,0.05); color: #fff; }
+.win-btn:hover { background: color-mix(in srgb, var(--text-main) 10%, transparent); color: var(--text-main); }
+.win-btn.close:hover { background: rgba(255, 65, 85, 0.25); color: #ff6b7a; }
+
+/* Adaptação global de textos e cards ao tema de fundo/texto escolhido */
+.page-title, .list-item-title, .display-preset-title, .svc-title, .mouse-card.selected .mouse-card-title, .checkbox-item:hover span {
+  color: var(--text-main) !important;
+}
+.tab-pane {
+  background: transparent;
+  color: var(--text-main);
+}
+.tab-pane h1, .tab-pane h2, .tab-pane h3 {
+  color: var(--text-main) !important;
+}
 
 /* TELA DE ABERTURA (BOOT SCREEN) */
 #boot-screen {
@@ -236,7 +267,7 @@ body {
   flex-direction: column;
   align-items: center;
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 0;
   box-sizing: border-box;
   overflow: hidden;
   justify-content: center;
@@ -840,13 +871,13 @@ input[type=range]::-webkit-slider-thumb:hover {
     
     <div class="user-profile" style="position: relative;">
       <div style="display: block;">
-        <img src="ico.png" class="avatar" id="profile-pic" alt="Avatar" style="object-fit: contain; background: #0a101d; border: 1px solid rgba(41, 163, 255, 0.35); transition: opacity 0.2s;">
+        <img src="ico.png" class="avatar" id="profile-pic" alt="Avatar" style="object-fit: contain; background: transparent; border: 1.5px solid var(--theme-color); transition: opacity 0.2s;">
       </div>
       <div class="user-info" style="flex: 1;">
-        <div class="user-name" id="user-name-display" style="outline: none; display: inline-block; white-space: nowrap; overflow: hidden; max-width: 150px; color: #fff; font-weight: 800; user-select: none; pointer-events: none;">DEITOU SEM SONO</div>
-        <div class="user-sub">hahaha</div>
+        <div class="user-name" id="user-name-display" style="outline: none; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 135px; color: var(--text-main); font-weight: 800; user-select: none; pointer-events: none;">Usuário</div>
+        <div class="user-sub" id="user-status-display">Licença Ativa</div>
       </div>
-      <div class="user-settings" style="cursor: pointer; opacity: 0.6; transition: 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'" title="Configurações" onclick="switchTab('tab-config', null)">
+      <div class="user-settings" style="cursor: pointer; opacity: 0.7; transition: 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'" title="Configurações" onclick="switchTab('tab-config', null)">
         <svg style="width: 18px; height: 18px; fill: var(--text-muted);" viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98 0-.34-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/></svg>
       </div>
     </div>
@@ -855,13 +886,17 @@ input[type=range]::-webkit-slider-thumb:hover {
   <!-- MAIN CONTENT -->
   <main class="main-wrapper">
     
-    <!-- Topbar Hardware Mockups -->
+    <!-- Topbar (mesma cor do fundo do programa) -->
     <div class="top-bar">
+      <div class="top-bar-title">
+        <img src="ico.png" alt="Icon">
+        <span>Community For Goats • PrecisionFix</span>
+      </div>
       <div style="-webkit-app-region: drag; flex: 1; height: 100%;"></div>
-      <div style="flex: 1; height: 100%; -webkit-app-region: drag;"></div>
       <div class="window-controls">
-        <button class="win-btn" id="min-btn">&#8211;</button>
-        <button class="win-btn close" id="close-btn">&times;</button>
+        <button class="win-btn" id="min-btn" title="Minimizar">&#8211;</button>
+        <button class="win-btn" id="max-btn" title="Maximizar / Restaurar" style="font-size: 13px;">&#9633;</button>
+        <button class="win-btn close" id="close-btn" title="Fechar">&times;</button>
       </div>
     </div>
 
@@ -1087,8 +1122,21 @@ input[type=range]::-webkit-slider-thumb:hover {
       
       <script>
         
-  // Init Theme Color
-  document.documentElement.style.setProperty("--theme-color", localStorage.getItem("particlesColor") || "#8a2be2");
+  // Init Theme Color (ciano claro padrão + fundo full preto + texto branco)
+  (function initEarlyTheme() {
+    let saved = null;
+    try {
+      if (typeof require !== 'undefined') {
+        saved = require('electron').ipcRenderer.sendSync('get-theme');
+      }
+    } catch (e) {}
+    const accent = (saved && saved.accent) || localStorage.getItem('particlesColor') || '#00e5ff';
+    const bg = (saved && saved.bg) || localStorage.getItem('themeBg') || '#000000';
+    const text = (saved && saved.text) || localStorage.getItem('themeText') || '#ffffff';
+    document.documentElement.style.setProperty('--theme-color', accent);
+    document.documentElement.style.setProperty('--bg-color', bg);
+    document.documentElement.style.setProperty('--text-main', text);
+  })();
 function applyKeyboardTweaks() {
           const tweaks = {
             precision: document.getElementById('cb-kb-precision').checked,
@@ -1966,13 +2014,45 @@ function updateStatusVisual(enable, statusEl) {
 try {
   const { ipcRenderer } = require('electron');
   
-  // App min/close
+  // App min/max/close
   document.getElementById('min-btn').addEventListener('click', () => {
     ipcRenderer.send('window-min');
   });
+  const maxBtn = document.getElementById('max-btn');
+  if (maxBtn) {
+    maxBtn.addEventListener('click', () => {
+      ipcRenderer.send('window-max');
+    });
+  }
   document.getElementById('close-btn').addEventListener('click', () => {
     ipcRenderer.send('window-close');
   });
+
+  // Exibir usuário logado no perfil da barra lateral
+  function updateLoggedUserUI(info) {
+    const nameEl = document.getElementById('user-name-display');
+    const subEl = document.getElementById('user-status-display');
+    if (nameEl && info && info.username) {
+      nameEl.textContent = info.username;
+    }
+    if (subEl && info) {
+      if (info.expiresAt) {
+        const diffMs = Number(info.expiresAt) - Date.now();
+        if (diffMs > 0) {
+          const days = Math.floor(diffMs / (24 * 60 * 60 * 1000));
+          const hours = Math.floor((diffMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+          const mins = Math.max(1, Math.floor((diffMs % (60 * 60 * 1000)) / (60 * 1000)));
+          subEl.textContent = days > 0 ? `Ativo • ${days}d ${hours}h` : (hours > 0 ? `Ativo • ${hours}h ${mins}m` : `Ativo • ${mins}m`);
+        } else {
+          subEl.textContent = 'Licença Ativa';
+        }
+      } else {
+        subEl.textContent = 'Membro Verificado';
+      }
+    }
+  }
+  ipcRenderer.on('current-user', (event, info) => updateLoggedUserUI(info));
+  ipcRenderer.send('get-current-user');
 
   // Auto-boot animation
   document.addEventListener('DOMContentLoaded', () => {
@@ -2729,7 +2809,7 @@ document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(check
       _particlesResizeHandler = null;
     }
 
-    const color = localStorage.getItem('particlesColor') || "#ffffff";
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim() || localStorage.getItem('particlesColor') || "#00e5ff";
     container.innerHTML = '';
 
     const canvas = document.createElement('canvas');
@@ -3023,77 +3103,80 @@ renderMiraProfiles();
 (function () {
   const CSS = `
   .cw-section {
-    max-width: 620px; margin: 0 auto 24px;
+    max-width: 640px; margin: 0 auto 24px;
     border-radius: 16px;
-    background: linear-gradient(180deg, rgba(22,22,22,.7), rgba(10,10,10,.7));
-    border: 1px solid rgba(255,255,255,.14);
+    background: var(--surface-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color);
     overflow: hidden;
     font-family: 'Segoe UI', Arial, sans-serif;
   }
   .cw-header { display: flex; align-items: flex-start; gap: 14px; padding: 20px 22px; }
   .cw-icon {
     width: 38px; height: 38px; border-radius: 10px;
-    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25);
-    color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    background: color-mix(in srgb, var(--theme-color) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--theme-color) 35%, transparent);
+    color: var(--theme-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
   .cw-icon svg { width: 19px; height: 19px; }
-  .cw-title { font-size: 15px; font-weight: 700; color: #fff; }
-  .cw-sub { font-size: 12px; color: #8c8c8c; margin-top: 3px; }
+  .cw-title { font-size: 15px; font-weight: 700; color: var(--text-main); }
+  .cw-sub { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
   .cw-divider { display: none; }
-  .cw-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 22px; border-top: none; }
-  .cw-row-title { font-size: 13.5px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-  .cw-row-desc { font-size: 12px; color: #8c8c8c; line-height: 1.4; }
+  .cw-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 15px 22px; border-top: 1px solid color-mix(in srgb, var(--text-main) 5%, transparent); }
+  .cw-row-title { font-size: 13.5px; font-weight: 700; color: var(--text-main); margin-bottom: 3px; }
+  .cw-row-desc { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
   .cw-switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; cursor: pointer; }
   .cw-switch input { display: none; }
-  .cw-track { position: absolute; inset: 0; background: #2a2a2a; border-radius: 20px; transition: background .2s ease; }
-  .cw-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #cfcfcf; transition: transform .2s ease, background .2s ease; }
-  .cw-switch input:checked + .cw-track { background: #565656; }
-  .cw-switch input:checked + .cw-track .cw-thumb { transform: translateX(20px); background: #fff; }
+  .cw-track { position: absolute; inset: 0; background: color-mix(in srgb, var(--text-main) 18%, transparent); border-radius: 20px; transition: background .2s ease; }
+  .cw-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--text-main); opacity: 0.85; transition: transform .2s ease, background .2s ease; }
+  .cw-switch input:checked + .cw-track { background: var(--theme-color); }
+  .cw-switch input:checked + .cw-track .cw-thumb { transform: translateX(20px); background: #fff; opacity: 1; }
 
   .cw-btn {
     display: flex; align-items: center; gap: 8px;
     padding: 9px 16px; border-radius: 9px;
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
-    color: #e8ecea; font-size: 12.5px; font-weight: 700; letter-spacing: .3px;
+    background: color-mix(in srgb, var(--text-main) 6%, transparent); border: 1px solid var(--border-color);
+    color: var(--text-main); font-size: 12.5px; font-weight: 700; letter-spacing: .3px;
     cursor: pointer; transition: all .15s ease; flex-shrink: 0;
   }
-  .cw-btn:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.4); color: #fff; }
+  .cw-btn:hover { background: color-mix(in srgb, var(--theme-color) 16%, transparent); border-color: var(--theme-color); color: var(--text-main); }
   .cw-btn svg { width: 14px; height: 14px; }
 
   .cw-key-value {
     font-family: 'Consolas', monospace;
     font-size: 13px; letter-spacing: 1px;
-    color: #d8d8d8; background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.2);
+    color: var(--text-main); background: color-mix(in srgb, var(--text-main) 6%, transparent);
+    border: 1px solid var(--border-color);
     border-radius: 8px; padding: 7px 12px;
     user-select: all;
   }
   .cw-key-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
   .cw-icon-btn {
     width: 32px; height: 32px; border-radius: 8px;
-    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
-    color: #b7b7b7; display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--text-main) 6%, transparent); border: 1px solid var(--border-color);
+    color: var(--text-muted); display: flex; align-items: center; justify-content: center;
     cursor: pointer; transition: all .15s ease;
   }
-  .cw-icon-btn:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.35); color: #fff; }
+  .cw-icon-btn:hover { background: color-mix(in srgb, var(--theme-color) 15%, transparent); border-color: var(--theme-color); color: var(--text-main); }
   .cw-icon-btn svg { width: 14px; height: 14px; }
 
   .cw-select {
     appearance: none; -webkit-appearance: none;
     padding: 9px 34px 9px 14px; border-radius: 9px;
-    background: rgba(255,255,255,.05) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23b7b7b7" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 10px center;
+    background: color-mix(in srgb, var(--text-main) 6%, transparent) url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23b7b7b7" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 10px center;
     background-size: 14px;
-    border: 1px solid rgba(255,255,255,.15);
-    color: #e8ecea; font-size: 12.5px; font-weight: 700; letter-spacing: .3px;
+    border: 1px solid var(--border-color);
+    color: var(--text-main); font-size: 12.5px; font-weight: 700; letter-spacing: .3px;
     cursor: pointer; flex-shrink: 0; transition: all .15s ease;
   }
-  .cw-select:hover { border-color: rgba(255,255,255,.35); }
-  .cw-select:focus { outline: none; border-color: rgba(255,255,255,.5); }
-  .cw-select option { background: #161616; color: #e8ecea; }
+  .cw-select:hover { border-color: var(--theme-color); }
+  .cw-select:focus { outline: none; border-color: var(--theme-color); }
+  .cw-select option { background: #0e1015; color: #f0f4f8; }
   `;
 
   const ICONES = {
     sistema: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+    paleta: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`,
     teclado: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/></svg>`,
     mira: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>`,
     escudo: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>`,
@@ -3208,11 +3291,14 @@ renderMiraProfiles();
             <input type="color" class="pro-color-picker" id="color-${item.id}" value="${item.valor || '#ffffff'}" title="Clique para escolher a cor">
           </div>
         `;
-        row.querySelector(`#color-${item.id}`).addEventListener('change', (e) => {
+        const colorInput = row.querySelector(`#color-${item.id}`);
+        const handleColor = (e) => {
           if (typeof item.onChange === 'function') {
             item.onChange(e.target.value);
           }
-        });
+        };
+        colorInput.addEventListener('input', handleColor);
+        colorInput.addEventListener('change', handleColor);
       }
 
       else if (tipo === 'select') {
@@ -3240,10 +3326,135 @@ renderMiraProfiles();
   };
 })();
 
+const THEME_PRESETS = {
+  'full-black-ciano': { rotulo: 'Full Black Ciano (Padrão)', bg: '#000000', accent: '#00e5ff', text: '#ffffff' },
+  'azul-meia-noite':  { rotulo: 'Azul Meia-Noite',           bg: '#050b18', accent: '#38bdf8', text: '#eef6ff' },
+  'roxo-cyberpunk':   { rotulo: 'Roxo Cyberpunk',            bg: '#090414', accent: '#c084fc', text: '#f5edff' },
+  'crimson-dark':     { rotulo: 'Vermelho Crimson',          bg: '#0f0305', accent: '#ff3358', text: '#fff0f3' },
+  'esmeralda-matrix': { rotulo: 'Esmeralda Matrix',          bg: '#020d08', accent: '#00ff88', text: '#ecfff5' },
+  'ouro-obsidian':    { rotulo: 'Ouro Obsidian',             bg: '#0c0902', accent: '#fbbf24', text: '#fffbeb' },
+  'grafite-clean':    { rotulo: 'Grafite Clean',             bg: '#121418', accent: '#22d3ee', text: '#f8fafc' },
+  'gelo-claro':       { rotulo: 'Gelo Claro',                bg: '#eef2f6', accent: '#0284c7', text: '#0f172a' },
+  'custom':           { rotulo: 'Personalizado',             bg: '#000000', accent: '#00e5ff', text: '#ffffff' }
+};
+
+function getSavedTheme() {
+  let theme = null;
+  try {
+    if (typeof require !== 'undefined') {
+      theme = require('electron').ipcRenderer.sendSync('get-theme');
+    }
+  } catch (e) {}
+  return {
+    preset: (theme && theme.preset) || localStorage.getItem('themePreset') || 'full-black-ciano',
+    accent: (theme && theme.accent) || localStorage.getItem('particlesColor') || '#00e5ff',
+    bg:     (theme && theme.bg)     || localStorage.getItem('themeBg')        || '#000000',
+    text:   (theme && theme.text)   || localStorage.getItem('themeText')      || '#ffffff'
+  };
+}
+
+let activeTheme = getSavedTheme();
+
+function applyAppTheme(nextTheme, persist = true) {
+  activeTheme = {
+    preset: nextTheme.preset || 'custom',
+    accent: nextTheme.accent || '#00e5ff',
+    bg: nextTheme.bg || '#000000',
+    text: nextTheme.text || '#ffffff'
+  };
+
+  document.documentElement.style.setProperty('--theme-color', activeTheme.accent);
+  document.documentElement.style.setProperty('--bg-color', activeTheme.bg);
+  document.documentElement.style.setProperty('--text-main', activeTheme.text);
+
+  localStorage.setItem('themePreset', activeTheme.preset);
+  localStorage.setItem('particlesColor', activeTheme.accent);
+  localStorage.setItem('themeBg', activeTheme.bg);
+  localStorage.setItem('themeText', activeTheme.text);
+
+  const selPreset = document.getElementById('sel-themePreset');
+  const colAccent = document.getElementById('color-particlesColor');
+  const colBg = document.getElementById('color-themeBg');
+  const colText = document.getElementById('color-themeText');
+  if (selPreset && selPreset.value !== activeTheme.preset) selPreset.value = activeTheme.preset;
+  if (colAccent && colAccent.value.toLowerCase() !== activeTheme.accent.toLowerCase()) colAccent.value = activeTheme.accent;
+  if (colBg && colBg.value.toLowerCase() !== activeTheme.bg.toLowerCase()) colBg.value = activeTheme.bg;
+  if (colText && colText.value.toLowerCase() !== activeTheme.text.toLowerCase()) colText.value = activeTheme.text;
+
+  if (typeof initParticles === 'function') initParticles();
+  if (typeof updateSliderFill === 'function') updateSliderFill();
+  ['disp-saturation-slider', 'disp-temperature-slider', 'disp-gamma-slider'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && typeof updateSliderBg === 'function') updateSliderBg(el);
+  });
+
+  if (persist && typeof require !== 'undefined') {
+    try {
+      require('electron').ipcRenderer.send('save-theme', activeTheme);
+    } catch (e) {}
+  }
+}
+
+criarPainel('#paineis-config', {
+  icone: 'paleta',
+  titulo: 'Aparência e Temas',
+  subtitulo: 'Personalize cores do tema, categorias, fundo e textos (sincroniza automaticamente com a tela de login).',
+  itens: [
+    {
+      id: 'themePreset', tipo: 'select', titulo: 'Tema Pronto',
+      desc: 'Escolha um conjunto completo de cores para o painel e para a tela de login.',
+      valorSelecionado: activeTheme.preset,
+      opcoes: Object.entries(THEME_PRESETS).map(([valor, cfg]) => ({ valor, rotulo: cfg.rotulo })),
+      onChange: (presetKey) => {
+        const p = THEME_PRESETS[presetKey];
+        if (!p || presetKey === 'custom') {
+          applyAppTheme({ ...activeTheme, preset: 'custom' }, true);
+          return;
+        }
+        applyAppTheme({ preset: presetKey, bg: p.bg, accent: p.accent, text: p.text }, true);
+        if (typeof showToast === 'function') showToast('Tema aplicado', p.rotulo, true, 2500);
+      }
+    },
+    {
+      id: 'particlesColor', tipo: 'color', titulo: 'Cor do Tema e Categorias (RGB)',
+      desc: 'Altera a cor principal, partículas, seleção de categorias e destaques do login.',
+      valor: activeTheme.accent,
+      onChange: (cor) => {
+        applyAppTheme({ ...activeTheme, preset: 'custom', accent: cor }, true);
+      }
+    },
+    {
+      id: 'themeBg', tipo: 'color', titulo: 'Cor do Fundo do Painel e Login',
+      desc: 'Define a cor de fundo do aplicativo inteiro, barra superior e tela de login.',
+      valor: activeTheme.bg,
+      onChange: (cor) => {
+        applyAppTheme({ ...activeTheme, preset: 'custom', bg: cor }, true);
+      }
+    },
+    {
+      id: 'themeText', tipo: 'color', titulo: 'Cor dos Textos',
+      desc: 'Altera a cor dos títulos e textos do painel e da tela de login.',
+      valor: activeTheme.text,
+      onChange: (cor) => {
+        applyAppTheme({ ...activeTheme, preset: 'custom', text: cor }, true);
+      }
+    },
+    {
+      id: 'resetTheme', tipo: 'botao', titulo: 'Restaurar Tema Padrão',
+      desc: 'Volta para Fundo Preto Total (#000000), Ciano Claro (#00e5ff) e Texto Branco.',
+      textoBotao: 'Padrão',
+      onClick: () => {
+        applyAppTheme({ preset: 'full-black-ciano', bg: '#000000', accent: '#00e5ff', text: '#ffffff' }, true);
+        if (typeof showToast === 'function') showToast('Tema Restaurado', 'Full Black Ciano (Padrão)', true, 2500);
+      }
+    }
+  ]
+});
+
 criarPainel('#paineis-config', {
   icone: 'sistema',
   titulo: 'Sistema',
-  subtitulo: 'Reset de configurações e gerenciamento da sua licença.',
+  subtitulo: 'Reset de configurações e gerenciamento do aplicativo.',
   itens: [
     {
       id: 'autoStart', tipo: 'toggle', titulo: 'Iniciar com o Windows',
@@ -3286,19 +3497,11 @@ criarPainel('#paineis-config', {
         sessionStorage.setItem('enable_notifications', ligado);
         if(typeof showToast === 'function') showToast('Notificações', ligado ? 'Ativadas' : 'Desativadas', ligado, 3500, true);
       },
-    },
-    {
-      id: 'particlesColor', tipo: 'color', titulo: 'Cor do Tema (RGB)',
-      desc: 'Escolha a cor principal do aplicativo inteiro.',
-      valor: localStorage.getItem('particlesColor') || '#ffffff',
-      onChange: (cor) => {
-        localStorage.setItem('particlesColor', cor);
-        document.documentElement.style.setProperty('--theme-color', cor);
-        if (typeof initParticles === 'function') initParticles();
-      }
     }
   ],
 });
+
+applyAppTheme(activeTheme, false);
 
 // Sincronizar estados iniciais com o main process
 window.addEventListener('DOMContentLoaded', () => {
@@ -3308,6 +3511,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const minTrayEnabled = localStorage.getItem('min_tray_enabled') === 'true';
     ipc.send('set-autostart', autoStartEnabled);
     ipc.send('set-min-tray', minTrayEnabled);
+    ipc.on('theme-updated', (event, theme) => {
+      if (theme) applyAppTheme(theme, false);
+    });
   }
 });
 </script>

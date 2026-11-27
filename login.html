@@ -4,25 +4,92 @@
     <meta charset="UTF-8">
     <title>Community For Goats • Autenticação</title>
     <style>
+        :root {
+            --bg-color: #000000;
+            --theme-color: #00e5ff;
+            --text-main: #ffffff;
+            --text-muted: color-mix(in srgb, var(--text-main) 60%, transparent);
+            --border-color: color-mix(in srgb, var(--text-main) 10%, transparent);
+            --surface-bg: color-mix(in srgb, var(--text-main) 4%, transparent);
+        }
         * {
             box-sizing: border-box;
             user-select: none;
             margin: 0;
             padding: 0;
         }
-        body {
-            background: radial-gradient(circle at 24% 48%, rgba(0, 128, 255, 0.16), transparent 52%),
-                        linear-gradient(135deg, #04060a 0%, #080c14 55%, #05070c 100%);
-            color: #ffffff;
+        html, body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             width: 100vw;
             overflow: hidden;
             position: relative;
         }
+        body {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid var(--border-color);
+        }
+        /* Barra do programa da mesma cor do fundo */
+        .titlebar {
+            position: relative;
+            z-index: 10;
+            height: 36px;
+            min-height: 36px;
+            width: 100%;
+            background: transparent;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px 0 12px;
+            -webkit-app-region: drag;
+        }
+        .titlebar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            opacity: 0.9;
+        }
+        .titlebar-left img {
+            width: 16px;
+            height: 16px;
+            object-fit: contain;
+        }
+        .titlebar-controls {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            -webkit-app-region: no-drag;
+        }
+        .tb-btn {
+            width: 30px;
+            height: 26px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s, color 0.18s;
+        }
+        .tb-btn:hover {
+            background: color-mix(in srgb, var(--text-main) 10%, transparent);
+            color: var(--text-main);
+        }
+        .tb-btn.close:hover {
+            background: rgba(255, 65, 85, 0.25);
+            color: #ff6b7a;
+        }
+
         /* Fundo com animação de partículas (linhas interligadas) */
         canvas#bgCanvas {
             position: absolute;
@@ -35,11 +102,12 @@
         .split-shell {
             position: relative;
             z-index: 2;
+            flex: 1;
             width: 100%;
-            height: 100%;
             display: grid;
             grid-template-columns: 1.05fr 0.95fr;
             align-items: stretch;
+            background: transparent;
         }
         /* LATERAL ESQUERDA: Imagem 1 em cima, Imagem 2 embaixo */
         .brand-panel {
@@ -48,9 +116,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 26px 28px 24px 28px;
-            background: linear-gradient(180deg, rgba(10, 18, 32, 0.55) 0%, rgba(5, 8, 15, 0.78) 100%);
-            border-right: 1px solid rgba(56, 168, 255, 0.16);
+            padding: 20px 28px 22px 28px;
+            background: transparent;
+            border-right: 1px solid var(--border-color);
             overflow: hidden;
         }
         .brand-panel::before {
@@ -59,8 +127,8 @@
             width: 310px;
             height: 310px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 145, 255, 0.24) 0%, rgba(0, 145, 255, 0) 70%);
-            top: 40%;
+            background: radial-gradient(circle, color-mix(in srgb, var(--theme-color) 18%, transparent) 0%, transparent 70%);
+            top: 42%;
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
@@ -73,15 +141,15 @@
             align-items: flex-end;
             justify-content: center;
             width: 100%;
-            max-height: 285px;
+            max-height: 280px;
         }
         .brand-statue {
             max-width: 92%;
-            max-height: 275px;
+            max-height: 270px;
             width: auto;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 0 22px rgba(0, 150, 255, 0.38));
+            filter: drop-shadow(0 0 22px color-mix(in srgb, var(--theme-color) 38%, transparent));
             animation: statueFloat 4.5s ease-in-out infinite;
         }
         @keyframes statueFloat {
@@ -99,11 +167,11 @@
         }
         .brand-logo {
             max-width: 94%;
-            max-height: 118px;
+            max-height: 116px;
             width: auto;
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 4px 16px rgba(0, 140, 255, 0.35));
+            filter: drop-shadow(0 4px 16px color-mix(in srgb, var(--theme-color) 35%, transparent));
         }
 
         /* LATERAL DIREITA: Login */
@@ -111,24 +179,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 28px 32px;
-            background: rgba(8, 10, 15, 0.72);
-            backdrop-filter: blur(8px);
+            padding: 24px 30px;
+            background: transparent;
         }
         .login-card {
             width: 100%;
-            max-width: 330px;
-            background: rgba(15, 19, 28, 0.88);
+            max-width: 340px;
+            background: var(--surface-bg);
             padding: 28px 26px 26px 26px;
             border-radius: 14px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(56, 168, 255, 0.14);
+            border: 1px solid color-mix(in srgb, var(--theme-color) 24%, var(--border-color));
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(10px);
             text-align: center;
         }
         .login-heading {
             font-size: 11px;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: #6ab8ff;
+            color: var(--theme-color);
             font-weight: 700;
             margin-bottom: 16px;
         }
@@ -136,13 +205,13 @@
             display: flex;
             justify-content: center;
             margin-bottom: 22px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
         }
         .tab {
             background: none;
             border: none;
-            color: #6b7688;
+            color: var(--text-muted);
             font-weight: 700;
             font-size: 12.5px;
             letter-spacing: 0.8px;
@@ -152,8 +221,8 @@
             transition: color 0.25s, border-color 0.25s;
         }
         .tab.active {
-            color: #ffffff;
-            border-bottom: 2px solid #29a3ff;
+            color: var(--theme-color);
+            border-bottom: 2px solid var(--theme-color);
         }
         .input-group {
             position: relative;
@@ -162,28 +231,28 @@
         input {
             width: 100%;
             padding: 12px 14px 12px 38px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
+            background: color-mix(in srgb, var(--text-main) 5%, transparent);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
             border-radius: 8px;
             font-size: 13px;
             transition: all 0.25s ease;
         }
         input::placeholder {
-            color: #687385;
+            color: var(--text-muted);
         }
         input:focus {
-            border-color: #29a3ff;
-            background: rgba(255, 255, 255, 0.07);
+            border-color: var(--theme-color);
+            background: color-mix(in srgb, var(--text-main) 8%, transparent);
             outline: none;
-            box-shadow: 0 0 10px rgba(41, 163, 255, 0.2);
+            box-shadow: 0 0 10px color-mix(in srgb, var(--theme-color) 25%, transparent);
         }
         .input-icon {
             position: absolute;
             left: 13px;
             top: 50%;
             transform: translateY(-50%);
-            color: #7d8da6;
+            color: var(--text-muted);
             font-size: 13px;
         }
         #tokenGroup {
@@ -194,37 +263,38 @@
             justify-content: space-between;
             align-items: center;
             font-size: 11.5px;
-            color: #7c8799;
+            color: var(--text-muted);
             margin: 4px 0 18px 0;
         }
         .options-row label {
             display: flex;
             align-items: center;
             cursor: pointer;
-            color: #a9b5c7;
+            color: var(--text-main);
+            opacity: 0.85;
         }
         .options-row input[type="checkbox"] {
             width: auto;
             margin-right: 6px;
-            accent-color: #29a3ff;
+            accent-color: var(--theme-color);
         }
         button.action-btn {
             width: 100%;
             padding: 12.5px;
-            background: linear-gradient(90deg, #1a8cff 0%, #38b6ff 100%);
+            background: var(--theme-color);
             border: none;
-            color: #ffffff;
+            color: #000000;
             font-weight: 800;
             font-size: 12.5px;
             letter-spacing: 1px;
             border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(26, 140, 255, 0.35);
+            box-shadow: 0 6px 18px color-mix(in srgb, var(--theme-color) 38%, transparent);
             transition: filter 0.2s, transform 0.1s, box-shadow 0.2s;
         }
         button.action-btn:hover {
             filter: brightness(1.08);
-            box-shadow: 0 8px 22px rgba(41, 163, 255, 0.48);
+            box-shadow: 0 8px 22px color-mix(in srgb, var(--theme-color) 52%, transparent);
         }
         button.action-btn:active {
             transform: scale(0.98);
@@ -243,6 +313,18 @@
     </style>
 </head>
 <body>
+
+    <!-- Barra superior da mesma cor do fundo -->
+    <div class="titlebar">
+        <div class="titlebar-left">
+            <img src="ico.png" alt="Icon">
+            <span>Community For Goats • Autenticação</span>
+        </div>
+        <div class="titlebar-controls">
+            <button class="tb-btn" id="login-min-btn" title="Minimizar">&#8211;</button>
+            <button class="tb-btn close" id="login-close-btn" title="Fechar">&times;</button>
+        </div>
+    </div>
 
     <!-- Fundo dinâmico com partículas interligadas -->
     <canvas id="bgCanvas"></canvas>
@@ -286,7 +368,7 @@
 
                 <div class="options-row" id="rememberRow">
                     <label><input type="checkbox" id="rememberMe"> Lembrar-me</label>
-                    <span style="color: #5b6980;">Anti-Bular HWID Ativo</span>
+                    <span>Anti-Bular HWID Ativo</span>
                 </div>
 
                 <button class="action-btn" id="submitBtn" onclick="handleSubmit()">ENTRAR</button>
@@ -298,6 +380,66 @@
     <script>
         const { ipcRenderer } = require('electron');
         let isRegisterMode = false;
+        let currentThemeColor = '#00e5ff';
+
+        function hexToRgba(hex, alpha) {
+            const clean = (hex || '#00e5ff').replace('#', '').trim();
+            if (clean.length === 3) {
+                const r = parseInt(clean[0] + clean[0], 16);
+                const g = parseInt(clean[1] + clean[1], 16);
+                const b = parseInt(clean[2] + clean[2], 16);
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+            if (clean.length === 6) {
+                const r = parseInt(clean.slice(0, 2), 16);
+                const g = parseInt(clean.slice(2, 4), 16);
+                const b = parseInt(clean.slice(4, 6), 16);
+                return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            }
+            return `rgba(0, 229, 255, ${alpha})`;
+        }
+
+        function applyLoginTheme(theme) {
+            const accent = (theme && theme.accent) || localStorage.getItem('particlesColor') || '#00e5ff';
+            const bg = (theme && theme.bg) || localStorage.getItem('themeBg') || '#000000';
+            const text = (theme && theme.text) || localStorage.getItem('themeText') || '#ffffff';
+
+            currentThemeColor = accent;
+            const root = document.documentElement;
+            root.style.setProperty('--theme-color', accent);
+            root.style.setProperty('--bg-color', bg);
+            root.style.setProperty('--text-main', text);
+
+            // Contraste automático do texto do botão principal
+            const clean = accent.replace('#', '');
+            if (clean.length === 6) {
+                const r = parseInt(clean.slice(0, 2), 16);
+                const g = parseInt(clean.slice(2, 4), 16);
+                const b = parseInt(clean.slice(4, 6), 16);
+                const lum = 0.299 * r + 0.587 * g + 0.114 * b;
+                const btn = document.getElementById('submitBtn');
+                if (btn) btn.style.color = lum > 155 ? '#000000' : '#ffffff';
+            }
+        }
+
+        // Carrega tema sincronizado do processo principal imediatamente
+        try {
+            const initialTheme = ipcRenderer.sendSync('get-theme');
+            applyLoginTheme(initialTheme);
+        } catch (e) {
+            applyLoginTheme(null);
+        }
+
+        ipcRenderer.on('theme-updated', (event, theme) => {
+            applyLoginTheme(theme);
+        });
+
+        document.getElementById('login-min-btn').addEventListener('click', () => {
+            ipcRenderer.send('login-min');
+        });
+        document.getElementById('login-close-btn').addEventListener('click', () => {
+            ipcRenderer.send('login-close');
+        });
 
         function switchMode(mode) {
             isRegisterMode = (mode === 'register');
@@ -341,7 +483,7 @@
                 return;
             }
 
-            msgDiv.style.color = '#8cb7e8';
+            msgDiv.style.color = currentThemeColor;
             msgDiv.innerText = isRegisterMode ? 'A registar e a validar HWID...' : 'A autenticar utilizador...';
             document.getElementById('submitBtn').disabled = true;
 
@@ -393,8 +535,8 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(72, 180, 255, 0.42)';
-            ctx.strokeStyle = 'rgba(72, 180, 255, 0.1)';
+            ctx.fillStyle = hexToRgba(currentThemeColor, 0.45);
+            ctx.strokeStyle = hexToRgba(currentThemeColor, 0.14);
             ctx.lineWidth = 1;
 
             for (let i = 0; i < particles.length; i++) {

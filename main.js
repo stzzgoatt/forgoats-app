@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu, session } = require('electron');
+const { app, BrowserWindow, ipcMain, Tray, Menu, session, screen, globalShortcut } = require('electron');
 const { exec } = require('child_process');
 const fs = require('fs');
 const path = require('path');
@@ -6,13 +6,87 @@ const crypto = require('crypto');
 const http = require('http');
 const https = require('https');
 const { uIOhook } = require('uiohook-napi');
+const keyboardTweaks = require('./keyboard-tweaks');
+
+let saturationModule = null;
+try {
+  saturationModule = require('./saturation');
+} catch (e) {}
+
+let user32SpiSpeed = null;
+let user32SpiMouse = null;
+try {
+  const koffi = require('koffi');
+  const user32 = koffi.load('user32.dll');
+  user32SpiSpeed = user32.func('bool __stdcall SystemParametersInfoW(uint32 uiAction, uint32 uiParam, uintptr_t pvParam, uint32 fWinIni)');
+  user32SpiMouse = user32.func('bool __stdcall SystemParametersInfoW(uint32 uiAction, uint32 uiParam, int32 *pvParam, uint32 fWinIni)');
+} catch (e) {}
 
 let mainWindow = null;
 let loginWindow = null;
+let crosshairWindow = null;
 let tray = null;
 let currentMouseBind = null;
+let currentKeyBind = null;
+let lastCrosshairConfig = null;
+let minToTrayEnabled = false;
 let activeSession = null;
 let sessionMonitorTimer = null;
+
+// --- TEMA GLOBAL PADRÃO (FULL PRETO + CIANO CLARO + TEXTO BRANCO) ---
+const DEFAULT_THEME = {
+  preset: 'full-black-ciano',
+  accent: '#00e5ff',
+  bg: '#000000',
+  text: '#ffffff'
+};
+
+function sanitizeHexColor(value, fallback) {
+  if (typeof value !== 'string') return fallback;
+  const trimmed = value.trim();
+  return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(trimmed) ? trimmed : fallback;
+}
+
+function getThemePath() {
+  return path.join(app.getPath('userData'), 'theme.json');
+}
+
+function loadTheme() {
+  try {
+    const themePath = getThemePath();
+    if (fs.existsSync(themePath)) {
+      const parsed = JSON.parse(fs.readFileSync(themePath, 'utf8'));
+      return {
+        preset: typeof parsed.preset === 'string' ? parsed.preset : 'custom',
+        accent: sanitizeHexColor(parsed.accent, DEFAULT_THEME.accent),
+        bg: sanitizeHexColor(parsed.bg, DEFAULT_THEME.bg),
+        text: sanitizeHexColor(parsed.text, DEFAULT_THEME.text)
+      };
+    }
+  } catch (e) {}
+  return { ...DEFAULT_THEME };
+}
+
+function saveTheme(rawTheme) {
+  const clean = {
+    preset: typeof rawTheme?.preset === 'string' ? rawTheme.preset : 'custom',
+    accent: sanitizeHexColor(rawTheme?.accent, DEFAULT_THEME.accent),
+    bg: sanitizeHexColor(rawTheme?.bg, DEFAULT_THEME.bg),
+    text: sanitizeHexColor(rawTheme?.text, DEFAULT_THEME.text)
+  };
+  try {
+    fs.writeFileSync(getThemePath(), JSON.stringify(clean, null, 2));
+  } catch (e) {}
+
+  // Atualiza a cor nativa de fundo das janelas abertas e sincroniza com todas as telas
+  [mainWindow, loginWindow].forEach((win) => {
+    if (win && !win.isDestroyed()) {
+      try { win.setBackgroundColor(clean.bg); } catch (e) {}
+      try { win.webContents.send('theme-updated', clean); } catch (e) {}
+    }
+  });
+  return clean;
+}
 
 // --- CONFIGURAÇÃO DA API DE AUTENTICAÇÃO (BOT FOR GOATS) ---
 function getAuthConfig() {
@@ -120,6 +194,15 @@ function clearAutoLogin() {
   } catch (e) {}
 }
 
+function runCmd(cmd) {
+  return new Promise((resolve, reject) => {
+    exec(cmd, { windowsHide: true }, (error, stdout, stderr) => {
+      if (error) return reject(new Error(stderr || error.message));
+      resolve(stdout);
+    });
+  });
+}
+
 // --- MONITORAMENTO CONTÍNUO DE TOKEN (EXPIRAÇÃO / RESET / EXCLUSÃO) ---
 function stopSessionMonitor() {
   if (sessionMonitorTimer) {
@@ -133,10 +216,15 @@ function forceLogoutToLogin(reasonMessage) {
   activeSession = null;
   clearAutoLogin();
 
-  if (mainWindow) {
+  if (crosshairWindow && !crosshairWindow.isDestroyed()) {
+    try { crosshairWindow.close(); } catch (e) {}
+    crosshairWindow = null;
+  }
+
+  if (mainWindow && !mainWindow.isDestroyed()) {
     const win = mainWindow;
     mainWindow = null;
-    try { win.close(); } catch (e) {}
+    try { win.destroy(); } catch (e) {}
   }
 
   createLoginWindow(reasonMessage);
@@ -157,15 +245,13 @@ function startSessionMonitor() {
       if (data && data.valid === false) {
         forceLogoutToLogin(data.message || 'Sessão encerrada. Faça login novamente.');
       }
-    } catch (e) {
-      // Se houver oscilação temporária de rede, tenta novamente no próximo ciclo.
-    }
+    } catch (e) {}
   }, interval);
 }
 
-// --- CRIAR JANELA DE LOGIN ---
+// --- CRIAR JANELA DE LOGIN (SEM BARRA CINZA DO WINDOWS) ---
 function createLoginWindow(initialErrorMessage = null) {
-  if (loginWindow) {
+  if (loginWindow && !loginWindow.isDestroyed()) {
     loginWindow.focus();
     if (initialErrorMessage) {
       loginWindow.webContents.send('resposta-auth', { success: false, message: initialErrorMessage });
@@ -173,14 +259,16 @@ function createLoginWindow(initialErrorMessage = null) {
     return;
   }
 
+  const theme = loadTheme();
+
   loginWindow = new BrowserWindow({
-    width: 820,
-    height: 500,
-    frame: true,
+    width: 860,
+    height: 540,
+    frame: false,
     resizable: false,
     center: true,
     icon: path.join(__dirname, 'app.ico'),
-    backgroundColor: '#05070c',
+    backgroundColor: theme.bg,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -194,32 +282,40 @@ function createLoginWindow(initialErrorMessage = null) {
     if (!url.startsWith('file://')) event.preventDefault();
   });
 
-  if (initialErrorMessage) {
-    loginWindow.webContents.once('did-finish-load', () => {
-      if (loginWindow) {
+  loginWindow.webContents.once('did-finish-load', () => {
+    if (loginWindow && !loginWindow.isDestroyed()) {
+      loginWindow.webContents.send('theme-updated', loadTheme());
+      if (initialErrorMessage) {
         loginWindow.webContents.send('resposta-auth', { success: false, message: initialErrorMessage });
       }
-    });
-  }
+    }
+  });
 
   loginWindow.on('closed', () => {
     loginWindow = null;
   });
 }
 
-// --- CRIAR JANELA PRINCIPAL DO APLICATIVO ---
+// --- CRIAR JANELA PRINCIPAL DO APLICATIVO (TAMANHO IDEAL + SEM BARRA CINZA) ---
 function createWindow() {
-  if (mainWindow) {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.show();
     mainWindow.focus();
     return;
   }
 
+  const theme = loadTheme();
+
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 600,
+    width: 1180,
+    height: 740,
+    minWidth: 1020,
+    minHeight: 650,
+    frame: false,
+    resizable: true,
     center: true,
     icon: path.join(__dirname, 'app.ico'),
-    backgroundColor: '#0b0b0b',
+    backgroundColor: theme.bg,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false
@@ -233,12 +329,76 @@ function createWindow() {
     if (!url.startsWith('file://')) event.preventDefault();
   });
 
+  mainWindow.webContents.on('did-finish-load', () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('theme-updated', loadTheme());
+      if (activeSession) {
+        mainWindow.webContents.send('current-user', {
+          username: activeSession.username,
+          expiresAt: activeSession.expiresAt || null
+        });
+      }
+    }
+  });
+
+  mainWindow.on('close', (event) => {
+    if (minToTrayEnabled && !app.isQuiting) {
+      event.preventDefault();
+      mainWindow.hide();
+    }
+  });
+
   mainWindow.on('closed', () => {
     mainWindow = null;
     stopSessionMonitor();
   });
 
   startSessionMonitor();
+}
+
+// --- JANELA OVERLAY DA MIRA (CROSSHAIR) ---
+function ensureCrosshairWindow() {
+  if (crosshairWindow && !crosshairWindow.isDestroyed()) return crosshairWindow;
+
+  const { width, height, x, y } = screen.getPrimaryDisplay().bounds;
+  crosshairWindow = new BrowserWindow({
+    x,
+    y,
+    width,
+    height,
+    transparent: true,
+    frame: false,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    focusable: false,
+    resizable: false,
+    movable: false,
+    hasShadow: false,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false
+    }
+  });
+
+  crosshairWindow.setIgnoreMouseEvents(true, { forward: true });
+  crosshairWindow.setAlwaysOnTop(true, 'screen-saver');
+  crosshairWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
+  crosshairWindow.loadFile(path.join(__dirname, 'crosshair.html'));
+
+  crosshairWindow.webContents.once('did-finish-load', () => {
+    if (crosshairWindow && !crosshairWindow.isDestroyed()) {
+      if (lastCrosshairConfig) {
+        crosshairWindow.webContents.send('update-crosshair', lastCrosshairConfig);
+      }
+      crosshairWindow.webContents.send('set-visibility', true);
+    }
+  });
+
+  crosshairWindow.on('closed', () => {
+    crosshairWindow = null;
+  });
+
+  return crosshairWindow;
 }
 
 // --- FUNÇÃO PARA VERIFICAR AUTO-LOGIN NO ARRANQUE (VIA API DO BOT) ---
@@ -307,6 +467,7 @@ function setupTray() {
             stopSessionMonitor();
             activeSession = null;
             clearAutoLogin();
+            app.isQuiting = true;
             app.relaunch();
             app.exit();
           }
@@ -321,6 +482,322 @@ function setupTray() {
     } catch (e) {}
   }
 }
+
+// --- IPC: CONTROLES DE JANELA (PAINEL E LOGIN) ---
+ipcMain.on('window-min', () => {
+  if (mainWindow && !mainWindow.isDestroyed()) mainWindow.minimize();
+});
+
+ipcMain.on('window-max', () => {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (mainWindow.isMaximized()) mainWindow.unmaximize();
+  else mainWindow.maximize();
+});
+
+ipcMain.on('window-close', () => {
+  if (!mainWindow || mainWindow.isDestroyed()) return;
+  if (minToTrayEnabled) {
+    mainWindow.hide();
+  } else {
+    app.isQuiting = true;
+    app.quit();
+  }
+});
+
+ipcMain.on('login-min', () => {
+  if (loginWindow && !loginWindow.isDestroyed()) loginWindow.minimize();
+});
+
+ipcMain.on('login-close', () => {
+  app.isQuiting = true;
+  app.quit();
+});
+
+// --- IPC: TEMA GLOBAL & USUÁRIO LOGADO ---
+ipcMain.on('get-theme', (event) => {
+  event.returnValue = loadTheme();
+});
+
+ipcMain.on('save-theme', (event, theme) => {
+  saveTheme(theme);
+});
+
+ipcMain.on('get-current-user', (event) => {
+  event.sender.send('current-user', activeSession
+    ? { username: activeSession.username, expiresAt: activeSession.expiresAt || null }
+    : { username: 'Usuário', expiresAt: null }
+  );
+});
+
+// --- IPC: CONFIGURAÇÕES DO SISTEMA ---
+ipcMain.on('set-autostart', (event, enabled) => {
+  try {
+    app.setLoginItemSettings({ openAtLogin: Boolean(enabled) });
+  } catch (e) {}
+});
+
+ipcMain.on('set-min-tray', (event, enabled) => {
+  minToTrayEnabled = Boolean(enabled);
+});
+
+// --- IPC: SATURAÇÃO DO DISPLAY ---
+ipcMain.on('change-saturation', (event, factor) => {
+  if (!saturationModule) return;
+  const val = Number(factor);
+  if (!Number.isFinite(val)) return;
+  const clamped = Math.max(0, Math.min(2, val));
+  try {
+    saturationModule.setSaturation(clamped);
+  } catch (e) {}
+});
+
+// --- IPC: SENSIBILIDADE E ACELERAÇÃO DO MOUSE (APLICADA NA HORA) ---
+ipcMain.on('apply-sensi', async (event, { speed, accel } = {}) => {
+  try {
+    const cleanSpeed = Math.max(1, Math.min(20, parseInt(speed, 10) || 10));
+    const useAccel = Boolean(accel);
+    const SPI_SETMOUSESPEED = 0x0071;
+    const SPI_SETMOUSE = 0x0004;
+    const SPIF_UPDATEINIFILE_SENDCHANGE = 0x03;
+
+    if (user32SpiSpeed) {
+      user32SpiSpeed(SPI_SETMOUSESPEED, 0, cleanSpeed, SPIF_UPDATEINIFILE_SENDCHANGE);
+    }
+    if (user32SpiMouse) {
+      const mouseParams = useAccel ? [6, 10, 1] : [0, 0, 0];
+      user32SpiMouse(SPI_SETMOUSE, 0, mouseParams, SPIF_UPDATEINIFILE_SENDCHANGE);
+    }
+
+    await runCmd(`reg add "HKCU\\Control Panel\\Mouse" /v MouseSensitivity /t REG_SZ /d ${cleanSpeed} /f`);
+    await runCmd(`reg add "HKCU\\Control Panel\\Mouse" /v MouseSpeed /t REG_SZ /d ${useAccel ? '1' : '0'} /f`);
+    await runCmd(`reg add "HKCU\\Control Panel\\Mouse" /v MouseThreshold1 /t REG_SZ /d ${useAccel ? '6' : '0'} /f`);
+    await runCmd(`reg add "HKCU\\Control Panel\\Mouse" /v MouseThreshold2 /t REG_SZ /d ${useAccel ? '10' : '0'} /f`);
+
+    event.sender.send('apply-sensi-reply', true);
+  } catch (err) {
+    event.sender.send('apply-sensi-reply', false);
+  }
+});
+
+// --- IPC: PRECISIONFIX (AJUSTES DE MOUSE E SISTEMA) ---
+const LINEAR_CURVE_X = '0000000000000000c0cc0c0000000000809919000000000040662600000000000033330000000000';
+const LINEAR_CURVE_Y = '0000000000000000000038000000000000007000000000000000a800000000000000e00000000000';
+const DEFAULT_CURVE_X = '0000000000000000156e000000000000004001000000000029dc0300000000000000280000000000';
+const DEFAULT_CURVE_Y = '0000000000000000fd11010000000000002404000000000000fc12000000000000c0bb0100000000';
+
+ipcMain.on('apply-precision-tweaks', async (event, tweaks = {}) => {
+  try {
+    const cmds = [];
+
+    const wantsRawMouse = Boolean(
+      tweaks['mouse-precision'] ||
+      tweaks['k1ng-tracking'] ||
+      tweaks['k1ng-sensi'] ||
+      tweaks['k1ng-flick'] ||
+      tweaks['k1ng-sensi-x-y'] ||
+      tweaks['k1ng-registros-mouse']
+    );
+
+    if (wantsRawMouse) {
+      cmds.push('reg add "HKCU\\Control Panel\\Mouse" /v MouseSpeed /t REG_SZ /d 0 /f');
+      cmds.push('reg add "HKCU\\Control Panel\\Mouse" /v MouseThreshold1 /t REG_SZ /d 0 /f');
+      cmds.push('reg add "HKCU\\Control Panel\\Mouse" /v MouseThreshold2 /t REG_SZ /d 0 /f');
+      cmds.push(`reg add "HKCU\\Control Panel\\Mouse" /v SmoothMouseXCurve /t REG_BINARY /d ${LINEAR_CURVE_X} /f`);
+      cmds.push(`reg add "HKCU\\Control Panel\\Mouse" /v SmoothMouseYCurve /t REG_BINARY /d ${LINEAR_CURVE_Y} /f`);
+      cmds.push('reg add "HKCU\\Control Panel\\Mouse" /v MouseHoverTime /t REG_SZ /d 10 /f');
+      if (user32SpiMouse) {
+        try { user32SpiMouse(0x0004, 0, [0, 0, 0], 0x03); } catch (e) {}
+      }
+    }
+
+    if (tweaks['k1ng-accessibility'] || tweaks['k1ng-flags']) {
+      cmds.push('reg add "HKCU\\Control Panel\\Accessibility\\MouseKeys" /v Flags /t REG_SZ /d 0 /f');
+      cmds.push('reg add "HKCU\\Control Panel\\Accessibility\\StickyKeys" /v Flags /t REG_SZ /d 506 /f');
+      cmds.push('reg add "HKCU\\Control Panel\\Accessibility\\Keyboard Response" /v Flags /t REG_SZ /d 122 /f');
+      cmds.push('reg add "HKCU\\Control Panel\\Accessibility\\ToggleKeys" /v Flags /t REG_SZ /d 58 /f');
+    }
+
+    if (tweaks['performance-boost'] || tweaks['k1ng-boost-fivem'] || tweaks['k1ng-0.5ms'] || tweaks['k1ng-islc']) {
+      cmds.push('reg add "HKCU\\Software\\Microsoft\\GameBar" /v AutoGameModeEnabled /t REG_DWORD /d 1 /f');
+      cmds.push('reg add "HKCU\\Software\\Microsoft\\GameBar" /v AllowAutoGameMode /t REG_DWORD /d 1 /f');
+      cmds.push('reg add "HKCU\\System\\GameConfigStore" /v GameDVR_Enabled /t REG_DWORD /d 0 /f');
+      cmds.push('reg add "HKCU\\System\\GameConfigStore" /v GameDVR_FSEBehaviorMode /t REG_DWORD /d 2 /f');
+      cmds.push('reg add "HKCU\\Control Panel\\Desktop" /v MenuShowDelay /t REG_SZ /d 0 /f');
+    }
+
+    for (const cmd of cmds) {
+      await runCmd(cmd);
+    }
+
+    event.sender.send('precision-tweaks-reply', true);
+  } catch (err) {
+    event.sender.send('precision-tweaks-reply', false);
+  }
+});
+
+ipcMain.on('revert-precision-tweaks', async (event) => {
+  try {
+    const cmds = [
+      'reg add "HKCU\\Control Panel\\Mouse" /v MouseSpeed /t REG_SZ /d 1 /f',
+      'reg add "HKCU\\Control Panel\\Mouse" /v MouseThreshold1 /t REG_SZ /d 6 /f',
+      'reg add "HKCU\\Control Panel\\Mouse" /v MouseThreshold2 /t REG_SZ /d 10 /f',
+      `reg add "HKCU\\Control Panel\\Mouse" /v SmoothMouseXCurve /t REG_BINARY /d ${DEFAULT_CURVE_X} /f`,
+      `reg add "HKCU\\Control Panel\\Mouse" /v SmoothMouseYCurve /t REG_BINARY /d ${DEFAULT_CURVE_Y} /f`,
+      'reg add "HKCU\\Control Panel\\Mouse" /v MouseHoverTime /t REG_SZ /d 400 /f',
+      'reg add "HKCU\\Control Panel\\Desktop" /v MenuShowDelay /t REG_SZ /d 400 /f',
+      'reg add "HKCU\\Control Panel\\Accessibility\\StickyKeys" /v Flags /t REG_SZ /d 510 /f',
+      'reg add "HKCU\\Control Panel\\Accessibility\\Keyboard Response" /v Flags /t REG_SZ /d 126 /f',
+      'reg add "HKCU\\Control Panel\\Accessibility\\ToggleKeys" /v Flags /t REG_SZ /d 62 /f'
+    ];
+    for (const cmd of cmds) {
+      await runCmd(cmd);
+    }
+    if (user32SpiMouse) {
+      try { user32SpiMouse(0x0004, 0, [6, 10, 1], 0x03); } catch (e) {}
+    }
+    event.sender.send('revert-tweaks-reply', true);
+  } catch (err) {
+    event.sender.send('revert-tweaks-reply', false);
+  }
+});
+
+// --- IPC: TECLADOFIX (USA keyboard-tweaks.js) ---
+ipcMain.on('apply-keyboard-tweaks', async (event, tweaks = {}) => {
+  try {
+    if (tweaks.precision) {
+      await keyboardTweaks.aplicarPerfilPrecisao({
+        incluirPrioridade: false,
+        incluirUsb: Boolean(tweaks.usb)
+      });
+    } else {
+      if (tweaks.delay) await keyboardTweaks.setAtrasoRepeticao(0);
+      if (tweaks.rate) await keyboardTweaks.setTaxaRepeticao(31);
+      if (tweaks.filterKeys || tweaks.bounce) await keyboardTweaks.setFilterKeys(false);
+      if (tweaks.input) await keyboardTweaks.setStickyToggleKeys(false);
+      if (tweaks.registros) await keyboardTweaks.aplicarAjustesRegistro();
+      if (tweaks.usb) await keyboardTweaks.setSuspensaoUsbSeletiva(true);
+    }
+    event.sender.send('keyboard-tweaks-reply', { success: true });
+  } catch (err) {
+    event.sender.send('keyboard-tweaks-reply', { success: false, error: err.message });
+  }
+});
+
+ipcMain.on('revert-keyboard-tweaks', async (event) => {
+  try {
+    await keyboardTweaks.restaurarPadrao();
+    event.sender.send('revert-keyboard-tweaks-reply', { success: true });
+  } catch (err) {
+    event.sender.send('revert-keyboard-tweaks-reply', { success: false, error: err.message });
+  }
+});
+
+// --- IPC: MIRA / CROSSHAIR OVERLAY E ATALHO GLOBAL ---
+ipcMain.on('apply-mira', (event, { active } = {}) => {
+  if (active) {
+    const win = ensureCrosshairWindow();
+    if (win && !win.isDestroyed()) {
+      win.showInactive();
+      win.webContents.send('set-visibility', true);
+      if (lastCrosshairConfig) {
+        win.webContents.send('update-crosshair', lastCrosshairConfig);
+      }
+    }
+  } else if (crosshairWindow && !crosshairWindow.isDestroyed()) {
+    crosshairWindow.webContents.send('set-visibility', false);
+    crosshairWindow.hide();
+  }
+});
+
+ipcMain.on('update-crosshair', (event, config) => {
+  lastCrosshairConfig = config;
+  if (crosshairWindow && !crosshairWindow.isDestroyed()) {
+    crosshairWindow.webContents.send('update-crosshair', config);
+  }
+});
+
+function toElectronAccelerator(keyStr) {
+  if (!keyStr) return null;
+  const map = {
+    ' ': 'Space',
+    'ArrowUp': 'Up',
+    'ArrowDown': 'Down',
+    'ArrowLeft': 'Left',
+    'ArrowRight': 'Right'
+  };
+  return map[keyStr] || keyStr;
+}
+
+function browserButtonToUiohook(btn) {
+  // Browser mousedown: 0=left, 1=middle, 2=right, 3=back, 4=forward
+  // uiohook-napi: 1=left, 2=right, 3=middle, 4=back, 5=forward
+  const map = { 0: 1, 1: 3, 2: 2, 3: 4, 4: 5 };
+  return map[btn] ?? null;
+}
+
+ipcMain.on('set-mira-bind', (event, bind) => {
+  if (currentKeyBind) {
+    try { globalShortcut.unregister(currentKeyBind); } catch (e) {}
+    currentKeyBind = null;
+  }
+  currentMouseBind = null;
+
+  if (!bind) {
+    event.sender.send('bind-status', { success: true });
+    return;
+  }
+
+  if (bind.type === 'key' && bind.keyStr) {
+    const accel = toElectronAccelerator(bind.keyStr);
+    try {
+      const ok = globalShortcut.register(accel, () => {
+        if (mainWindow && !mainWindow.isDestroyed()) {
+          mainWindow.webContents.send('trigger-mira-bind');
+        }
+      });
+      if (ok) currentKeyBind = accel;
+      event.sender.send('bind-status', { keyStr: bind.keyStr, success: Boolean(ok) });
+    } catch (err) {
+      event.sender.send('bind-status', { keyStr: bind.keyStr, success: false });
+    }
+  } else if (bind.type === 'mouse' && bind.button !== undefined) {
+    currentMouseBind = browserButtonToUiohook(bind.button);
+    event.sender.send('bind-status', { success: currentMouseBind !== null });
+  }
+});
+
+// --- IPC: ABRIR & OTIMIZAR FIVEM ---
+ipcMain.on('launch-fivem', (event, opts = {}) => {
+  try {
+    if (opts.clearCache) {
+      const dataPath = path.join(process.env.LOCALAPPDATA || '', 'FiveM', 'FiveM.app', 'data');
+      ['cache', 'server-cache', 'server-cache-priv'].forEach((folder) => {
+        const folderPath = path.join(dataPath, folder);
+        try { if (fs.existsSync(folderPath)) fs.rmSync(folderPath, { recursive: true, force: true }); } catch (e) {}
+      });
+    }
+
+    if (opts.flushDns) {
+      exec('ipconfig /flushdns', { windowsHide: true });
+    }
+
+    if (opts.closeApps) {
+      ['chrome.exe', 'msedge.exe', 'opera.exe', 'Spotify.exe', 'OneDrive.exe'].forEach((proc) => {
+        exec(`taskkill /F /IM "${proc}"`, { windowsHide: true });
+      });
+    }
+
+    const fivemExe = path.join(process.env.LOCALAPPDATA || '', 'FiveM', 'FiveM.exe');
+    if (fs.existsSync(fivemExe)) {
+      exec(`start "" "${fivemExe}"`, { windowsHide: true });
+      if (opts.highPriority) {
+        setTimeout(() => {
+          exec('wmic process where name="FiveM_GTAProcess.exe" CALL setpriority 128', { windowsHide: true });
+        }, 12000);
+      }
+    }
+  } catch (e) {}
+});
 
 // --- GESTOR DE AUTENTICAÇÃO INTEGRADO AO BOT FOR GOATS ---
 ipcMain.on('processar-auth', async (event, data) => {
@@ -353,7 +830,7 @@ ipcMain.on('processar-auth', async (event, data) => {
         setTimeout(() => {
           createWindow();
           setupTray();
-          if (loginWindow) loginWindow.close();
+          if (loginWindow && !loginWindow.isDestroyed()) loginWindow.close();
         }, 900);
       } else {
         event.sender.send('resposta-auth', {
@@ -396,7 +873,7 @@ ipcMain.on('processar-auth', async (event, data) => {
         setTimeout(() => {
           createWindow();
           setupTray();
-          if (loginWindow) loginWindow.close();
+          if (loginWindow && !loginWindow.isDestroyed()) loginWindow.close();
         }, 800);
       } else {
         event.sender.send('resposta-auth', {
@@ -430,7 +907,7 @@ app.whenReady().then(async () => {
   try {
     uIOhook.on('mousedown', (event) => {
       if (currentMouseBind !== null && event.button === currentMouseBind) {
-        if (mainWindow) {
+        if (mainWindow && !mainWindow.isDestroyed()) {
           mainWindow.webContents.send('trigger-mira-bind');
         }
       }
@@ -440,11 +917,17 @@ app.whenReady().then(async () => {
 });
 
 app.on('before-quit', () => {
+  app.isQuiting = true;
   stopSessionMonitor();
+  try { globalShortcut.unregisterAll(); } catch (e) {}
+  try { if (saturationModule) { saturationModule.reset(); saturationModule.cleanup(); } } catch (e) {}
+  if (crosshairWindow && !crosshairWindow.isDestroyed()) {
+    try { crosshairWindow.destroy(); } catch (e) {}
+  }
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+  if (process.platform !== 'darwin' && !minToTrayEnabled) {
     app.quit();
   }
 });
