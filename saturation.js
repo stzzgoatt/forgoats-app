@@ -37,6 +37,7 @@ function setSaturation(s) {
 }
 
 function reset() {
+  if (!initialized) return;
   setSaturation(1); // 1 = normal
 }
 

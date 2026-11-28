@@ -1,6 +1,6 @@
 {
   "name": "precisionfix-v4",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "PrecisionFix v4 - Community For Goats",
   "main": "main.js",
   "author": "stzzgoatt",
@@ -12,9 +12,7 @@
     "release": "node publish-update.js"
   },
   "dependencies": {
-    "jimp": "^1.6.1",
     "koffi": "^3.1.0",
-    "sudo-prompt": "^9.2.1",
     "uiohook-napi": "^1.5.5"
   }
 }

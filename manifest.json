@@ -1,48 +1,16 @@
 {
   "name": "precisionfix-v4",
-  "version": "1.7.2",
-  "publishedAt": "2026-11-27T15:59:12.771Z",
+  "version": "1.7.3",
+  "publishedAt": "2026-11-28T00:04:42.826Z",
   "asar": {
     "path": "releases/app.asar",
-    "sha256": "6ea7b8b26a441aad3258ed6257222721c1f78344a182d79ba1749d8ef7bf9975",
-    "size": 22563960
+    "sha256": "8fac7747b5175dbc661ca180429d667f516992b34a8b07f456e1210bc58205d5",
+    "size": 16652950
   },
   "files": {
     ".gitignore": {
-      "sha256": "4e0034de670d9051919673ae855ab6c27065108b7f7b3221600856c3f67806b6",
-      "size": 99
-    },
-    "1.png": {
-      "sha256": "a1b0bdba6ce5bc948e7a67df891b60038280a49c19b32ea0bdf4f8f76c139653",
-      "size": 381465
-    },
-    "2.png": {
-      "sha256": "baa7611e2f9a6b2acccbc08820338fe0885db27c711d921a5218e5370ffe5a5e",
-      "size": 278700
-    },
-    "3.png": {
-      "sha256": "f683c62b5d05556e57edcf2fb0ca4fb29d4241559a79401ddea931c593b4848c",
-      "size": 261766
-    },
-    "4.png": {
-      "sha256": "5d4169d6a7b28ba1327850f0446c257e8c0eb2dff57c80d2ba22c4688216346c",
-      "size": 314074
-    },
-    "5.png": {
-      "sha256": "e748f5988c5f74e3a8ea07e6b787c63b32f5369bf032823ca16e0f6cfb84e6ff",
-      "size": 125235
-    },
-    "6.png": {
-      "sha256": "4bbb176cf989182b182749cfce94f9b4a175a0c928f0d22befb01b2b0aa35cd4",
-      "size": 119584
-    },
-    "7.png": {
-      "sha256": "fee91ae4643f713be5fdbbebe66852fd4c72246a02f095a6a04ef07fd3eb2f22",
-      "size": 268718
-    },
-    "723f0203-be5e-41eb-ad81-52f9cd9c7f18.png": {
-      "sha256": "3d374bdc8f3b43aa4a3ac74e385df4bc9f43764fb71cdd60d63b5d10c9b0618e",
-      "size": 2247164
+      "sha256": "c69357646b575aac9b4a74a03f3243efc93a96aa3e3b16f894d8f3baa2eaadb6",
+      "size": 127
     },
     "8.png": {
       "sha256": "198ab77cfe6ab9755c5761bd20f5e62a1324d5655b30c6b7408b7675f18f8555",
@@ -53,16 +21,8 @@
       "size": 2221860
     },
     "anti-tamper.js": {
-      "sha256": "4a25be75e5a7257a2c6af8172c57e06464af5970afaab62371ba6e921b04b789",
-      "size": 8064
-    },
-    "aplicado.mp3": {
-      "sha256": "de89f2c1baa024240c2744971871a449ce9312f46d9dd18bd9d42464da93fb20",
-      "size": 53852
-    },
-    "aplicando.mp3": {
-      "sha256": "a2ebf154efcbbf38366a4d357e5bb4565a5810241fe070beef6c469394efebc3",
-      "size": 83527
+      "sha256": "001e85d8ad40aeb7973daa6dbac9c7634d6d33c373136fedca059ebf5e8616d6",
+      "size": 8433
     },
     "app.ico": {
       "sha256": "96598892a18dc78c377e0d1cdf233cf14ccc48ea2f5eda4f10467dc8a5e52b53",
@@ -77,12 +37,8 @@
       "size": 41022
     },
     "auth-config.json": {
-      "sha256": "26a01d33461f76f5d69181761fbca793c879e3a349266cf570e9c6ab7d0d05f1",
+      "sha256": "a6cce1143d687d7b4c4cd45f669a9c83f1e2a8e9e3e39665465c7f66563025bc",
       "size": 101
-    },
-    "b5c0301a-c181-4fa2-8c61-051d08ee12cd.png": {
-      "sha256": "fb56527f12c78cbaa52e87416efd2503f0cbd13d1e84fb6072f019dbc7925baf",
-      "size": 1388318
     },
     "bem vindo.mp3": {
       "sha256": "4d3a83593289c6af57d3fc6d4ba31fa054c423ad23aff9791604bc51b37bb38a",
@@ -95,10 +51,6 @@
     "brand-statue.png": {
       "sha256": "238ff5cc31285e941df7b6e56be7981241278c480be0eb3a9ccbb49a48182abc",
       "size": 1550237
-    },
-    "config_banners.js": {
-      "sha256": "051f7a635715e99bf97552cafaa043c08099224c00a99b70653c918703202fe6",
-      "size": 681
     },
     "crosshair.html": {
       "sha256": "c78a50cbff82eca2de52177d290f9937707bee17cb2e5f29766b079154bc0580",
@@ -116,10 +68,6 @@
       "sha256": "13980f071f244db4f7143ef1d4471be08bd1af759e0d7e62b3c8a2eaa99012bf",
       "size": 195344
     },
-    "fivem.svg": {
-      "sha256": "de383e5b4d9ded56d6350bb33dbab9e1071997c1953bd8a84b42af8c89e90d5a",
-      "size": 792
-    },
     "g pro superlight .png": {
       "sha256": "2ed81773955a2850e094b41a777f937b90dbe6720f8b6aae50ec1a774b4bcd44",
       "size": 309928
@@ -128,21 +76,9 @@
       "sha256": "f58abdae350b37aaa303d3d30836a59575cc88bd48a84b0fcd95b8fb04e1937d",
       "size": 93037
     },
-    "generate_ellipse.js": {
-      "sha256": "f9fd73772f1a61707a02b2b7f37dea24203ed2c1fdb08fd7c28fddf9f14b94ed",
-      "size": 522
-    },
-    "generate_svgs.js": {
-      "sha256": "bd11d5fc56471dba3090d1a8baca659db6a13a452969c359cbe2882b2303f2ee",
-      "size": 1797
-    },
     "GPRO SUPER.png": {
       "sha256": "c76d24da416c1135982335c9ee37db307f3c6ca90d6a32adb32cbf16e7669b69",
       "size": 1403142
-    },
-    "hwid.js": {
-      "sha256": "44580d32998f32d4a2b182d957b21fba445052abf2e747dfeccf435582d48863",
-      "size": 570
     },
     "ico.png": {
       "sha256": "300ad3d60be4a085b1a430ee50a60eb2e8e5ea62262e8c8652b18bd28729ff20",
@@ -153,8 +89,8 @@
       "size": 175615
     },
     "keyboard-tweaks.js": {
-      "sha256": "c752788e347d5977856690688379c8173d6123ccddba6046b328d271c744a412",
-      "size": 6662
+      "sha256": "bf31b19c7ebed68975a5f69fd356aaa82f842a2434284147b1e2a4653b6000c3",
+      "size": 6721
     },
     "Lamzu.png": {
       "sha256": "8a2226bc0f48752ae0e926ba047263799d7f6ca42e45bbdb56082a037ca09a0a",
@@ -168,13 +104,9 @@
       "sha256": "d90eb5e88977f4167d34d766051ce46b968a7ff5695fccedfd6bd7ba099e2f81",
       "size": 20308
     },
-    "logo_pf.jpg": {
-      "sha256": "b9cec41b5ade9937f8a4e2d1e50db063238f85eab0f0c57730a3e4013917143a",
-      "size": 223069
-    },
     "main.js": {
-      "sha256": "7c49aeaaf6783c1ac6ebfb2e0b8698e5ffdfd120f5e3b407bd6440202c1cc612",
-      "size": 34725
+      "sha256": "9e581798cf2b4bb1c24d363b963e15dc4b98d92103f0c51af9a20344d6b7400b",
+      "size": 36221
     },
     "mousenovo.png": {
       "sha256": "99098c2a29dca8aefade1349ac2c932e6a1958eedc9289b46d23c5e20f574d78",
@@ -185,16 +117,12 @@
       "size": 48867
     },
     "package.json": {
-      "sha256": "b5a75d2437b08c89c611cc3106474511fe2781ff7f4633d568e3b359c6978d7f",
-      "size": 473
+      "sha256": "e9fca94b188158b0888064cddbb63166c47fe75c14b5a4403daffe677c3a862a",
+      "size": 422
     },
     "perfil.jpg": {
       "sha256": "b9cec41b5ade9937f8a4e2d1e50db063238f85eab0f0c57730a3e4013917143a",
       "size": 223069
-    },
-    "prepare_assets.js": {
-      "sha256": "926f5077462bb2da08d3aad0f38c4dbeced1c166986f44ce544b5c9945c98122",
-      "size": 1260
     },
     "publicar_atualizacao.bat": {
       "sha256": "ec95c5c7c39df56a9b2f813a919a2cb93e68948791bd091d52b0bf48e0559dca",
@@ -213,32 +141,16 @@
       "size": 1311
     },
     "saturation.js": {
-      "sha256": "a7b2e31bd88f7d9a3e4d9a0c50a3f63a468c9f97545ef87edec8b5c868c07f2b",
-      "size": 1186
+      "sha256": "55d0c38c8cc2f28430336b0ff70d7b55b751ffec0c77ec1dfe14e24a45df0261",
+      "size": 1214
     },
     "Screenshot_2_fixed.png": {
       "sha256": "e4a41cb98436e229c97f5f0a5a2539fe9c517bb46cf7b7de99ba0dfe9df17538",
       "size": 246430
     },
-    "Screenshot_2.png": {
-      "sha256": "136afb6a60675ad6fedd14dd6f2ba564d4e415601fb36012de346ac2e490ced2",
-      "size": 348615
-    },
     "Scyrox v8.png": {
       "sha256": "395a7afb83e246f0fb1313ac507fa0f07a47bf18661a7ed147595fd5b6445185",
       "size": 1431487
-    },
-    "set_admin.js": {
-      "sha256": "dc34a06ce02c64eac0d4ed6595ef473354e6a3ce1b75b23ab9d8b61eef89bc46",
-      "size": 321
-    },
-    "tray-icon.png": {
-      "sha256": "8f65864f6669f487276e02ac11af243d3e453e2950cfb892a0f1ee00f8130f36",
-      "size": 6553
-    },
-    "update_build_config.js": {
-      "sha256": "00440056d7f924d4994fc9794294ee89bb3e22ad3a7c13a549027faa7dde35c1",
-      "size": 250
     },
     "update-config.json": {
       "sha256": "d88737b8f91c6df5d8175dee38d28c5af9ed4b2b13304dc670318f3afeaf86b3",

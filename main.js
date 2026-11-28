@@ -58,19 +58,30 @@ function launchAsarSwapperAndExit(asarSwap) {
   const pid = process.pid;
   const cmdContent = [
     '@echo off',
-    'setlocal',
+    'setlocal enabledelayedexpansion',
     `set "TARGET_PID=${pid}"`,
     `set "CUR_ASAR=${asarSwap.currentAsarPath}"`,
     `set "NEW_ASAR=${asarSwap.newAsarPath}"`,
     `set "APP_EXE=${exePath}"`,
+    'set /a WAIT_TRIES=0',
     ':waitloop',
-    'tasklist /FI "PID eq %TARGET_PID%" 2>NUL | find /I "%TARGET_PID%" >NUL',
+    'set /a WAIT_TRIES+=1',
+    'if !WAIT_TRIES! GTR 20 goto swaploop',
+    'tasklist /FI "PID eq %TARGET_PID%" /NH 2>NUL | findstr /R /C:" %TARGET_PID% " >NUL',
     'if not errorlevel 1 (',
     '  timeout /t 1 /nobreak >NUL',
     '  goto waitloop',
     ')',
-    'timeout /t 1 /nobreak >NUL',
+    'set /a SWAP_TRIES=0',
+    ':swaploop',
+    'set /a SWAP_TRIES+=1',
     'move /Y "%NEW_ASAR%" "%CUR_ASAR%" >NUL 2>&1',
+    'if errorlevel 1 (',
+    '  if !SWAP_TRIES! LSS 12 (',
+    '    timeout /t 1 /nobreak >NUL',
+    '    goto swaploop',
+    '  )',
+    ')',
     'start "" "%APP_EXE%"',
     'del /F /Q "%~f0" >NUL 2>&1'
   ].join('\r\n');
@@ -173,7 +184,7 @@ function saveTheme(rawTheme) {
 function getAuthConfig() {
   const defaults = {
     authApiUrl: 'http://127.0.0.1:3001',
-    verifyIntervalMs: 30000,
+    verifyIntervalMs: 20000,
     requestTimeoutMs: 8000
   };
 
@@ -292,10 +303,20 @@ function stopSessionMonitor() {
   }
 }
 
+function notifySessionLogout(sessionSnapshot) {
+  if (!sessionSnapshot || !sessionSnapshot.username || !sessionSnapshot.hwid) return;
+  void postAuthApi('/api/auth/logout', {
+    username: String(sessionSnapshot.username),
+    hwid: String(sessionSnapshot.hwid)
+  }).catch(() => {});
+}
+
 function forceLogoutToLogin(reasonMessage) {
   stopSessionMonitor();
+  const prevSession = activeSession;
   activeSession = null;
   clearAutoLogin();
+  notifySessionLogout(prevSession);
 
   if (crosshairWindow && !crosshairWindow.isDestroyed()) {
     try { crosshairWindow.close(); } catch (e) {}
@@ -314,7 +335,7 @@ function forceLogoutToLogin(reasonMessage) {
 function startSessionMonitor() {
   stopSessionMonitor();
   const { verifyIntervalMs } = getAuthConfig();
-  const interval = Math.max(10000, Number(verifyIntervalMs) || 30000);
+  const interval = Math.max(10000, Number(verifyIntervalMs) || 20000);
 
   sessionMonitorTimer = setInterval(async () => {
     if (!activeSession || !mainWindow) return;
@@ -325,6 +346,17 @@ function startSessionMonitor() {
       });
       if (data && data.valid === false) {
         forceLogoutToLogin(data.message || 'Sessão encerrada. Faça login novamente.');
+      } else if (data && data.valid === true && data.expiresAt !== undefined) {
+        const nextExpires = Number(data.expiresAt) || null;
+        if (nextExpires !== activeSession.expiresAt) {
+          activeSession.expiresAt = nextExpires;
+          if (mainWindow && !mainWindow.isDestroyed()) {
+            mainWindow.webContents.send('current-user', {
+              username: activeSession.username,
+              expiresAt: activeSession.expiresAt
+            });
+          }
+        }
       }
     } catch (e) {}
   }, interval);
@@ -473,7 +505,8 @@ function ensureCrosshairWindow() {
     hasShadow: false,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      devTools: !antiTamper.isProtectedBuild(__dirname)
     }
   });
 
@@ -481,6 +514,13 @@ function ensureCrosshairWindow() {
   crosshairWindow.setAlwaysOnTop(true, 'screen-saver');
   crosshairWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true });
   crosshairWindow.loadFile(path.join(__dirname, 'crosshair.html'));
+  antiTamper.hardenWindow(crosshairWindow, {
+    app,
+    dialog,
+    appDir: __dirname,
+    getUsername: () => activeSession?.username || '',
+    getHwid: getClientHWID
+  });
 
   crosshairWindow.webContents.once('did-finish-load', () => {
     if (crosshairWindow && !crosshairWindow.isDestroyed()) {
@@ -549,24 +589,19 @@ function setupTray() {
         {
           label: 'Limpar Cache FiveM',
           click: () => {
-            const dataPath = path.join(process.env.LOCALAPPDATA, 'FiveM', 'FiveM.app', 'data');
+            const dataPath = path.join(process.env.LOCALAPPDATA || '', 'FiveM', 'FiveM.app', 'data');
             ['cache', 'server-cache', 'server-cache-priv'].forEach(folder => {
               const folderPath = path.join(dataPath, folder);
               try { if (fs.existsSync(folderPath)) fs.rmSync(folderPath, { recursive: true, force: true }); } catch (err) {}
             });
           }
         },
-        { label: 'Limpar DNS (Flush DNS)', click: () => { exec('ipconfig /flushdns'); } },
+        { label: 'Limpar DNS (Flush DNS)', click: () => { exec('ipconfig /flushdns', { windowsHide: true }); } },
         { type: 'separator' },
         {
           label: 'Terminar Sessão (Logout)',
           click: () => {
-            stopSessionMonitor();
-            activeSession = null;
-            clearAutoLogin();
-            app.isQuiting = true;
-            app.relaunch();
-            app.exit();
+            forceLogoutToLogin('Você saiu da sua conta. Faça login novamente.');
           }
         },
         { label: 'Sair', click: () => { app.isQuiting = true; app.quit(); } }
@@ -901,7 +936,10 @@ ipcMain.on('launch-fivem', (event, opts = {}) => {
       exec(`start "" "${fivemExe}"`, { windowsHide: true });
       if (opts.highPriority) {
         setTimeout(() => {
-          exec('wmic process where name="FiveM_GTAProcess.exe" CALL setpriority 128', { windowsHide: true });
+          exec(
+            'powershell -NoProfile -WindowStyle Hidden -Command "Get-Process FiveM_GTAProcess -ErrorAction SilentlyContinue | ForEach-Object { $_.PriorityClass = \'High\' }"',
+            { windowsHide: true }
+          );
         }, 12000);
       }
     }
@@ -1048,6 +1086,7 @@ app.whenReady().then(async () => {
 app.on('before-quit', () => {
   app.isQuiting = true;
   stopSessionMonitor();
+  notifySessionLogout(activeSession);
   if (updateCheckTimer) {
     clearInterval(updateCheckTimer);
     updateCheckTimer = null;

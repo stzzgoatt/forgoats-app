@@ -126,7 +126,7 @@ async function restaurarPadrao() {
   await setTaxaRepeticao(31);
   await setFilterKeys(true);
   await setStickyToggleKeys(true);
-  await setSuspensaoUsbSeletiva(false);
+  try { await setSuspensaoUsbSeletiva(false); } catch (_) { /* usuário pode ter negado o UAC */ }
   try { await setPrioridadeProcesso(false); } catch (_) { /* usuário pode ter negado o UAC */ }
   return 'Configurações restauradas ao padrão do Windows.';
 }

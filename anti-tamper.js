@@ -40,14 +40,20 @@ function sendTamperRevokeRequest(appDir, payload) {
       const targetUrl = new URL('/api/auth/tamper', `${baseUrl}/`);
       const body = JSON.stringify(payload);
       const transport = targetUrl.protocol === 'https:' ? https : http;
+      const headers = {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body)
+      };
+      const tamperSecret = String(global.__FORGOATS_TAMPER_SECRET || '').trim();
+      if (tamperSecret) {
+        const canonical = `${payload.username || ''}|${payload.hwid || ''}|${payload.reason || ''}|${payload.machine || ''}`;
+        headers['X-ForGoats-Tamper-Sig'] = crypto.createHmac('sha256', tamperSecret).update(canonical).digest('hex');
+      }
       const req = transport.request(
         targetUrl,
         {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': Buffer.byteLength(body)
-          },
+          headers,
           timeout: 5000
         },
         (res) => {
